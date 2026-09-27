@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         // 🛑🛑 ¡PEGA AQUÍ LA URL DE TU SCRIPT DE GOOGLE! 🛑🛑
-        const URL_BACKEND_CATALOGO = "https://script.google.com/macros/s/AKfycby7tCATssz0mNCkrH_Nl4T51FAgza70d1h4kdm0UtyHrPJG9uAUFIykJmJHCbLBHJA_3g/exec";
+        const URL_BACKEND_CATALOGO = "https://script.google.com/macros/s/AKfycbzLkcKkckaWXyseGzOtcFzB8Z_6tRACyNQiYOgklO4e0BjoPRHxxaEgB76g1pC3VR6fRA/exec";
 
         tailwind.config = {
             theme: {
@@ -251,10 +251,10 @@
 
                 <div class="z-10 w-full md:w-[55%] flex flex-col items-center md:items-start text-center md:text-left">
                     <div class="mb-6"><span id="modal-tag" class="px-5 py-2 rounded-full font-black text-[10px] sm:text-xs uppercase tracking-widest shadow-md inline-flex items-center gap-2 bg-white shrink-0"></span></div>
-                    <div class="bg-white rounded-[2rem] p-8 md:p-12 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] inline-block w-full max-w-[420px] transform md:-rotate-2 transition-transform hover:rotate-0 relative z-20">
+                    <div class="bg-white rounded-[2rem] p-6 sm:p-8 md:p-12 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] inline-block w-full max-w-[420px] transform md:-rotate-2 transition-transform hover:rotate-0 relative z-20">
                         <div id="modal-title-html" class="flex flex-col items-center select-none w-full"></div>
                     </div>
-                    <p id="modal-desc" class="text-base md:text-lg text-white/95 max-w-lg font-medium mt-10 leading-relaxed drop-shadow-md"></p>
+                    <p id="modal-desc" class="text-base md:text-lg text-white/95 max-w-lg font-medium mt-10 leading-relaxed drop-shadow-md px-2 md:px-0"></p>
                 </div>
 
                 <div class="z-10 w-full md:w-[45%] flex justify-center mt-16 md:mt-0 relative">
@@ -273,7 +273,7 @@
                         <div class="bg-slate-200 p-1.5 rounded-full inline-flex relative shadow-inner items-center">
                             <button id="modal-btn-mensual" onclick="toggleModalPricing('mensual')" class="px-8 py-2.5 rounded-full text-sm font-black bg-white text-slate-900 shadow-sm transition-all duration-300 shrink-0">Mensual</button>
                             <button id="modal-btn-anual" onclick="toggleModalPricing('anual')" class="px-8 py-2.5 rounded-full text-sm font-black text-slate-500 hover:text-slate-800 transition-all duration-300 flex items-center gap-2 shrink-0">
-                                Anual <span class="bg-green-100 text-green-700 text-[10px] uppercase font-black px-2 py-0.5 rounded-full border border-green-200 shrink-0">2 Meses Gratis</span>
+                                Anual <span class="bg-green-100 text-green-700 text-[10px] uppercase font-black px-2 py-0.5 rounded-full border border-green-200 shrink-0 hidden sm:inline-block">2 Meses Gratis</span>
                             </button>
                         </div>
                     </div>
@@ -287,7 +287,7 @@
                     </div>
                 </div>
 
-                <div id="modal-pricing-grid" class="flex flex-nowrap xl:flex-wrap overflow-x-auto xl:overflow-x-visible snap-x snap-mandatory gap-6 pb-8 xl:pb-0 px-6 xl:px-0 hide-scrollbar mx-auto items-stretch xl:justify-center max-w-6xl">
+                <div id="modal-pricing-grid" class="flex flex-nowrap overflow-x-auto xl:flex-wrap xl:overflow-x-visible snap-x snap-mandatory gap-6 pb-8 xl:pb-0 px-6 xl:px-0 hide-scrollbar mx-auto items-stretch xl:justify-center max-w-6xl">
                 </div>
             </div>
         </div>
@@ -517,10 +517,13 @@
 
             document.getElementById('modal-header-section').style.backgroundColor = info.themeColor;
             document.getElementById('modal-tag').innerHTML = `<span class="w-2.5 h-2.5 rounded-full inline-block mr-1 shrink-0" style="background-color: ${info.themeColor}"></span> <span style="color: ${info.themeColor}">${info.tag}</span>`;
+            
+            // CORRECCIÓN RESPONSIVA PARA TEXTOS GIGANTES EN MÓVIL
             document.getElementById('modal-title-html').innerHTML = `
-                <span class="text-[2.75rem] md:text-[3.25rem] font-black text-slate-900 tracking-tight leading-none text-center md:text-left">${info.sloganTop}</span>
-                <span class="text-[2.25rem] md:text-[2.75rem] font-semibold text-slate-600 tracking-tight mt-1 mb-2 leading-none text-center md:text-left">${info.sloganMid}</span>
-                <span class="text-white px-8 py-2.5 rounded-full inline-block mt-3 text-3xl md:text-4xl font-black transform -rotate-3 shadow-[0_10px_20px_rgba(0,0,0,0.15)]" style="background-color: ${info.sloganBottomColor}">${info.sloganBottom}</span>`;
+                <span class="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-none text-center md:text-left block w-full px-2">${info.sloganTop}</span>
+                <span class="text-2xl sm:text-3xl md:text-4xl font-semibold text-slate-600 tracking-tight mt-2 mb-3 leading-none text-center md:text-left block w-full px-2">${info.sloganMid}</span>
+                <span class="text-white px-6 sm:px-8 py-2 sm:py-2.5 rounded-full inline-block mt-3 text-2xl sm:text-3xl md:text-4xl font-black transform -rotate-3 shadow-[0_10px_20px_rgba(0,0,0,0.15)]" style="background-color: ${info.sloganBottomColor}">${info.sloganBottom}</span>`;
+            
             document.getElementById('modal-desc').innerHTML = data.descripcion;
             document.getElementById('modal-hero-icon').innerHTML = heroSvgs[productId] || heroSvgs['default'];
 
@@ -574,7 +577,9 @@
                     <div class="w-[85vw] sm:w-[320px] shrink-0 snap-center rounded-[2rem] border ${cardClass} overflow-hidden flex flex-col transition-all h-full relative" ${plan.destacado ? `style="border-color: ${info.themeColor};"` : ''}>
                         ${plan.destacado ? `<div class="text-white text-[10px] font-black uppercase tracking-[0.2em] py-2.5 text-center shadow-sm" style="background-color: ${info.themeColor}">Recomendado para Crecer</div>` : ''}
                         <div class="p-8 border-b ${plan.premium ? 'border-slate-800' : 'border-slate-100'}">
-                            <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 shadow-sm shrink-0 ${headerBg}"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0">${finalIcon}</svg></div>
+                            <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 shadow-sm shrink-0 ${headerBg}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 w-7 h-7">${finalIcon}</svg>
+                            </div>
                             <h4 class="text-xl font-black mb-2 ${plan.premium ? 'text-white' : 'text-slate-900'}">${plan.nombre}</h4>
                             <p class="text-xs mb-6 min-h-[45px] leading-relaxed ${plan.premium ? 'text-slate-400' : 'text-slate-500'}">${plan.desc}</p>
                             <div class="flex items-end gap-1 mb-4 relative mt-8">${promoBadge}${originalPriceHtml}<span class="font-bold text-xl mb-1 ${plan.premium ? 'text-slate-500' : 'text-slate-400'}">S/</span><span class="text-5xl font-black tracking-tight" ${plan.destacado && (!promoGlobal || !promoGlobal.activa) ? `style="color: ${info.themeColor};"` : ''}>${finalPrice}</span><span class="font-bold mb-1 ${plan.premium ? 'text-slate-500' : 'text-slate-400'}">${period}</span></div>
