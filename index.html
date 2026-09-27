@@ -4,28 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MAS Digital | Agencia & Software</title>
-    
-    <meta property="og:title" content="MAS Digital | Agencia & Software">
-    <meta property="og:description" content="Automatiza tus procesos con nuestras Web Apps a medida y multiplica tus ventas con nuestro Content Studio.">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <script>
-        // ¡PEGA AQUÍ LA URL DE TU SCRIPT DE GOOGLE!
-        const URL_BACKEND_CATALOGO = "https://script.google.com/macros/s/AKfycbyw3wGw34vR5h-v7X4J7ngj3EnBF0dH-XALcTjN09hUY9y3yDAh0XqnhoELEKr4jDwDtw/exec";
+        // 🛑🛑 ¡PEGA AQUÍ LA URL DE TU SCRIPT DE GOOGLE! 🛑🛑
+        const URL_BACKEND_CATALOGO = "https://script.google.com/macros/s/AKfycby7tCATssz0mNCkrH_Nl4T51FAgza70d1h4kdm0UtyHrPJG9uAUFIykJmJHCbLBHJA_3g/exec";
 
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: { sans: ['Inter', 'sans-serif'], display: ['Montserrat', 'sans-serif'] },
-                    colors: {
-                        brand: { blue: '#2563EB', purple: '#8B5CF6', orange: '#F97316', pink: '#EC4899', dark: '#1E0A3C', violet: '#3B0764' },
-                        slate: { 850: '#151e2e', 900: '#0f172a' } 
-                    }
+                    colors: { brand: { blue: '#2563EB', purple: '#8B5CF6', orange: '#F97316', pink: '#EC4899', dark: '#1E0A3C', violet: '#3B0764' }, slate: { 850: '#151e2e', 900: '#0f172a' } }
                 }
             }
         }
@@ -33,51 +22,37 @@
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #0f172a; overflow-x: hidden; }
         h1, h2, h3, h4, h5, h6, .font-display { font-family: 'Montserrat', sans-serif; }
-        
         .grad-vibrant { background: linear-gradient(135deg, #4338ca, #5c24ff); }
         .grad-sunset { background: linear-gradient(90deg, #E11D48, #F97316, #FBBF24); }
         .grad-text { background: linear-gradient(90deg, #60A5FA, #A78BFA, #F472B6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .grad-hero { background: linear-gradient(150deg, #1E0A3C 0%, #3B0764 50%, #290547 100%); }
-
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
-
         .chat-scroll::-webkit-scrollbar { width: 6px; }
         .chat-scroll::-webkit-scrollbar-track { background: transparent; }
         .chat-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
         .input-error { border-color: #ef4444 !important; background-color: #fef2f2 !important; }
         .input-icon-wrapper { position: relative; }
         .input-icon-wrapper svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #94a3b8; width: 18px; height: 18px; transition: color 0.3s; }
         .input-icon-wrapper input:focus + svg { color: #3b82f6; }
-        
         .float-slow { animation: floatSlow 6s ease-in-out infinite alternate; }
-        .float-med { animation: floatMed 5s ease-in-out infinite alternate-reverse; }
         .float-fast { animation: floatFast 4s ease-in-out infinite alternate; }
         @keyframes floatSlow { 0% { transform: translateY(0) rotate(1deg); } 100% { transform: translateY(-15px) rotate(-1deg); } }
-        @keyframes floatMed { 0% { transform: translateY(0) translateX(0); } 100% { transform: translateY(10px) translateX(5px); } }
         @keyframes floatFast { 0% { transform: translateY(0) scale(1); } 100% { transform: translateY(-10px) scale(1.02); } }
-
         .diagonal-cut { clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%); }
         @media (min-width: 1024px) { .diagonal-cut { clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%); } }
-
         .modal-enter { animation: modalFadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes modalFadeInUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        
         .promo-banner { background: repeating-linear-gradient(45deg, #E11D48, #E11D48 10px, #BE123C 10px, #BE123C 20px); }
-        
         #toast-container { position: fixed; top: 20px; right: 20px; z-index: 99999; display: flex; flex-direction: column; gap: 10px; }
         .toast { background: #ffffff; border-left: 4px solid #10b981; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); padding: 16px 20px; border-radius: 8px; font-weight: 600; font-size: 14px; animation: slideInRight 0.4s ease forwards, fadeOut 0.4s ease 3s forwards; pointer-events: auto;}
         .toast-error { border-left-color: #ef4444; }
         @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
         @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; visibility: hidden; } }
-
         .content-card-hover { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
         .content-card-hover:hover { transform: translateY(-8px); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); }
-        
         details > summary { list-style: none; }
         details > summary::-webkit-details-marker { display: none; }
     </style>
@@ -86,14 +61,10 @@
 
     <div id="toast-container"></div>
 
-    <!-- BANNER DE PROMOCIÓN (Oculto por defecto) -->
     <div id="promo-top-banner" class="hidden promo-banner text-white text-center py-2.5 px-4 shadow-md relative z-[60] overflow-hidden">
-        <p id="promo-top-text" class="text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] relative z-10 flex items-center justify-center gap-3">
-            <!-- Texto inyectado por JS -->
-        </p>
+        <p id="promo-top-text" class="text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] relative z-10 flex items-center justify-center gap-3"></p>
     </div>
 
-    <!-- NAVBAR PUBLICO -->
     <header class="bg-white/95 backdrop-blur-lg border-b border-slate-200 sticky top-0 z-50 transition-all shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <a href="#" class="flex items-center gap-3 shrink-0 group">
@@ -146,304 +117,177 @@
     </header>
 
     <main class="overflow-hidden pb-10">
-        
-        <!-- HERO SECTION REDISEÑADO -->
-        <section class="relative grad-hero pt-16 md:pt-24 pb-32 md:pb-48 diagonal-cut overflow-hidden reveal active">
-            <!-- Luces de fondo -->
+        <section class="relative grad-hero pt-12 md:pt-24 pb-20 md:pb-48 diagonal-cut overflow-hidden reveal active">
             <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-[100px] pointer-events-none"></div>
             <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-purple-500/20 rounded-full blur-[100px] pointer-events-none"></div>
-            
-            <svg class="absolute w-full h-full opacity-[0.03] pointer-events-none z-0" xmlns="http://www.w3.org/2000/svg">
-                <defs><pattern id="grid-pattern" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="1"/></pattern></defs>
-                <rect width="100%" height="100%" fill="url(#grid-pattern)" />
-            </svg>
+            <svg class="absolute w-full h-full opacity-[0.03] pointer-events-none z-0" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid-pattern" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(#grid-pattern)" /></svg>
 
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div class="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
-                    
                     <div class="text-center lg:text-left z-20">
                         <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 mb-6 backdrop-blur-sm shadow-xl">
-                            <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                            <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse shrink-0"></span>
                             <span class="text-[10px] md:text-xs font-bold text-white tracking-widest uppercase">Tecnología & Branding 360°</span>
                         </div>
-                        
                         <h1 class="text-5xl md:text-6xl lg:text-[4.5rem] font-black text-white tracking-tighter leading-[1.05] mb-6 drop-shadow-lg">
-                            Sistematiza tu empresa.<br>
-                            <span class="grad-text drop-shadow-md">Multiplica</span> tus ventas.
+                            Sistematiza tu empresa.<br><span class="grad-text drop-shadow-md">Multiplica</span> tus ventas.
                         </h1>
-                        
-                        <p class="text-lg md:text-xl text-white/80 font-medium mb-10 leading-relaxed max-w-xl mx-auto lg:mx-0">
-                            Desde aplicaciones a medida que automatizan tu operación, hasta contenido estratégico que posiciona tu marca en el mundo digital.
-                        </p>
-                        
+                        <p class="text-lg md:text-xl text-white/80 font-medium mb-10 leading-relaxed max-w-xl mx-auto lg:mx-0">Desde aplicaciones a medida que automatizan tu operación, hasta contenido estratégico que posiciona tu marca en el mundo digital.</p>
                         <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                            <button onclick="document.getElementById('tech').scrollIntoView({behavior:'smooth'})" class="px-8 py-4 rounded-full text-brand-dark font-black text-sm uppercase tracking-widest bg-white shadow-xl shadow-white/20 hover:scale-105 hover:shadow-white/30 transition-all flex items-center justify-center gap-3 shrink-0">
-                                Ver Soluciones
-                            </button>
-                            <button onclick="document.getElementById('studio').scrollIntoView({behavior:'smooth'})" class="px-8 py-4 rounded-full text-white bg-transparent border-2 border-white/30 font-black text-sm uppercase tracking-widest hover:bg-white/10 transition-all flex items-center justify-center gap-3 shrink-0">
-                                Content Studio
-                            </button>
+                            <button onclick="document.getElementById('tech').scrollIntoView({behavior:'smooth'})" class="px-8 py-4 rounded-full text-brand-dark font-black text-sm uppercase tracking-widest bg-white shadow-xl shadow-white/20 hover:scale-105 hover:shadow-white/30 transition-all flex items-center justify-center gap-3 shrink-0">Ver Soluciones</button>
+                            <button onclick="document.getElementById('studio').scrollIntoView({behavior:'smooth'})" class="px-8 py-4 rounded-full text-white bg-transparent border-2 border-white/30 font-black text-sm uppercase tracking-widest hover:bg-white/10 transition-all flex items-center justify-center gap-3 shrink-0">Content Studio</button>
                         </div>
                     </div>
-
-                    <!-- Dashboard Flotante en CSS -->
-                    <div class="relative h-[350px] sm:h-[400px] lg:h-[500px] w-full z-10 flex items-center justify-center perspective-[1000px] mt-8 lg:mt-0">
-                        <!-- Panel Principal -->
-                        <div class="absolute w-[90%] sm:w-[80%] lg:w-[90%] h-[280px] sm:h-[340px] bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] float-slow flex flex-col overflow-hidden transform rotate-y-[-10deg] rotate-x-[5deg] z-20">
-                            <div class="h-12 bg-white/10 border-b border-white/10 flex items-center px-4 gap-2">
-                                <div class="w-3 h-3 rounded-full bg-rose-500"></div>
-                                <div class="w-3 h-3 rounded-full bg-amber-400"></div>
-                                <div class="w-3 h-3 rounded-full bg-green-400"></div>
-                                <div class="ml-4 w-32 h-3 bg-white/20 rounded-full"></div>
+                    <div class="relative h-[250px] sm:h-[400px] lg:h-[500px] w-full z-10 flex items-center justify-center perspective-[1000px] mt-8 lg:mt-0">
+                        <div class="absolute w-[90%] sm:w-[80%] lg:w-[90%] h-[200px] sm:h-[340px] bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] float-slow flex flex-col overflow-hidden transform rotate-y-[-10deg] rotate-x-[5deg] z-20">
+                            <div class="h-8 sm:h-12 bg-white/10 border-b border-white/10 flex items-center px-4 gap-2">
+                                <div class="w-3 h-3 rounded-full bg-rose-500 shrink-0"></div><div class="w-3 h-3 rounded-full bg-amber-400 shrink-0"></div><div class="w-3 h-3 rounded-full bg-green-400 shrink-0"></div><div class="ml-4 w-32 h-3 bg-white/20 rounded-full hidden sm:block"></div>
                             </div>
-                            <div class="p-6 flex gap-6 h-full">
-                                <div class="w-1/3 flex flex-col gap-4">
-                                    <div class="w-full h-20 bg-gradient-to-br from-blue-500/40 to-purple-500/40 rounded-2xl border border-white/10 p-3">
-                                        <div class="w-8 h-2 bg-white/40 rounded-full mb-2"></div>
-                                        <div class="w-16 h-4 bg-white/80 rounded-full mb-2"></div>
-                                        <div class="w-full h-6 bg-white/10 rounded-md mt-auto"></div>
-                                    </div>
-                                    <div class="w-full h-8 bg-white/10 rounded-xl"></div>
-                                    <div class="w-full h-8 bg-white/10 rounded-xl"></div>
-                                    <div class="w-full h-8 bg-white/10 rounded-xl"></div>
+                            <div class="p-4 sm:p-6 flex gap-4 sm:gap-6 h-full">
+                                <div class="w-1/3 flex flex-col gap-2 sm:gap-4">
+                                    <div class="w-full h-12 sm:h-20 bg-gradient-to-br from-blue-500/40 to-purple-500/40 rounded-xl sm:rounded-2xl border border-white/10 p-2 sm:p-3"><div class="w-6 sm:w-8 h-2 bg-white/40 rounded-full mb-2"></div><div class="w-10 sm:w-16 h-3 sm:h-4 bg-white/80 rounded-full mb-2"></div><div class="w-full h-4 sm:h-6 bg-white/10 rounded-md mt-auto"></div></div>
+                                    <div class="w-full h-6 sm:h-8 bg-white/10 rounded-xl"></div><div class="w-full h-6 sm:h-8 bg-white/10 rounded-xl"></div>
                                 </div>
-                                <div class="w-2/3 flex flex-col gap-4">
-                                    <div class="w-full h-8 bg-white/20 rounded-xl mb-2"></div>
-                                    <div class="flex items-end gap-2 h-full pb-4">
-                                        <div class="w-full bg-blue-400/60 rounded-t-lg" style="height: 40%"></div>
-                                        <div class="w-full bg-purple-400/60 rounded-t-lg" style="height: 70%"></div>
-                                        <div class="w-full bg-pink-400/60 rounded-t-lg" style="height: 50%"></div>
-                                        <div class="w-full bg-orange-400/60 rounded-t-lg" style="height: 90%"></div>
-                                        <div class="w-full bg-green-400/60 rounded-t-lg" style="height: 100%"></div>
-                                    </div>
+                                <div class="w-2/3 flex flex-col gap-2 sm:gap-4">
+                                    <div class="w-full h-6 sm:h-8 bg-white/20 rounded-xl mb-2"></div>
+                                    <div class="flex items-end gap-1 sm:gap-2 h-full pb-2 sm:pb-4"><div class="w-full bg-blue-400/60 rounded-t-lg" style="height: 40%"></div><div class="w-full bg-purple-400/60 rounded-t-lg" style="height: 70%"></div><div class="w-full bg-pink-400/60 rounded-t-lg" style="height: 50%"></div><div class="w-full bg-orange-400/60 rounded-t-lg" style="height: 90%"></div><div class="w-full bg-green-400/60 rounded-t-lg" style="height: 100%"></div></div>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Tarjeta Flotante -->
-                        <div class="absolute bottom-10 right-4 sm:right-10 lg:-right-4 w-48 h-24 bg-white rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] float-fast flex items-center p-4 gap-4 z-30 transform rotate-[5deg]">
-                            <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-green-600 shrink-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                            </div>
-                            <div>
-                                <div class="w-16 h-3 bg-slate-200 rounded-full mb-2"></div>
-                                <div class="w-24 h-4 bg-slate-800 rounded-full"></div>
-                            </div>
+                        <div class="absolute bottom-4 sm:bottom-10 right-0 sm:-right-4 w-40 sm:w-48 h-20 sm:h-24 bg-white rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] float-fast flex items-center p-3 sm:p-4 gap-3 sm:gap-4 z-30 transform rotate-[5deg]">
+                            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-green-100 flex items-center justify-center text-green-600 shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" class="shrink-0"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                            <div><div class="w-12 sm:w-16 h-2 sm:h-3 bg-slate-200 rounded-full mb-2"></div><div class="w-20 sm:w-24 h-3 sm:h-4 bg-slate-800 rounded-full"></div></div>
                         </div>
-
-                        <div class="absolute top-10 left-4 sm:left-10 lg:-left-4 w-20 h-20 bg-gradient-to-br from-rose-400 to-orange-500 rounded-2xl shadow-xl float-med transform rotate-[-15deg] z-10 border border-white/20"></div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- NOSOTROS REDISEÑADO -->
         <section id="nosotros" class="bg-white py-24 md:py-32 relative reveal -mt-20">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div class="text-center max-w-3xl mx-auto mb-16">
-                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100 mb-6 text-brand-blue font-bold text-xs uppercase tracking-widest shadow-sm">
-                        Nuestra Filosofía
-                    </div>
-                    <h2 class="text-3xl md:text-5xl font-black mb-6 leading-tight tracking-tight text-slate-900">
-                        Software que entiende tu negocio.<br>
-                        <span class="text-transparent bg-clip-text grad-vibrant">Contenido que vende.</span>
-                    </h2>
-                    <p class="text-slate-500 text-lg leading-relaxed font-medium">
-                        No somos una agencia genérica. En <strong>MAS Digital</strong> construimos tu ventaja competitiva: desde aplicaciones a medida que automatizan tu operación, hasta estrategias audiovisuales que posicionan tu marca en redes sociales.
-                    </p>
+            <div class="max-w-7xl mx-auto relative z-10">
+                <div class="text-center max-w-3xl mx-auto mb-16 px-4">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100 mb-6 text-brand-blue font-bold text-xs uppercase tracking-widest shadow-sm">Nuestra Filosofía</div>
+                    <h2 class="text-3xl md:text-5xl font-black mb-6 leading-tight tracking-tight text-slate-900">Software que entiende tu negocio.<br><span class="text-transparent bg-clip-text grad-vibrant">Contenido que vende.</span></h2>
+                    <p class="text-slate-500 text-lg leading-relaxed font-medium">No somos una agencia genérica. En <strong>MAS Digital</strong> construimos tu ventaja competitiva: desde aplicaciones a medida que automatizan tu operación, hasta estrategias audiovisuales que posicionan tu marca en redes sociales.</p>
                 </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                    <div class="bg-white p-8 rounded-3xl border border-slate-200 hover:border-blue-300 transition-all group content-card-hover relative overflow-hidden">
+                <div class="flex overflow-x-auto md:grid md:grid-cols-3 snap-x snap-mandatory gap-6 pb-8 hide-scrollbar max-w-5xl mx-auto px-4 md:px-0">
+                    <div class="w-[85vw] md:w-auto shrink-0 snap-center bg-white p-8 rounded-3xl border border-slate-200 hover:border-blue-300 transition-all group content-card-hover relative overflow-hidden">
                         <div class="absolute top-0 right-0 w-24 h-24 bg-blue-50 rounded-bl-full -z-10 group-hover:scale-110 transition-transform"></div>
-                        <div class="w-14 h-14 bg-white rounded-2xl shadow-sm flex items-center justify-center text-blue-600 mb-6 border border-slate-100 shrink-0 group-hover:scale-110 transition-transform">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="shrink-0"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
-                        </div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-3">100% A Tu Medida</h3>
-                        <p class="text-slate-500 text-sm leading-relaxed font-medium">No adaptes tu empresa a un software genérico. Nosotros creamos herramientas exactas para tus procesos.</p>
+                        <div class="w-14 h-14 bg-white rounded-2xl shadow-sm flex items-center justify-center text-blue-600 mb-6 border border-slate-100 shrink-0 group-hover:scale-110 transition-transform"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="shrink-0"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline></svg></div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Siempre A Tu Medida</h3><p class="text-slate-500 text-sm leading-relaxed font-medium">No adaptes tu empresa a un software genérico. Nosotros creamos herramientas exactas para tus procesos.</p>
                     </div>
-                    <div class="bg-white p-8 rounded-3xl border border-slate-200 hover:border-purple-300 transition-all group content-card-hover relative overflow-hidden">
+                    <div class="w-[85vw] md:w-auto shrink-0 snap-center bg-white p-8 rounded-3xl border border-slate-200 hover:border-purple-300 transition-all group content-card-hover relative overflow-hidden">
                         <div class="absolute top-0 right-0 w-24 h-24 bg-purple-50 rounded-bl-full -z-10 group-hover:scale-110 transition-transform"></div>
-                        <div class="w-14 h-14 bg-white rounded-2xl shadow-sm flex items-center justify-center text-purple-600 mb-6 border border-slate-100 shrink-0 group-hover:scale-110 transition-transform">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="shrink-0"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                        </div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-3">Suscripción Plana</h3>
-                        <p class="text-slate-500 text-sm leading-relaxed font-medium">Te entregamos un ecosistema propio mediante una suscripción clara y accesible. Crecimiento sin sorpresas ni porcentajes.</p>
+                        <div class="w-14 h-14 bg-white rounded-2xl shadow-sm flex items-center justify-center text-purple-600 mb-6 border border-slate-100 shrink-0 group-hover:scale-110 transition-transform"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="shrink-0"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Suscripción Plana</h3><p class="text-slate-500 text-sm leading-relaxed font-medium">Te entregamos un ecosistema propio mediante una suscripción clara y accesible. Crecimiento sin sorpresas ni porcentajes.</p>
                     </div>
-                    <div class="bg-white p-8 rounded-3xl border border-slate-200 hover:border-rose-300 transition-all group content-card-hover relative overflow-hidden">
+                    <div class="w-[85vw] md:w-auto shrink-0 snap-center bg-white p-8 rounded-3xl border border-slate-200 hover:border-rose-300 transition-all group content-card-hover relative overflow-hidden">
                         <div class="absolute top-0 right-0 w-24 h-24 bg-rose-50 rounded-bl-full -z-10 group-hover:scale-110 transition-transform"></div>
-                        <div class="w-14 h-14 bg-white rounded-2xl shadow-sm flex items-center justify-center text-rose-500 mb-6 border border-slate-100 shrink-0 group-hover:scale-110 transition-transform">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="shrink-0"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-                        </div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-3">Imagen de Marca</h3>
-                        <p class="text-slate-500 text-sm leading-relaxed font-medium">Automatizamos tu trastienda y potenciamos tu escaparate con contenido audiovisual de alto impacto.</p>
+                        <div class="w-14 h-14 bg-white rounded-2xl shadow-sm flex items-center justify-center text-rose-500 mb-6 border border-slate-100 shrink-0 group-hover:scale-110 transition-transform"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="shrink-0"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg></div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Imagen de Marca</h3><p class="text-slate-500 text-sm leading-relaxed font-medium">Automatizamos tu trastienda y potenciamos tu escaparate con contenido audiovisual de alto impacto.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- TECH & APPS SECTION (Dinámico vía JS) -->
         <section id="tech" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 scroll-mt-24 reveal">
             <div class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-200 pb-6">
                 <div>
                     <div class="flex items-center gap-3 mb-2">
-                        <div class="w-8 h-8 rounded-lg grad-cyber flex items-center justify-center shadow-md shrink-0">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="white" stroke-width="3" viewBox="0 0 24 24" class="shrink-0"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-                        </div>
+                        <div class="w-8 h-8 rounded-lg grad-vibrant flex items-center justify-center shadow-md shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="white" stroke-width="3" viewBox="0 0 24 24" class="shrink-0"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></div>
                         <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">Tech & Apps</h2>
                     </div>
                     <p class="text-sm text-slate-500 font-medium">Sistematización de procesos con herramientas empresariales a tu medida.</p>
                 </div>
             </div>
-            
-            <!-- Loader inicial para Tech -->
-            <div id="tech-loader" class="py-20 flex flex-col items-center justify-center">
-                <svg class="animate-spin h-10 w-10 text-brand-blue mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                <p class="text-slate-500 font-bold text-sm tracking-widest uppercase">Descargando Catálogo de Sistemas...</p>
-            </div>
-            <div id="tech-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch hidden"></div>
+            <div id="tech-loader" class="py-20 flex flex-col items-center justify-center"><svg class="animate-spin h-10 w-10 text-brand-blue mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg><p class="text-slate-500 font-bold text-sm tracking-widest uppercase">Descargando Catálogo de Sistemas...</p></div>
+            <div id="tech-grid" class="hidden"></div>
         </section>
 
-        <!-- CONTENT STUDIO SECTION (Dinámico vía JS) -->
         <section id="studio" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 scroll-mt-24 reveal">
             <div class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-200 pb-6">
                 <div>
                     <div class="flex items-center gap-3 mb-2">
-                        <div class="w-8 h-8 rounded-lg grad-sunset flex items-center justify-center shadow-md shrink-0">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="white" stroke-width="3" viewBox="0 0 24 24" class="shrink-0"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-                        </div>
+                        <div class="w-8 h-8 rounded-lg grad-sunset flex items-center justify-center shadow-md shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="white" stroke-width="3" viewBox="0 0 24 24" class="shrink-0"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg></div>
                         <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">Content Studio</h2>
                     </div>
                     <p class="text-sm text-slate-500 font-medium">Estrategias y producción audiovisual para redes sociales.</p>
                 </div>
             </div>
-            <div id="studio-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch"></div>
+            <div id="studio-grid" class="flex overflow-x-auto md:grid md:grid-cols-3 snap-x snap-mandatory gap-6 pb-8 hide-scrollbar items-stretch"></div>
         </section>
         
-        <!-- PREGUNTAS FRECUENTES -->
         <section id="faq" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24 scroll-mt-24 reveal">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-5xl font-black text-slate-900 mb-4 tracking-tight">Preguntas Frecuentes</h2>
-                <p class="text-slate-500 font-medium text-lg">Todo lo que necesitas saber antes de trabajar con nosotros.</p>
-            </div>
+            <div class="text-center mb-12"><h2 class="text-3xl md:text-5xl font-black text-slate-900 mb-4 tracking-tight">Preguntas Frecuentes</h2><p class="text-slate-500 font-medium text-lg">Todo lo que necesitas saber antes de trabajar con nosotros.</p></div>
             <div class="space-y-4">
                 <details class="group bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all">
-                    <summary class="flex items-center justify-between cursor-pointer p-6 font-bold text-slate-900 text-lg">
-                        <span>¿El pago por los sistemas es único o mensual?</span>
-                        <span class="transition-transform duration-300 group-open:rotate-180 bg-slate-50 border border-slate-200 w-10 h-10 rounded-full flex items-center justify-center shrink-0 text-slate-500">
-                            <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
-                        </span>
-                    </summary>
-                    <div class="px-6 pb-6 text-slate-500 font-medium leading-relaxed border-t border-slate-100 pt-4 mt-2">
-                        Trabajamos bajo un modelo SaaS (Software as a Service) con una <strong>suscripción plana</strong> (mensual o anual). Esto cubre el alojamiento en servidores, mantenimiento continuo, soporte técnico y futuras actualizaciones, asegurando que tu sistema nunca quede obsoleto ni requiera costosos pagos de reparación.
-                    </div>
+                    <summary class="flex items-center justify-between cursor-pointer p-6 font-bold text-slate-900 text-lg"><span>¿El pago por los sistemas es único o mensual?</span><span class="transition-transform duration-300 group-open:rotate-180 bg-slate-50 border border-slate-200 w-10 h-10 rounded-full flex items-center justify-center shrink-0 text-slate-500"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" class="w-5 h-5 shrink-0"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg></span></summary>
+                    <div class="px-6 pb-6 text-slate-500 font-medium leading-relaxed border-t border-slate-100 pt-4 mt-2">Trabajamos bajo un modelo SaaS (Software as a Service) con una <strong>suscripción plana</strong>. Esto cubre servidores, mantenimiento continuo, soporte técnico y actualizaciones, asegurando que tu sistema nunca quede obsoleto.</div>
                 </details>
-                
                 <details class="group bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all">
-                    <summary class="flex items-center justify-between cursor-pointer p-6 font-bold text-slate-900 text-lg">
-                        <span>¿Cuánto tiempo tardan en entregar un sistema a medida?</span>
-                        <span class="transition-transform duration-300 group-open:rotate-180 bg-slate-50 border border-slate-200 w-10 h-10 rounded-full flex items-center justify-center shrink-0 text-slate-500">
-                            <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
-                        </span>
-                    </summary>
-                    <div class="px-6 pb-6 text-slate-500 font-medium leading-relaxed border-t border-slate-100 pt-4 mt-2">
-                        Depende de la complejidad. Sistemas pre-construidos (como Asistencia o Delivery) se despliegan en <strong>3 a 5 días hábiles</strong>. Desarrollos 100% personalizados desde cero pueden tomar entre <strong>2 a 6 semanas</strong>. Todo se define previamente en la etapa de consultoría.
-                    </div>
+                    <summary class="flex items-center justify-between cursor-pointer p-6 font-bold text-slate-900 text-lg"><span>¿Cuánto tiempo tardan en entregar un sistema a medida?</span><span class="transition-transform duration-300 group-open:rotate-180 bg-slate-50 border border-slate-200 w-10 h-10 rounded-full flex items-center justify-center shrink-0 text-slate-500"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" class="w-5 h-5 shrink-0"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg></span></summary>
+                    <div class="px-6 pb-6 text-slate-500 font-medium leading-relaxed border-t border-slate-100 pt-4 mt-2">Depende de la complejidad. Sistemas pre-construidos se despliegan en <strong>3 a 5 días hábiles</strong>. Desarrollos desde cero pueden tomar entre <strong>2 a 6 semanas</strong>. Todo se define en la consultoría.</div>
                 </details>
-
                 <details class="group bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all">
-                    <summary class="flex items-center justify-between cursor-pointer p-6 font-bold text-slate-900 text-lg">
-                        <span>¿Los sistemas funcionan en celular o computadora?</span>
-                        <span class="transition-transform duration-300 group-open:rotate-180 bg-slate-50 border border-slate-200 w-10 h-10 rounded-full flex items-center justify-center shrink-0 text-slate-500">
-                            <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
-                        </span>
-                    </summary>
-                    <div class="px-6 pb-6 text-slate-500 font-medium leading-relaxed border-t border-slate-100 pt-4 mt-2">
-                        <strong>¡En ambos!</strong> Desarrollamos Plataformas Web PWA, lo que significa que se adaptan perfectamente a computadoras de escritorio (para administradores) y funcionan como aplicaciones móviles en celulares (para empleados o clientes en campo).
-                    </div>
+                    <summary class="flex items-center justify-between cursor-pointer p-6 font-bold text-slate-900 text-lg"><span>¿Los sistemas funcionan en celular o computadora?</span><span class="transition-transform duration-300 group-open:rotate-180 bg-slate-50 border border-slate-200 w-10 h-10 rounded-full flex items-center justify-center shrink-0 text-slate-500"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" class="w-5 h-5 shrink-0"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg></span></summary>
+                    <div class="px-6 pb-6 text-slate-500 font-medium leading-relaxed border-t border-slate-100 pt-4 mt-2"><strong>¡En ambos!</strong> Desarrollamos Plataformas Web PWA, lo que significa que se adaptan perfectamente a computadoras de escritorio (para administradores) y funcionan como aplicaciones móviles en celulares (para empleados o clientes).</div>
                 </details>
             </div>
         </section>
     </main>
 
     <!-- MODAL DINÁMICO UNIVERSAL PARA PRODUCTOS -->
-    <div id="product-modal" class="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-[200] hidden opacity-0 transition-opacity duration-300 overflow-y-auto chat-scroll">
-        <div class="min-h-screen px-4 text-center py-10 flex items-center justify-center">
+    <div id="product-modal" class="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-[200] hidden opacity-0 transition-opacity duration-300 overflow-y-auto chat-scroll flex items-start md:items-center justify-center md:p-4">
+        
+        <div class="relative w-full min-h-screen md:h-auto md:min-h-0 md:max-w-6xl md:rounded-[2.5rem] bg-white text-left overflow-x-hidden shadow-2xl modal-enter border-0 md:border border-slate-200 flex flex-col pb-10 md:pb-0">
             
-            <div class="relative w-full max-w-6xl bg-white rounded-[2.5rem] text-left overflow-hidden shadow-2xl modal-enter border border-slate-200">
-                
-                <!-- Botón Cerrar -->
-                <button onclick="closeProductModal()" class="absolute top-6 right-6 w-11 h-11 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-rose-500 hover:text-white shadow-xl transition-all z-30 border border-white/30 cursor-pointer shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" class="shrink-0"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                </button>
+            <button onclick="closeProductModal()" class="fixed md:absolute top-4 md:top-6 right-4 md:right-6 w-11 h-11 bg-black/30 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-rose-500 shadow-xl transition-all z-[300] border border-white/30 cursor-pointer shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" class="shrink-0"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
 
-                <!-- Cabecera Dinámica -->
-                <div id="modal-header-section" class="px-6 md:px-16 pt-20 pb-16 relative overflow-hidden flex flex-col md:flex-row items-center justify-between text-white transition-colors duration-500">
-                    <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-white/10 rounded-full blur-[100px] pointer-events-none"></div>
-                    <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-black/10 rounded-full blur-[80px] pointer-events-none"></div>
+            <div id="modal-header-section" class="px-6 md:px-16 pt-20 pb-16 relative overflow-hidden flex flex-col md:flex-row items-center justify-between text-white transition-colors duration-500 shrink-0">
+                <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-white/10 rounded-full blur-[100px] pointer-events-none"></div>
+                <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-black/10 rounded-full blur-[80px] pointer-events-none"></div>
 
-                    <!-- Columna Izquierda -->
-                    <div class="z-10 w-full md:w-[55%] flex flex-col items-center md:items-start text-center md:text-left">
-                        <div class="mb-6">
-                            <span id="modal-tag" class="px-5 py-2 rounded-full font-black text-[10px] sm:text-xs uppercase tracking-widest shadow-md inline-flex items-center gap-2 bg-white">
-                                <!-- JS Inyecta el Tag -->
-                            </span>
+                <div class="z-10 w-full md:w-[55%] flex flex-col items-center md:items-start text-center md:text-left">
+                    <div class="mb-6"><span id="modal-tag" class="px-5 py-2 rounded-full font-black text-[10px] sm:text-xs uppercase tracking-widest shadow-md inline-flex items-center gap-2 bg-white shrink-0"></span></div>
+                    <div class="bg-white rounded-[2rem] p-8 md:p-12 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] inline-block w-full max-w-[420px] transform md:-rotate-2 transition-transform hover:rotate-0 relative z-20">
+                        <div id="modal-title-html" class="flex flex-col items-center select-none w-full"></div>
+                    </div>
+                    <p id="modal-desc" class="text-base md:text-lg text-white/95 max-w-lg font-medium mt-10 leading-relaxed drop-shadow-md"></p>
+                </div>
+
+                <div class="z-10 w-full md:w-[45%] flex justify-center mt-16 md:mt-0 relative">
+                    <div id="modal-hero-icon" class="text-white drop-shadow-[0_20px_30px_rgba(0,0,0,0.3)] flex items-center justify-center transform hover:scale-105 transition-transform duration-500 shrink-0"></div>
+                </div>
+            </div>
+
+            <div id="modal-advantages" class="bg-slate-50 py-16 px-6 md:px-12 relative z-20 border-b border-slate-100 shrink-0" style="display: none;"></div>
+
+            <div class="py-16 px-0 md:px-10 bg-slate-50 flex-grow">
+                <div class="text-center mb-10 px-6">
+                    <h3 class="text-3xl font-black text-slate-900 mb-2">Elige el plan ideal para tu empresa</h3>
+                    <p class="text-slate-500 text-sm font-medium">Suscripción clara. Soporte y actualizaciones continuas incluidas.</p>
+
+                    <div class="flex justify-center mt-6">
+                        <div class="bg-slate-200 p-1.5 rounded-full inline-flex relative shadow-inner items-center">
+                            <button id="modal-btn-mensual" onclick="toggleModalPricing('mensual')" class="px-8 py-2.5 rounded-full text-sm font-black bg-white text-slate-900 shadow-sm transition-all duration-300 shrink-0">Mensual</button>
+                            <button id="modal-btn-anual" onclick="toggleModalPricing('anual')" class="px-8 py-2.5 rounded-full text-sm font-black text-slate-500 hover:text-slate-800 transition-all duration-300 flex items-center gap-2 shrink-0">
+                                Anual <span class="bg-green-100 text-green-700 text-[10px] uppercase font-black px-2 py-0.5 rounded-full border border-green-200 shrink-0">2 Meses Gratis</span>
+                            </button>
                         </div>
-                        
-                        <div class="bg-white rounded-[2rem] p-8 md:p-12 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] inline-block w-full max-w-[420px] transform md:-rotate-2 transition-transform hover:rotate-0 relative z-20">
-                            <div id="modal-title-html" class="flex flex-col items-center select-none w-full">
-                                <!-- JS Inyecta el título visual -->
-                            </div>
-                        </div>
-
-                        <p id="modal-desc" class="text-base md:text-lg text-white/95 max-w-lg font-medium mt-10 leading-relaxed drop-shadow-md">
-                            <!-- JS Inyecta descripción -->
-                        </p>
                     </div>
 
-                    <!-- Columna Derecha (Ícono Hero) -->
-                    <div class="z-10 w-full md:w-[45%] flex justify-center mt-16 md:mt-0 relative">
-                        <div id="modal-hero-icon" class="text-white drop-shadow-[0_20px_30px_rgba(0,0,0,0.3)] flex items-center justify-center transform hover:scale-105 transition-transform duration-500 shrink-0">
-                            <!-- JS Inyecta SVG Gigante -->
-                        </div>
+                    <div class="flex justify-center mt-8 xl:hidden">
+                        <span class="bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full flex items-center gap-2 shadow-sm animate-pulse border border-blue-100 shrink-0">
+                            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" class="shrink-0"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
+                            Desliza para ver más
+                            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" class="shrink-0"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+                        </span>
                     </div>
                 </div>
 
-                <!-- Ventajas del Producto -->
-                <div id="modal-advantages" class="bg-slate-50 py-16 px-6 md:px-12 relative z-20" style="display: none;">
-                    <!-- JS Inyecta ventajas -->
-                </div>
-
-                <!-- Precios y Planes -->
-                <div class="py-16 px-0 md:px-10 bg-slate-50">
-                    <div class="text-center mb-10 px-6">
-                        <h3 class="text-3xl font-black text-slate-900 mb-2">Elige el plan ideal para tu empresa</h3>
-                        <p class="text-slate-500 text-sm font-medium">Suscripción clara. Soporte y actualizaciones continuas incluidas.</p>
-
-                        <!-- Toggle -->
-                        <div class="flex justify-center mt-6">
-                            <div class="bg-slate-200 p-1.5 rounded-full inline-flex relative shadow-inner items-center">
-                                <button id="modal-btn-mensual" onclick="toggleModalPricing('mensual')" class="px-8 py-2.5 rounded-full text-sm font-black bg-white text-slate-900 shadow-sm transition-all duration-300">Mensual</button>
-                                <button id="modal-btn-anual" onclick="toggleModalPricing('anual')" class="px-8 py-2.5 rounded-full text-sm font-black text-slate-500 hover:text-slate-800 transition-all duration-300 flex items-center gap-2">
-                                    Anual <span class="bg-green-100 text-green-700 text-[10px] uppercase font-black px-2 py-0.5 rounded-full border border-green-200 hidden sm:block shrink-0">2 Meses Gratis</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Indicador para móviles -->
-                        <div class="flex justify-center mt-8 md:hidden">
-                            <span class="bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full flex items-center gap-2 shadow-sm animate-pulse border border-blue-100">
-                                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
-                                Desliza para ver más
-                                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
-                            </span>
-                        </div>
-                    </div>
-
-                    <!-- Grilla de Precios -->
-                    <div id="modal-pricing-grid" class="flex flex-nowrap md:flex-wrap md:justify-center overflow-x-auto md:overflow-x-visible snap-x snap-mandatory gap-6 pb-8 md:pb-0 px-6 md:px-0 hide-scrollbar mx-auto items-stretch max-w-6xl">
-                        <!-- JS inyectará las tarjetas aquí -->
-                    </div>
+                <div id="modal-pricing-grid" class="flex flex-nowrap xl:flex-wrap overflow-x-auto xl:overflow-x-visible snap-x snap-mandatory gap-6 pb-8 xl:pb-0 px-6 xl:px-0 hide-scrollbar mx-auto items-stretch xl:justify-center max-w-6xl">
                 </div>
             </div>
         </div>
@@ -454,7 +298,7 @@
 
     <div id="cart-sidebar" class="fixed top-0 right-0 w-full md:w-[480px] h-full bg-slate-50 z-[100] transform translate-x-full transition-transform duration-300 flex flex-col shadow-2xl">
         <div class="p-6 border-b border-slate-200 bg-white flex justify-between items-center shadow-sm z-10 shrink-0">
-            <h2 class="text-2xl font-black text-slate-900 flex items-center gap-3">Tu Solicitud <span id="cart-header-count" class="bg-[#2563EB] text-white text-sm px-3 py-0.5 rounded-full shadow-sm">0</span></h2>
+            <h2 class="text-2xl font-black text-slate-900 flex items-center gap-3">Tu Solicitud <span id="cart-header-count" class="bg-[#2563EB] text-white text-sm px-3 py-0.5 rounded-full shadow-sm shrink-0">0</span></h2>
             <button onclick="toggleCart()" class="text-slate-400 hover:text-rose-500 bg-slate-100 rounded-full p-2.5 transition-all shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" class="shrink-0"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
         </div>
 
@@ -485,7 +329,7 @@
         </div>
     </div>
 
-    <!-- CHATBOT INTELIGENTE CON BOTONES -->
+    <!-- CHATBOT INTELIGENTE -->
     <div id="chatbot-container" class="fixed bottom-6 right-6 z-[9999] flex flex-col items-end pointer-events-none">
         <div id="chat-teaser" class="bg-white px-4 py-3 rounded-2xl shadow-xl border border-slate-100 mb-4 animate-bounce cursor-pointer flex items-center gap-3 relative pointer-events-auto hover:-translate-y-1 transition-transform" onclick="window.toggleChat()">
             <div class="w-2.5 h-2.5 bg-blue-500 rounded-full animate-pulse absolute -top-1 -right-1 border-2 border-white"></div>
@@ -495,47 +339,26 @@
         <button id="chatbot-trigger" onclick="window.toggleChat()" class="w-16 h-16 rounded-full bg-slate-900 shadow-2xl flex items-center justify-center text-white hover:scale-105 transition-transform relative pointer-events-auto shrink-0 border-2 border-white cursor-pointer group">
             <div id="icon-chat" class="flex items-center justify-center">
                 <svg viewBox="0 0 280 150" class="w-9 h-auto shrink-0 transition-transform group-hover:scale-110" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <linearGradient id="g1-btn" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#2563EB"/><stop offset="100%" stop-color="#8B5CF6"/></linearGradient>
-                        <linearGradient id="g2-btn" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#8B5CF6"/><stop offset="100%" stop-color="#EC4899"/></linearGradient>
-                        <linearGradient id="g3-btn" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#EC4899"/><stop offset="100%" stop-color="#F97316"/></linearGradient>
-                    </defs>
-                    <g stroke-linecap="round" stroke-linejoin="round" fill="none">
-                        <path d="M 32 110 L 32 65 A 34 34 0 0 1 100 65 L 100 110" stroke="url(#g1-btn)" stroke-width="32" />
-                        <path d="M 100 110 L 100 65 A 34 34 0 0 1 168 65 L 168 110" stroke="url(#g2-btn)" stroke-width="32" />
-                        <path d="M 229 13.2 L 229 53.2 M 209 33.2 L 249 33.2" stroke="url(#g3-btn)" stroke-width="24" />
-                    </g>
+                    <defs><linearGradient id="g1-btn" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#2563EB"/><stop offset="100%" stop-color="#8B5CF6"/></linearGradient><linearGradient id="g2-btn" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#8B5CF6"/><stop offset="100%" stop-color="#EC4899"/></linearGradient><linearGradient id="g3-btn" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#EC4899"/><stop offset="100%" stop-color="#F97316"/></linearGradient></defs>
+                    <g stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 32 110 L 32 65 A 34 34 0 0 1 100 65 L 100 110" stroke="url(#g1-btn)" stroke-width="32" /><path d="M 100 110 L 100 65 A 34 34 0 0 1 168 65 L 168 110" stroke="url(#g2-btn)" stroke-width="32" /><path d="M 229 13.2 L 229 53.2 M 209 33.2 L 249 33.2" stroke="url(#g3-btn)" stroke-width="24" /></g>
                 </svg>
             </div>
             <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" class="hidden shrink-0"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         </button>
 
-        <div id="chatbot-window" class="absolute bottom-20 right-0 w-[360px] bg-white rounded-3xl shadow-2xl border border-slate-200 hidden flex-col overflow-hidden opacity-0 transform translate-y-4 transition-all duration-300 pointer-events-auto">
-            <div class="bg-slate-900 p-5 flex items-center justify-between text-white relative">
+        <div id="chatbot-window" class="absolute bottom-20 right-0 w-[360px] max-w-[90vw] bg-white rounded-3xl shadow-2xl border border-slate-200 hidden flex-col overflow-hidden opacity-0 transform translate-y-4 transition-all duration-300 pointer-events-auto">
+            <div class="bg-slate-900 p-5 flex items-center justify-between text-white relative shrink-0">
                 <div class="flex items-center gap-3">
                     <div class="w-11 h-11 rounded-2xl bg-white flex items-center justify-center p-1.5 shadow-md relative shrink-0">
                         <svg viewBox="0 0 280 150" class="w-full h-auto" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <linearGradient id="g1-chat" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#2563EB"/><stop offset="100%" stop-color="#8B5CF6"/></linearGradient>
-                                <linearGradient id="g2-chat" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#8B5CF6"/><stop offset="100%" stop-color="#EC4899"/></linearGradient>
-                                <linearGradient id="g3-chat" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#EC4899"/><stop offset="100%" stop-color="#F97316"/></linearGradient>
-                            </defs>
-                            <g stroke-linecap="round" stroke-linejoin="round" fill="none">
-                                <path d="M 32 110 L 32 65 A 34 34 0 0 1 100 65 L 100 110" stroke="url(#g1-chat)" stroke-width="32" />
-                                <path d="M 100 110 L 100 65 A 34 34 0 0 1 168 65 L 168 110" stroke="url(#g2-chat)" stroke-width="32" />
-                                <path d="M 229 13.2 L 229 53.2 M 209 33.2 L 249 33.2" stroke="url(#g3-chat)" stroke-width="24" />
-                            </g>
+                            <defs><linearGradient id="g1-chat" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#2563EB"/><stop offset="100%" stop-color="#8B5CF6"/></linearGradient><linearGradient id="g2-chat" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#8B5CF6"/><stop offset="100%" stop-color="#EC4899"/></linearGradient><linearGradient id="g3-chat" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#EC4899"/><stop offset="100%" stop-color="#F97316"/></linearGradient></defs>
+                            <g stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 32 110 L 32 65 A 34 34 0 0 1 100 65 L 100 110" stroke="url(#g1-chat)" stroke-width="32" /><path d="M 100 110 L 100 65 A 34 34 0 0 1 168 65 L 168 110" stroke="url(#g2-chat)" stroke-width="32" /><path d="M 229 13.2 L 229 53.2 M 209 33.2 L 249 33.2" stroke="url(#g3-chat)" stroke-width="24" /></g>
                         </svg>
                         <div class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-green-500 border-2 border-slate-900 rounded-full"></div>
                     </div>
-                    <div>
-                        <h3 class="font-black text-sm leading-tight">MAS Digital Assistant</h3>
-                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">En línea</p>
-                    </div>
+                    <div><h3 class="font-black text-sm leading-tight">MAS Digital Assistant</h3><p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">En línea</p></div>
                 </div>
-                <button onclick="window.toggleChat()" class="bg-white/10 hover:bg-white/20 text-white rounded-full p-2 transition-colors cursor-pointer shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" class="shrink-0"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                </button>
+                <button onclick="window.toggleChat()" class="bg-white/10 hover:bg-white/20 text-white rounded-full p-2 transition-colors cursor-pointer shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" class="shrink-0"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
             </div>
             
             <div id="chat-messages" class="flex-grow h-[360px] overflow-y-auto p-5 flex flex-col gap-4 bg-slate-50 chat-scroll">
@@ -546,16 +369,13 @@
                 </div>
             </div>
 
-            <div class="p-4 bg-white border-t border-slate-100 flex gap-2">
+            <div class="p-4 bg-white border-t border-slate-100 flex gap-2 shrink-0">
                 <input type="text" id="chat-input" placeholder="Escribe aquí..." class="flex-grow bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-slate-400 font-medium transition-colors" onkeypress="if(event.key === 'Enter') { window.handleChat(this.value); this.value=''; }">
-                <button onclick="let input=document.getElementById('chat-input'); window.handleChat(input.value); input.value='';" class="w-12 h-12 bg-slate-900 hover:bg-slate-800 text-white rounded-xl flex items-center justify-center shrink-0 shadow-md cursor-pointer transition-transform hover:scale-105" title="Enviar">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24" class="shrink-0 mr-0.5"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-                </button>
+                <button onclick="let input=document.getElementById('chat-input'); window.handleChat(input.value); input.value='';" class="w-12 h-12 bg-slate-900 hover:bg-slate-800 text-white rounded-xl flex items-center justify-center shrink-0 shadow-md cursor-pointer transition-transform hover:scale-105" title="Enviar"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24" class="shrink-0 mr-0.5"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
             </div>
         </div>
     </div>
 
-    <!-- FOOTER -->
     <footer class="bg-slate-900 text-slate-300 py-16 border-t border-slate-800 mt-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-10">
             <div>
@@ -567,8 +387,8 @@
             <div>
                 <h3 class="text-xs font-black text-slate-500 uppercase tracking-widest mb-4">Contacto Directo</h3>
                 <ul class="space-y-3 text-sm font-medium">
-                    <li class="flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="text-[#25D366] shrink-0"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg> +51 929 389 268</li>
-                    <li class="flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="text-[#EC4899] shrink-0"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg> masdigital.pe@gmail.com</li>
+                    <li class="flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="text-[#25D366] shrink-0"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg> <span id="foot-wsp">Cargando...</span></li>
+                    <li class="flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="text-[#EC4899] shrink-0"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg> <span id="foot-email">Cargando...</span></li>
                     <li class="flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="text-[#FBBF24] shrink-0"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Huancayo, Perú</li>
                 </ul>
             </div>
@@ -576,23 +396,15 @@
             <div>
                 <h3 class="text-xs font-black text-slate-500 uppercase tracking-widest mb-4">Nuestras Redes</h3>
                 <div class="flex gap-4">
-                    <a href="#" target="_blank" title="Facebook" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-[#1877F2] hover:text-white transition-all shadow-md shrink-0">
-                        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24" class="shrink-0"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                    </a>
-                    <a href="#" target="_blank" title="Instagram" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-gradient-to-tr hover:from-[#f09433] hover:via-[#dc2743] hover:to-[#bc1888] hover:text-white transition-all shadow-md shrink-0">
-                        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" class="shrink-0"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                    </a>
-                    <a href="https://wa.me/51929389268" target="_blank" title="WhatsApp" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-[#25D366] hover:text-white transition-all shadow-md shrink-0">
-                        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" class="shrink-0"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                    </a>
+                    <a id="link-fb" href="#" target="_blank" title="Facebook" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-[#1877F2] hover:text-white transition-all shadow-md shrink-0"><svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24" class="shrink-0"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+                    <a id="link-ig" href="#" target="_blank" title="Instagram" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-gradient-to-tr hover:from-[#f09433] hover:via-[#dc2743] hover:to-[#bc1888] hover:text-white transition-all shadow-md shrink-0"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" class="shrink-0"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+                    <a id="link-wsp" href="#" target="_blank" title="WhatsApp" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-[#25D366] hover:text-white transition-all shadow-md shrink-0"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" class="shrink-0"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></a>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- LÓGICA DE DIBUJADO Y CONEXIÓN CON GS -->
     <script>
-        // Mapeo Visual de Íconos y Colores
         const iconDict = {
             'compras': { color: 'text-indigo-600', hoverBorder: 'hover:border-indigo-500/30', btn: 'bg-indigo-50 text-indigo-700 hover:bg-indigo-600 hover:text-white', svg: '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline></svg>' },
             'asistencia': { color: 'text-teal-600', hoverBorder: 'hover:border-teal-500/30', btn: 'bg-teal-50 text-teal-700 hover:bg-teal-600 hover:text-white', svg: '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M19 8v6"></path><path d="M16 11h6"></path></svg>' },
@@ -606,107 +418,90 @@
             'audiovisual': { color: 'text-amber-500', hoverBorder: 'hover:border-amber-500/30', btn: 'bg-amber-50 text-amber-700 hover:bg-amber-500 hover:text-white', svg: '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>' }
         };
 
-        // Hero SVG Animados
         const heroSvgs = {
             'delivery': '<svg class="w-48 h-48 md:w-64 md:h-64 animate-pulse drop-shadow-2xl shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path></svg>',
             'citas': '<svg class="w-48 h-48 md:w-64 md:h-64 animate-pulse drop-shadow-2xl shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"></path></svg>',
-            'asistencia-biometrica': '<svg class="w-48 h-48 md:w-64 md:h-64 animate-pulse drop-shadow-2xl shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 3.75H6A2.25 2.25 0 003.75 6v1.5m13.5-3.75H18A2.25 2.25 0 0120.25 6v1.5m-16.5 13.5V18A2.25 2.25 0 016 15.75h1.5m13.5 3.75V18a2.25 2.25 0 00-2.25-2.25H18M12 8.25a3.75 3.75 0 100 7.5 3.75 3.75 0 000-7.5z"></path></svg>',
+            'biometrica': '<svg class="w-48 h-48 md:w-64 md:h-64 animate-pulse drop-shadow-2xl shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 3.75H6A2.25 2.25 0 003.75 6v1.5m13.5-3.75H18A2.25 2.25 0 0120.25 6v1.5m-16.5 13.5V18A2.25 2.25 0 016 15.75h1.5m13.5 3.75V18a2.25 2.25 0 00-2.25-2.25H18M12 8.25a3.75 3.75 0 100 7.5 3.75 3.75 0 000-7.5z"></path></svg>',
             'default': '<svg class="w-48 h-48 md:w-64 md:h-64 animate-[bounce_4s_infinite] drop-shadow-2xl shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"></path></svg>'
         };
 
         const planIcons = {
-            'basico': '<path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>',
-            'pro': '<path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>',
-            'premium': '<path stroke-linecap="round" stroke-linejoin="round" d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"/>'
+            'basico': '<path stroke-linecap="round" stroke-linejoin="round" d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line>',
+            'pro': '<path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 0 1 .75-.75h3a2.25 2.25 0 0 0 2.25-2.25v-6.75a9 9 0 0 0-9-9 9 9 0 0 0-9 9v6.75a2.25 2.25 0 0 0 2.25 2.25h3a.75.75 0 0 1 .75.75V21m-4.5 0h9"></path><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path>',
+            'premium': '<path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5z"></path>'
         };
 
-        let dbProductos = {};
-        let dbServicios = [];
-        let promoGlobal = { activa: false, nombre: '', descuento: 0 };
+        let dbProductos = {}; let dbServicios = [];
+        let promoGlobal = { activa: false, nombre: '', descuento: 0, wsp: '51929389268', email: '', fb: '', ig: '' };
 
-        // Conexión con Google Sheets al Iniciar
         window.onload = function() {
-            // Animaciones de Scroll
-            const observer = new IntersectionObserver((entries, obs) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) { entry.target.classList.add('active'); obs.unobserve(entry.target); }
-                });
-            }, { threshold: 0.1 });
+            const observer = new IntersectionObserver((entries, obs) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('active'); obs.unobserve(entry.target); } }); }, { threshold: 0.1 });
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-            // Intentar cargar de Caché para no hacer esperar al cliente
             let cachedData = localStorage.getItem('mas_catalog');
             if (cachedData) {
                 let d = JSON.parse(cachedData);
-                dbProductos = d.productos; dbServicios = d.servicios;
-                promoGlobal = d.promo || { activa: false };
+                dbProductos = d.productos; dbServicios = d.servicios; promoGlobal = d.promo || promoGlobal;
                 if(promoGlobal.activa) activarBannerPromo();
-                renderServices();
-            } else {
-                document.getElementById('tech-loader').classList.remove('hidden');
-            }
+                actualizarRedesSociales(); renderServices();
+            } else { document.getElementById('tech-loader').classList.remove('hidden'); }
 
-            // Descargar en segundo plano de Google Sheets
             fetch(URL_BACKEND_CATALOGO, { method: 'POST', body: JSON.stringify({accion: 'obtenerCatalogo'}), redirect: 'follow' })
-            .then(r => r.json())
-            .then(data => {
+            .then(r => r.json()).then(data => {
                 if(data.success) {
-                    dbProductos = data.productos; dbServicios = data.servicios;
-                    promoGlobal = data.promo || { activa: false };
+                    dbProductos = data.productos; dbServicios = data.servicios; promoGlobal = data.promo || promoGlobal;
                     localStorage.setItem('mas_catalog', JSON.stringify({productos: dbProductos, servicios: dbServicios, promo: promoGlobal}));
                     if(promoGlobal.activa) activarBannerPromo(); else document.getElementById('promo-top-banner').classList.add('hidden');
-                    renderServices();
+                    actualizarRedesSociales(); renderServices();
                 }
             }).catch(e => { console.log("Usando caché o error de red."); });
 
             updateCartCount();
         };
 
+        function actualizarRedesSociales() {
+            if(promoGlobal.wsp) { document.getElementById('foot-wsp').innerText = '+' + promoGlobal.wsp; document.getElementById('link-wsp').href = 'https://wa.me/' + promoGlobal.wsp; }
+            if(promoGlobal.email) { document.getElementById('foot-email').innerText = promoGlobal.email; }
+            if(promoGlobal.fb) { document.getElementById('link-fb').href = promoGlobal.fb; }
+            if(promoGlobal.ig) { document.getElementById('link-ig').href = promoGlobal.ig; }
+        }
+
         function activarBannerPromo() {
             const banner = document.getElementById('promo-top-banner');
-            const txt = document.getElementById('promo-top-text');
-            txt.innerHTML = `<span class="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-white opacity-75 left-0 -ml-4"></span> 🔥 OFERTA ACTIVA: ${promoGlobal.nombre} - ${promoGlobal.descuento}% DE DESCUENTO EN TODOS LOS PLANES 🔥`;
+            document.getElementById('promo-top-text').innerHTML = `<span class="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-white opacity-75 left-0 -ml-4"></span> 🔥 OFERTA ACTIVA: ${promoGlobal.nombre} - ${promoGlobal.descuento}% DE DESCUENTO EN TODOS LOS PLANES 🔥`;
             banner.classList.remove('hidden');
         }
 
         function renderServices() {
             document.getElementById('tech-loader').classList.add('hidden');
-            
-            const gridTech = document.getElementById('tech-grid');
-            gridTech.innerHTML = '';
-            gridTech.classList.remove('hidden');
+            const gridTech = document.getElementById('tech-grid'); gridTech.innerHTML = '';
+            gridTech.className = 'flex overflow-x-auto md:grid md:grid-cols-2 lg:grid-cols-3 snap-x snap-mandatory gap-6 pb-8 hide-scrollbar items-stretch';
             
             Object.keys(dbProductos).forEach(key => {
-                const item = dbProductos[key];
-                const style = iconDict[item.icono] || iconDict['medida'];
+                const item = dbProductos[key]; const style = iconDict[item.icono] || iconDict['medida'];
                 let hasModal = item.modalInfo && item.modalInfo.planes && item.modalInfo.planes.length > 0;
-                
                 let actionBtn = hasModal 
                     ? `<button onclick="openDynamicModal('${key}')" class="w-full mt-2 py-3.5 rounded-xl font-bold text-[13px] bg-slate-900 text-white hover:bg-blue-600 transition-all shadow-md flex items-center justify-center gap-2 group/btn shrink-0">Ver Detalles y Precios <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" class="shrink-0 transition-transform group-hover/btn:translate-x-1"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg></button>` 
                     : `<button onclick="addToCart('${item.titulo}', '${item.icono}')" class="w-full py-3.5 rounded-xl font-bold text-[13px] transition-all shadow-sm flex items-center justify-center gap-2 shrink-0 ${style.btn}">Cotizar Solución</button>`;
 
                 gridTech.innerHTML += `
-                    <div class="bg-white rounded-[2rem] border border-slate-200 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 p-8 flex flex-col group relative overflow-hidden h-full">
+                    <div class="w-[85vw] md:w-auto shrink-0 snap-center bg-white rounded-[2rem] border border-slate-200 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 p-8 flex flex-col group relative overflow-hidden h-full">
                         <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-slate-50 to-slate-100 rounded-bl-full -z-10 opacity-50 group-hover:scale-110 transition-transform"></div>
-                        <div class="w-14 h-14 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center mb-6 shadow-sm ${style.color} group-hover:scale-110 transition-transform duration-300 shrink-0">
-                            ${style.svg}
-                        </div>
+                        <div class="w-14 h-14 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center mb-6 shadow-sm ${style.color} group-hover:scale-110 transition-transform duration-300 shrink-0">${style.svg}</div>
                         <h3 class="text-xl font-black text-slate-900 mb-3 leading-tight">${item.titulo}</h3>
                         <p class="text-[13px] text-slate-500 font-medium mb-8 leading-relaxed flex-grow">${item.descripcion}</p>
                         ${actionBtn}
                     </div>`;
             });
 
-            const gridStudio = document.getElementById('studio-grid');
-            gridStudio.innerHTML = '';
+            const gridStudio = document.getElementById('studio-grid'); gridStudio.innerHTML = '';
+            gridStudio.className = 'flex overflow-x-auto md:grid md:grid-cols-3 snap-x snap-mandatory gap-6 pb-8 hide-scrollbar items-stretch';
             dbServicios.forEach(item => {
                 const style = iconDict[item.icono] || iconDict['branding'];
                 gridStudio.innerHTML += `
-                    <div class="bg-white rounded-[2rem] border border-slate-200 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 p-8 flex flex-col items-start group relative overflow-hidden h-full">
+                    <div class="w-[85vw] md:w-auto shrink-0 snap-center bg-white rounded-[2rem] border border-slate-200 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 p-8 flex flex-col items-start group relative overflow-hidden h-full">
                         <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-slate-50 to-slate-100 rounded-bl-full -z-10 opacity-50 group-hover:scale-110 transition-transform"></div>
-                        <div class="w-14 h-14 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center mb-6 shadow-sm ${style.color} group-hover:scale-110 transition-transform duration-300 shrink-0">
-                            ${style.svg}
-                        </div>
+                        <div class="w-14 h-14 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center mb-6 shadow-sm ${style.color} group-hover:scale-110 transition-transform duration-300 shrink-0">${style.svg}</div>
                         <h3 class="text-xl font-black text-slate-900 mb-3">${item.titulo}</h3>
                         <p class="text-[13px] text-slate-500 font-medium mb-8 flex-grow leading-relaxed">${item.descripcion}</p>
                         <button onclick="addToCart('${item.titulo}', '${item.icono}')" class="w-full py-3.5 rounded-xl font-bold text-sm transition-all shadow-sm shrink-0 ${style.btn}">Cotizar Servicio</button>
@@ -717,195 +512,109 @@
         let currentModalProductId = null;
 
         function openDynamicModal(productId) {
-            const data = dbProductos[productId];
-            if(!data || !data.modalInfo) return;
-            const info = data.modalInfo;
-            currentModalProductId = productId;
+            const data = dbProductos[productId]; if(!data || !data.modalInfo) return;
+            const info = data.modalInfo; currentModalProductId = productId;
 
-            const headerSection = document.getElementById('modal-header-section');
-            headerSection.style.backgroundColor = info.themeColor;
-
-            const tagEl = document.getElementById('modal-tag');
-            tagEl.innerHTML = `<span class="w-2.5 h-2.5 rounded-full inline-block mr-1" style="background-color: ${info.themeColor}"></span> <span style="color: ${info.themeColor}">${info.tag}</span>`;
-
-            const titleHtmlEl = document.getElementById('modal-title-html');
-            titleHtmlEl.innerHTML = `
+            document.getElementById('modal-header-section').style.backgroundColor = info.themeColor;
+            document.getElementById('modal-tag').innerHTML = `<span class="w-2.5 h-2.5 rounded-full inline-block mr-1 shrink-0" style="background-color: ${info.themeColor}"></span> <span style="color: ${info.themeColor}">${info.tag}</span>`;
+            document.getElementById('modal-title-html').innerHTML = `
                 <span class="text-[2.75rem] md:text-[3.25rem] font-black text-slate-900 tracking-tight leading-none text-center md:text-left">${info.sloganTop}</span>
                 <span class="text-[2.25rem] md:text-[2.75rem] font-semibold text-slate-600 tracking-tight mt-1 mb-2 leading-none text-center md:text-left">${info.sloganMid}</span>
-                <span class="text-white px-8 py-2.5 rounded-full inline-block mt-3 text-3xl md:text-4xl font-black transform -rotate-3 shadow-[0_10px_20px_rgba(0,0,0,0.15)]" style="background-color: ${info.sloganBottomColor}">${info.sloganBottom}</span>
-            `;
-
+                <span class="text-white px-8 py-2.5 rounded-full inline-block mt-3 text-3xl md:text-4xl font-black transform -rotate-3 shadow-[0_10px_20px_rgba(0,0,0,0.15)]" style="background-color: ${info.sloganBottomColor}">${info.sloganBottom}</span>`;
             document.getElementById('modal-desc').innerHTML = data.descripcion;
-            
-            // Selector de Ícono Dinámico
             document.getElementById('modal-hero-icon').innerHTML = heroSvgs[productId] || heroSvgs['default'];
 
             const advContainer = document.getElementById('modal-advantages');
             if(info.ventajas && info.ventajas.length > 0) {
                 const iconSVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
-                advContainer.innerHTML = '<div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">' + 
+                advContainer.innerHTML = '<div class="flex overflow-x-auto md:grid md:grid-cols-3 snap-x snap-mandatory gap-6 pb-6 hide-scrollbar max-w-6xl mx-auto px-4 md:px-0">' + 
                     info.ventajas.map(v => `
-                        <div class="bg-white rounded-[2rem] p-8 border border-slate-200 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-2xl transition-all duration-300 group hover:-translate-y-2 relative overflow-hidden text-left z-10">
+                        <div class="w-[85vw] md:w-auto shrink-0 snap-center bg-white rounded-[2rem] p-8 border border-slate-200 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-2xl transition-all duration-300 group hover:-translate-y-2 relative overflow-hidden text-left z-10">
                             <div class="absolute top-0 right-0 w-32 h-32 rounded-bl-full -z-10 opacity-[0.04] transition-transform duration-500 group-hover:scale-125" style="background-color: ${info.themeColor}"></div>
-                            <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-sm transition-transform duration-300 group-hover:scale-110 border border-slate-50" style="background-color: ${info.themeColor}15; color: ${info.themeColor};">
-                                ${iconSVG}
-                            </div>
+                            <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-sm transition-transform duration-300 group-hover:scale-110 border border-slate-50 shrink-0" style="background-color: ${info.themeColor}15; color: ${info.themeColor};">${iconSVG}</div>
                             <h4 class="font-black text-xl mb-3 text-slate-900">${v.title}</h4>
                             <p class="text-slate-500 text-[13px] leading-relaxed font-medium">${v.desc}</p>
-                        </div>
-                    `).join('') + '</div>';
+                        </div>`).join('') + '</div>';
                 advContainer.style.display = 'block';
-            } else {
-                advContainer.style.display = 'none';
-            }
+            } else { advContainer.style.display = 'none'; }
 
-            const grid = document.getElementById('modal-pricing-grid');
-            grid.innerHTML = '';
+            const grid = document.getElementById('modal-pricing-grid'); grid.innerHTML = '';
             const isMensual = document.getElementById('modal-btn-mensual').classList.contains('bg-white');
 
-            info.planes.forEach((plan, i) => {
+            info.planes.forEach((plan) => {
                 const price = isMensual ? plan.pMes : plan.pAnual;
                 const period = isMensual ? '/mes' : '/año';
                 const setup = isMensual ? `Setup inicial: S/ ${plan.setupM}` : `Setup inicial: ${plan.setupA}`;
                 
                 let cardClass, btnClass, headerBg, setupClass, listColor;
                 let finalIcon = plan.premium ? planIcons['premium'] : (plan.destacado ? planIcons['pro'] : planIcons['basico']);
-
-                // Lógica de Descuentos Black Friday
-                let originalPriceHtml = '';
-                let finalPrice = price;
-                let promoBadge = '';
+                let originalPriceHtml = ''; let finalPrice = price; let promoBadge = '';
                 
                 if (promoGlobal && promoGlobal.activa) {
                     let numPrice = parseFloat(price.replace(/,/g, ''));
                     if (!isNaN(numPrice)) {
-                        let descVal = numPrice * (promoGlobal.descuento / 100);
-                        let newPrice = (numPrice - descVal).toFixed(2);
+                        let descVal = numPrice * (promoGlobal.descuento / 100); let newPrice = (numPrice - descVal).toFixed(2);
                         if(newPrice.endsWith('.00')) newPrice = parseInt(newPrice);
                         finalPrice = `<span class="text-rose-500">${newPrice}</span>`;
                         originalPriceHtml = `<div class="absolute -top-7 left-0 right-0 text-center text-slate-400 font-bold line-through text-lg decoration-rose-500 decoration-2">S/ ${price}</div>`;
-                        promoBadge = `<div class="absolute -top-4 -right-4 bg-rose-600 text-white w-16 h-16 rounded-full flex items-center justify-center font-black text-[17px] rotate-12 shadow-xl border-4 border-white z-20 animate-[bounce_2s_infinite]">-${promoGlobal.descuento}%</div>`;
+                        promoBadge = `<div class="absolute -top-4 -right-4 bg-rose-600 text-white w-16 h-16 rounded-full flex items-center justify-center font-black text-[17px] rotate-12 shadow-xl border-4 border-white z-20 animate-[bounce_2s_infinite] shrink-0">-${promoGlobal.descuento}%</div>`;
                     }
                 }
 
-                if(plan.premium) {
-                    cardClass = "bg-slate-900 text-white border-slate-800 shadow-xl";
-                    headerBg = "bg-slate-800 text-amber-400";
-                    btnClass = "bg-white text-slate-900 hover:bg-slate-100";
-                    setupClass = isMensual ? "bg-slate-800 text-slate-300 border-slate-700" : "bg-green-500/20 text-green-400 border-green-500/30";
-                    listColor = "text-slate-300";
-                } else if(plan.destacado) {
-                    cardClass = `bg-white shadow-2xl relative transform md:-translate-y-4 border-2`;
-                    headerBg = `bg-slate-50 text-slate-900`;
-                    btnClass = `text-white shadow-md hover:opacity-90`;
-                    setupClass = isMensual ? "bg-slate-50 text-slate-700 border-slate-200" : "bg-green-50 text-green-700 border-green-200";
-                    listColor = "text-slate-700";
-                } else {
-                    cardClass = "bg-white border-slate-200 shadow-sm hover:shadow-lg";
-                    headerBg = "bg-slate-50 text-slate-600";
-                    btnClass = "bg-slate-100 text-slate-800 hover:bg-slate-200";
-                    setupClass = isMensual ? "bg-slate-50 text-slate-500 border-slate-200" : "bg-green-50 text-green-700 border-green-200";
-                    listColor = "text-slate-600";
-                }
+                if(plan.premium) { cardClass = "bg-slate-900 text-white border-slate-800 shadow-xl"; headerBg = "bg-slate-800 text-amber-400"; btnClass = "bg-white text-slate-900 hover:bg-slate-100"; setupClass = isMensual ? "bg-slate-800 text-slate-300 border-slate-700" : "bg-green-500/20 text-green-400 border-green-500/30"; listColor = "text-slate-300"; } 
+                else if(plan.destacado) { cardClass = `bg-white shadow-2xl relative transform xl:-translate-y-4 border-2`; headerBg = `bg-slate-50 text-slate-900`; btnClass = `text-white shadow-md hover:opacity-90`; setupClass = isMensual ? "bg-slate-50 text-slate-700 border-slate-200" : "bg-green-50 text-green-700 border-green-200"; listColor = "text-slate-700"; } 
+                else { cardClass = "bg-white border-slate-200 shadow-sm hover:shadow-lg"; headerBg = "bg-slate-50 text-slate-600"; btnClass = "bg-slate-100 text-slate-800 hover:bg-slate-200"; setupClass = isMensual ? "bg-slate-50 text-slate-500 border-slate-200" : "bg-green-50 text-green-700 border-green-200"; listColor = "text-slate-600"; }
 
-                // Generar lista limpia para GS o JS
                 let featuresHtml = "";
                 if(Array.isArray(plan.features)) {
-                    featuresHtml = plan.features.map(f => `
-                        <li class="flex items-start gap-3">
-                            <div class="mt-0.5 w-5 h-5 rounded-full ${plan.premium ? 'bg-amber-500/20 text-amber-400' : (plan.destacado ? 'bg-emerald-500/20 text-emerald-500' : 'bg-green-500/20 text-green-600')} flex items-center justify-center shrink-0">
-                                <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
-                            </div>
-                            <span class="leading-relaxed">${f}</span>
-                        </li>
-                    `).join('');
-                } else {
-                    featuresHtml = `<p class="text-sm italic">Información completa al contactar.</p>`;
+                    featuresHtml = plan.features.map(f => `<li class="flex items-start gap-3"><div class="mt-0.5 w-5 h-5 rounded-full ${plan.premium ? 'bg-amber-500/20 text-amber-400' : (plan.destacado ? 'bg-emerald-500/20 text-emerald-500' : 'bg-green-500/20 text-green-600')} flex items-center justify-center shrink-0"><svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg></div><span class="leading-relaxed">${f}</span></li>`).join('');
                 }
 
                 grid.innerHTML += `
                     <div class="w-[85vw] sm:w-[320px] shrink-0 snap-center rounded-[2rem] border ${cardClass} overflow-hidden flex flex-col transition-all h-full relative" ${plan.destacado ? `style="border-color: ${info.themeColor};"` : ''}>
                         ${plan.destacado ? `<div class="text-white text-[10px] font-black uppercase tracking-[0.2em] py-2.5 text-center shadow-sm" style="background-color: ${info.themeColor}">Recomendado para Crecer</div>` : ''}
                         <div class="p-8 border-b ${plan.premium ? 'border-slate-800' : 'border-slate-100'}">
-                            <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 shadow-sm ${headerBg}">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0">${finalIcon}</svg>
-                            </div>
+                            <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 shadow-sm shrink-0 ${headerBg}"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0">${finalIcon}</svg></div>
                             <h4 class="text-xl font-black mb-2 ${plan.premium ? 'text-white' : 'text-slate-900'}">${plan.nombre}</h4>
                             <p class="text-xs mb-6 min-h-[45px] leading-relaxed ${plan.premium ? 'text-slate-400' : 'text-slate-500'}">${plan.desc}</p>
-                            
-                            <div class="flex items-end gap-1 mb-4 relative mt-8">
-                                ${promoBadge}
-                                ${originalPriceHtml}
-                                <span class="font-bold text-xl mb-1 ${plan.premium ? 'text-slate-500' : 'text-slate-400'}">S/</span>
-                                <span class="text-5xl font-black tracking-tight" ${plan.destacado && (!promoGlobal || !promoGlobal.activa) ? `style="color: ${info.themeColor};"` : ''}>${finalPrice}</span>
-                                <span class="font-bold mb-1 ${plan.premium ? 'text-slate-500' : 'text-slate-400'}">${period}</span>
-                            </div>
-                            
+                            <div class="flex items-end gap-1 mb-4 relative mt-8">${promoBadge}${originalPriceHtml}<span class="font-bold text-xl mb-1 ${plan.premium ? 'text-slate-500' : 'text-slate-400'}">S/</span><span class="text-5xl font-black tracking-tight" ${plan.destacado && (!promoGlobal || !promoGlobal.activa) ? `style="color: ${info.themeColor};"` : ''}>${finalPrice}</span><span class="font-bold mb-1 ${plan.premium ? 'text-slate-500' : 'text-slate-400'}">${period}</span></div>
                             <div class="text-[11px] font-bold py-2.5 px-3 rounded-xl border mb-6 text-center shadow-sm transition-colors ${setupClass}">${setup}</div>
-                            
-                            <button onclick="selectModalPlan('${plan.nombre}')" class="w-full py-4 font-black text-[13px] uppercase tracking-widest rounded-xl transition-all flex items-center justify-center gap-2 shrink-0 ${btnClass}" ${plan.destacado ? `style="background-color: ${info.themeColor};"` : ''}>
-                                Añadir a Cotización
-                            </button>
+                            <button onclick="selectModalPlan('${plan.nombre}')" class="w-full py-4 font-black text-[13px] uppercase tracking-widest rounded-xl transition-all flex items-center justify-center gap-2 shrink-0 ${btnClass}" ${plan.destacado ? `style="background-color: ${info.themeColor};"` : ''}>Añadir a Cotización</button>
                         </div>
-                        <div class="p-8 flex-1 ${plan.premium ? 'bg-slate-800/50' : 'bg-slate-50/50'}">
-                            <ul class="space-y-4 text-xs font-medium ${listColor}">${featuresHtml}</ul>
-                        </div>
-                    </div>
-                `;
+                        <div class="p-8 flex-1 ${plan.premium ? 'bg-slate-800/50' : 'bg-slate-50/50'}"><ul class="space-y-4 text-xs font-medium ${listColor}">${featuresHtml}</ul></div>
+                    </div>`;
             });
 
-            const modal = document.getElementById('product-modal');
-            modal.classList.remove('hidden');
-            setTimeout(() => modal.classList.remove('opacity-0'), 10);
-            document.body.style.overflow = 'hidden';
+            const modal = document.getElementById('product-modal'); modal.classList.remove('hidden');
+            setTimeout(() => modal.classList.remove('opacity-0'), 10); document.body.style.overflow = 'hidden';
         }
 
         function closeProductModal() {
-            const modal = document.getElementById('product-modal');
-            modal.classList.add('opacity-0');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                document.body.style.overflow = ''; 
-                currentModalProductId = null;
-            }, 300);
+            const modal = document.getElementById('product-modal'); modal.classList.add('opacity-0');
+            setTimeout(() => { modal.classList.add('hidden'); document.body.style.overflow = ''; currentModalProductId = null; }, 300);
         }
 
         function toggleModalPricing(tipo) {
-            const btnMensual = document.getElementById('modal-btn-mensual');
-            const btnAnual = document.getElementById('modal-btn-anual');
-            
+            const btnMensual = document.getElementById('modal-btn-mensual'); const btnAnual = document.getElementById('modal-btn-anual');
             if(tipo === 'mensual' && btnMensual.classList.contains('bg-white')) return;
             if(tipo === 'anual' && btnAnual.classList.contains('bg-white')) return;
-
-            if(tipo === 'mensual') {
-                btnMensual.className = "px-8 py-2.5 rounded-full text-sm font-black bg-white text-slate-900 shadow-sm transition-all duration-300";
-                btnAnual.className = "px-8 py-2.5 rounded-full text-sm font-black text-slate-500 hover:text-slate-800 transition-all duration-300 flex items-center gap-2";
-            } else {
-                btnAnual.className = "px-8 py-2.5 rounded-full text-sm font-black bg-white text-slate-900 shadow-sm transition-all duration-300 flex items-center gap-2";
-                btnMensual.className = "px-8 py-2.5 rounded-full text-sm font-black text-slate-500 hover:text-slate-800 transition-all duration-300";
-            }
+            if(tipo === 'mensual') { btnMensual.className = "px-8 py-2.5 rounded-full text-sm font-black bg-white text-slate-900 shadow-sm transition-all duration-300 shrink-0"; btnAnual.className = "px-8 py-2.5 rounded-full text-sm font-black text-slate-500 hover:text-slate-800 transition-all duration-300 flex items-center gap-2 shrink-0"; } 
+            else { btnAnual.className = "px-8 py-2.5 rounded-full text-sm font-black bg-white text-slate-900 shadow-sm transition-all duration-300 flex items-center gap-2 shrink-0"; btnMensual.className = "px-8 py-2.5 rounded-full text-sm font-black text-slate-500 hover:text-slate-800 transition-all duration-300 shrink-0"; }
             if(currentModalProductId) openDynamicModal(currentModalProductId);
         }
 
         function selectModalPlan(planName) {
             if(!currentModalProductId) return;
-            const data = dbProductos[currentModalProductId];
-            const isAnual = document.getElementById('modal-btn-anual').classList.contains('bg-white');
+            const data = dbProductos[currentModalProductId]; const isAnual = document.getElementById('modal-btn-anual').classList.contains('bg-white');
             const fullPlanName = `${data.titulo} - ${planName} (${isAnual ? 'Anual' : 'Mensual'})`;
-            
-            addToCart(fullPlanName, data.icono);
-            closeProductModal();
-            setTimeout(() => toggleCart(), 300);
+            addToCart(fullPlanName, data.icono); closeProductModal(); setTimeout(() => toggleCart(), 300);
         }
 
-        let cart = [];
-        try { cart = JSON.parse(localStorage.getItem('masdigital_cart_v3')) || []; } catch(e) {}
+        let cart = []; try { cart = JSON.parse(localStorage.getItem('masdigital_cart_v3')) || []; } catch(e) {}
 
         function showToast(message, isError = false) {
-            const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            toast.className = `toast ${isError ? 'toast-error' : ''}`;
-            toast.innerText = message; container.appendChild(toast);
+            const container = document.getElementById('toast-container'); const toast = document.createElement('div');
+            toast.className = `toast ${isError ? 'toast-error' : ''}`; toast.innerText = message; container.appendChild(toast);
             setTimeout(() => { if(toast.parentNode) toast.parentNode.removeChild(toast); }, 3500);
         }
 
@@ -914,228 +623,93 @@
         function isValidEmail(email) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); }
 
         window.toggleCart = function() {
-            const sidebar = document.getElementById('cart-sidebar');
-            const overlay = document.getElementById('cart-overlay');
-            if(sidebar.classList.contains('translate-x-full')) {
-                sidebar.classList.remove('translate-x-full');
-                overlay.classList.remove('hidden');
-                setTimeout(() => overlay.classList.remove('opacity-0'), 10);
-                renderCart();
-            } else {
-                sidebar.classList.add('translate-x-full');
-                overlay.classList.add('opacity-0');
-                setTimeout(() => overlay.classList.add('hidden'), 300);
-            }
+            const sidebar = document.getElementById('cart-sidebar'); const overlay = document.getElementById('cart-overlay');
+            if(sidebar.classList.contains('translate-x-full')) { sidebar.classList.remove('translate-x-full'); overlay.classList.remove('hidden'); setTimeout(() => overlay.classList.remove('opacity-0'), 10); renderCart(); } 
+            else { sidebar.classList.add('translate-x-full'); overlay.classList.add('opacity-0'); setTimeout(() => overlay.classList.add('hidden'), 300); }
         }
 
         window.addToCart = function(serviceName, iconKey) {
-            if(!cart.find(i => i.name === serviceName)) {
-                cart.push({name: serviceName, icon: iconKey});
-                try { localStorage.setItem('masdigital_cart_v3', JSON.stringify(cart)); } catch(e){}
-                updateCartCount();
-                showToast(`✅ Añadido a tu cotización.`);
-            } else { showToast(`⚠️ Este servicio ya está en tu lista.`); }
+            if(!cart.find(i => i.name === serviceName)) { cart.push({name: serviceName, icon: iconKey}); try { localStorage.setItem('masdigital_cart_v3', JSON.stringify(cart)); } catch(e){} updateCartCount(); showToast(`✅ Añadido a tu cotización.`); } 
+            else { showToast(`⚠️ Este servicio ya está en tu lista.`); }
         }
 
-        window.removeFromCart = function(index) {
-            cart.splice(index, 1);
-            try { localStorage.setItem('masdigital_cart_v3', JSON.stringify(cart)); } catch(e){}
-            updateCartCount(); renderCart();
-        }
-
-        function updateCartCount() {
-            const cDesktop = document.getElementById('cart-count-desktop');
-            const cMobile = document.getElementById('cart-count-mobile');
-            const cHeader = document.getElementById('cart-header-count');
-            if(cDesktop) cDesktop.innerText = cart.length;
-            if(cMobile) cMobile.innerText = cart.length;
-            if(cHeader) cHeader.innerText = cart.length;
-        }
+        window.removeFromCart = function(index) { cart.splice(index, 1); try { localStorage.setItem('masdigital_cart_v3', JSON.stringify(cart)); } catch(e){} updateCartCount(); renderCart(); }
+        function updateCartCount() { ['cart-count-desktop', 'cart-count-mobile', 'cart-header-count'].forEach(id => { let el = document.getElementById(id); if(el) el.innerText = cart.length; }); }
 
         function renderCart() {
             const container = document.getElementById('cart-items');
-            if(cart.length === 0) {
-                container.innerHTML = `
-                    <div class="h-full flex flex-col items-center justify-center text-slate-400 text-center px-4 w-full">
-                        <div class="w-20 h-20 rounded-full bg-white shadow-sm border border-slate-200 flex items-center justify-center mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" class="shrink-0"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-                        </div>
-                        <p class="font-bold text-slate-500 mb-1">Tu lista está vacía.</p>
-                        <p class="text-xs font-medium">Agrega las soluciones que necesita tu empresa.</p>
-                    </div>`;
-                return;
-            }
+            if(cart.length === 0) { container.innerHTML = `<div class="h-full flex flex-col items-center justify-center text-slate-400 text-center px-4 w-full"><div class="w-20 h-20 rounded-full bg-white shadow-sm border border-slate-200 flex items-center justify-center mb-4 shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" class="shrink-0"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg></div><p class="font-bold text-slate-500 mb-1">Tu lista está vacía.</p><p class="text-xs font-medium">Agrega las soluciones que necesita tu empresa.</p></div>`; return; }
             container.innerHTML = '';
             cart.forEach((item, index) => {
-                let svgRaw = iconDict[item.icon] ? iconDict[item.icon].svg : iconDict['medida'].svg;
-                let colorClass = iconDict[item.icon] ? iconDict[item.icon].color : 'text-slate-800';
-                container.innerHTML += `
-                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex justify-between items-center gap-4 transition-transform hover:-translate-y-0.5 w-full relative z-10">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-xl bg-slate-50 ${colorClass} flex items-center justify-center shrink-0 border border-slate-100">
-                                <div class="w-5 h-5 flex items-center justify-center">${svgRaw}</div>
-                            </div>
-                            <h4 class="font-bold text-[13px] text-slate-800 leading-tight pr-2">${item.name}</h4>
-                        </div>
-                        <button onclick="removeFromCart(${index})" class="text-slate-300 hover:text-red-500 bg-white hover:bg-red-50 border border-slate-100 hover:border-red-100 rounded-lg transition-colors p-2.5 shrink-0 shadow-sm" title="Eliminar servicio">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" class="shrink-0"><path d="M3 6h18"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                        </button>
-                    </div>`;
+                let svgRaw = iconDict[item.icon] ? iconDict[item.icon].svg : iconDict['medida'].svg; let colorClass = iconDict[item.icon] ? iconDict[item.icon].color : 'text-slate-800';
+                container.innerHTML += `<div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex justify-between items-center gap-4 transition-transform hover:-translate-y-0.5 w-full relative z-10"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-slate-50 ${colorClass} flex items-center justify-center shrink-0 border border-slate-100"><div class="w-5 h-5 flex items-center justify-center shrink-0">${svgRaw}</div></div><h4 class="font-bold text-[13px] text-slate-800 leading-tight pr-2">${item.name}</h4></div><button onclick="removeFromCart(${index})" class="text-slate-300 hover:text-red-500 bg-white hover:bg-red-50 border border-slate-100 hover:border-red-100 rounded-lg transition-colors p-2.5 shrink-0 shadow-sm" title="Eliminar servicio"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" class="shrink-0"><path d="M3 6h18"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></button></div>`;
             });
         }
 
         window.checkout = async function() {
             if(cart.length === 0) { showToast("⚠️ Tu cotización está vacía.", true); return; }
-            
-            const nameElem = document.getElementById('client-name');
-            const phoneElem = document.getElementById('client-phone');
-            const emailElem = document.getElementById('client-email');
-            
-            const name = nameElem.value;
-            const phone = phoneElem.value;
-            const email = emailElem.value.trim() || 'No proporcionado';
-            
+            const name = document.getElementById('client-name').value; const phone = document.getElementById('client-phone').value; const email = document.getElementById('client-email').value.trim() || 'No proporcionado';
             let hasError = false;
-            if(!isValidName(name)) { nameElem.classList.add('input-error'); showToast("⚠️ Ingresa Nombre y Apellido.", true); hasError = true; }
-            if(!isValidPhone(phone)) { phoneElem.classList.add('input-error'); showToast("⚠️ El celular debe tener 9 dígitos.", true); hasError = true; }
-            if(email !== 'No proporcionado' && !isValidEmail(email)) { emailElem.classList.add('input-error'); showToast("⚠️ Correo inválido.", true); hasError = true; }
+            if(!isValidName(name)) { document.getElementById('client-name').classList.add('input-error'); showToast("⚠️ Ingresa Nombre y Apellido.", true); hasError = true; }
+            if(!isValidPhone(phone)) { document.getElementById('client-phone').classList.add('input-error'); showToast("⚠️ El celular debe tener 9 dígitos.", true); hasError = true; }
+            if(email !== 'No proporcionado' && !isValidEmail(email)) { document.getElementById('client-email').classList.add('input-error'); showToast("⚠️ Correo inválido.", true); hasError = true; }
             if(hasError) return;
 
-            const btn = document.getElementById('btn-checkout');
-            const txt = document.getElementById('txt-checkout');
+            const btn = document.getElementById('btn-checkout'); const txt = document.getElementById('txt-checkout');
             btn.disabled = true; txt.innerText = "Procesando..."; btn.classList.add('opacity-70', 'cursor-wait');
 
             let reqStr = cart.map(i => i.name).join(" | ");
             const payload = { nombre: name.toUpperCase(), celular: phone, email: email, requerimiento: reqStr, origen: "Carrito Web" };
-            
-            // Grabar en GS
             fetch(URL_BACKEND_CATALOGO, { method: 'POST', body: JSON.stringify({accion: 'registrarLead', payload: payload}), redirect: 'follow' }).catch(e=>{});
 
-            let textMsg = "¡Hola equipo de *MAS Digital*! 👋\n\n";
-            textMsg += `Soy *${name.toUpperCase()}* y deseo recibir asesoría experta. 🚀\n\n`;
-            textMsg += "Me interesan los siguientes servicios:\n";
+            let textMsg = `¡Hola equipo de *MAS Digital*! 👋\n\nSoy *${name.toUpperCase()}* y deseo recibir asesoría experta. 🚀\n\nMe interesan los siguientes servicios:\n`;
             cart.forEach(item => { textMsg += `✅ ${item.name}\n`; });
             
             txt.innerText = "¡Enviado!";
-            setTimeout(() => {
-                const safeUrl = 'https://wa.me/51929389268?text=' + encodeURIComponent(textMsg);
-                window.open(safeUrl, '_blank');
-                btn.disabled = false; btn.classList.remove('opacity-70', 'cursor-wait'); txt.innerText = "Enviar a WhatsApp";
-            }, 800);
+            setTimeout(() => { const safeUrl = 'https://wa.me/' + (promoGlobal.wsp || '51929389268') + '?text=' + encodeURIComponent(textMsg); window.open(safeUrl, '_blank'); btn.disabled = false; btn.classList.remove('opacity-70', 'cursor-wait'); txt.innerText = "Enviar a WhatsApp"; }, 800);
         }
 
-        // --- CHATBOT INTELIGENTE CON BOTONES ---
-        let chatState = 1;
-        let leadData = { name: '', need: '', phone: '', email: '' };
+        let chatState = 1; let leadData = { name: '', need: '', phone: '', email: '' };
 
         window.toggleChat = function() {
-            const win = document.getElementById('chatbot-window');
-            const teaser = document.getElementById('chat-teaser');
-            const iChat = document.getElementById('icon-chat');
-            const iClose = document.getElementById('icon-close');
-            
-            if(win.classList.contains('hidden')) {
-                win.classList.remove('hidden');
-                if(teaser) teaser.style.display = 'none';
-                iChat.classList.add('hidden'); iClose.classList.remove('hidden');
-                setTimeout(() => { win.classList.remove('opacity-0', 'translate-y-4'); document.getElementById('chat-input').focus(); }, 10);
-            } else {
-                win.classList.add('opacity-0', 'translate-y-4');
-                iChat.classList.remove('hidden'); iClose.classList.add('hidden');
-                setTimeout(() => win.classList.add('hidden'), 300);
-            }
+            const win = document.getElementById('chatbot-window'); const teaser = document.getElementById('chat-teaser');
+            const iChat = document.getElementById('icon-chat'); const iClose = document.getElementById('icon-close');
+            if(win.classList.contains('hidden')) { win.classList.remove('hidden'); if(teaser) teaser.style.display = 'none'; iChat.classList.add('hidden'); iClose.classList.remove('hidden'); setTimeout(() => { win.classList.remove('opacity-0', 'translate-y-4'); document.getElementById('chat-input').focus(); }, 10); } 
+            else { win.classList.add('opacity-0', 'translate-y-4'); iChat.classList.remove('hidden'); iClose.classList.add('hidden'); setTimeout(() => win.classList.add('hidden'), 300); }
         };
 
         function appendMsg(text, sender, options = []) {
-            const container = document.getElementById('chat-messages');
-            const align = sender === 'user' ? 'items-end' : 'items-start';
-            const style = sender === 'user' ? 'bg-blue-600 text-white rounded-tr-sm' : 'bg-white border border-slate-200 text-slate-700 rounded-tl-sm';
-            let fmtText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-
+            const container = document.getElementById('chat-messages'); const align = sender === 'user' ? 'items-end' : 'items-start'; const style = sender === 'user' ? 'bg-blue-600 text-white rounded-tr-sm' : 'bg-white border border-slate-200 text-slate-700 rounded-tl-sm'; let fmtText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
             let html = `<div class="flex flex-col gap-1 ${align} w-full"><div class="${style} shadow-sm text-[13px] font-medium py-3 px-4 rounded-2xl max-w-[85%] leading-relaxed">${fmtText}</div>`;
-
-            if (options && options.length > 0) {
-                html += `<div class="flex flex-col gap-2 mt-2 max-w-[85%] w-full">`;
-                options.forEach(opt => {
-                    html += `<button onclick="handleChatOption(this, '${opt}')" class="text-left px-4 py-2.5 bg-blue-50 hover:bg-blue-100 text-blue-700 text-[12px] font-bold rounded-xl border border-blue-200 transition-colors shadow-sm w-full">${opt}</button>`;
-                });
-                html += `</div>`;
-            }
-            html += `</div>`;
-            container.innerHTML += html;
-            container.scrollTop = container.scrollHeight;
+            if (options && options.length > 0) { html += `<div class="flex flex-col gap-2 mt-2 max-w-[85%] w-full">`; options.forEach(opt => { html += `<button onclick="handleChatOption(this, '${opt}')" class="text-left px-4 py-2.5 bg-blue-50 hover:bg-blue-100 text-blue-700 text-[12px] font-bold rounded-xl border border-blue-200 transition-colors shadow-sm w-full">${opt}</button>`; }); html += `</div>`; }
+            html += `</div>`; container.innerHTML += html; container.scrollTop = container.scrollHeight;
         }
 
-        window.handleChatOption = function(btnRef, optionText) {
-            btnRef.parentNode.style.display = 'none';
-            appendMsg(optionText, 'user');
-            processChatLogic(optionText);
-        };
-
-        window.handleChat = function(text) {
-            text = text.trim();
-            if(!text) return;
-            appendMsg(text, 'user');
-            processChatLogic(text);
-        };
+        window.handleChatOption = function(btnRef, optionText) { btnRef.parentNode.style.display = 'none'; appendMsg(optionText, 'user'); processChatLogic(optionText); };
+        window.handleChat = function(text) { text = text.trim(); if(!text) return; appendMsg(text, 'user'); processChatLogic(text); };
 
         window.processChatLogic = function(text) {
             setTimeout(async () => {
                 if(chatState === 1) {
                     if(!isValidName(text)) { appendMsg("Por favor, ingresa al menos **un nombre y un apellido**.", 'bot'); return; }
-                    leadData.name = text.toUpperCase();
-                    appendMsg(`¡Un gusto saludarte, ${leadData.name}! 👋\n\n¿En qué te podemos ayudar hoy? Elige una opción:`, 'bot', [
-                        "Sistemas y Aplicaciones 📱",
-                        "Marketing y Redes 🚀",
-                        "Asesoría Personalizada 💡"
-                    ]);
-                    chatState = 2;
+                    leadData.name = text.toUpperCase(); appendMsg(`¡Un gusto saludarte, ${leadData.name}! 👋\n\n¿En qué te podemos ayudar hoy? Elige una opción:`, 'bot', ["Sistemas y Aplicaciones 📱", "Marketing y Redes 🚀", "Asesoría Personalizada 💡"]); chatState = 2;
                 } else if(chatState === 2) {
                     leadData.need = text;
-                    if(text.includes("Sistemas")) {
-                        appendMsg("¡Perfecto! Automatizar es nuestra especialidad. ¿Qué tipo de sistema buscas?", 'bot', [
-                            "Control de Asistencia RRHH",
-                            "Ventas y App Delivery",
-                            "Sistema a mi medida"
-                        ]);
-                        chatState = 3;
-                    } else if(text.includes("Marketing")) {
-                        appendMsg("¡Genial! Haremos crecer tu marca. ¿Qué servicio te interesa más?", 'bot', [
-                            "Gestión de Redes Sociales",
-                            "Branding y Logotipo",
-                            "Producción Audiovisual"
-                        ]);
-                        chatState = 3;
-                    } else {
-                        appendMsg("Comprendo. Tienes un reto muy específico. Te sugiero una **Asesoría Especializada** con nuestros expertos.\n\nPara que un especialista revise tu caso, ¿cuál es tu **número de celular**? (9 dígitos)", 'bot');
-                        chatState = 4;
-                    }
-                } else if(chatState === 3) {
-                    leadData.need += " - " + text;
-                    appendMsg(`¡Excelente elección! Un especialista en **${text}** preparará información exclusiva para ti.\n\nPara contactarte, ¿cuál es tu **número de celular**? (9 dígitos)`, 'bot');
-                    chatState = 4;
-                } else if(chatState === 4) {
+                    if(text.includes("Sistemas")) { appendMsg("¡Perfecto! Automatizar es nuestra especialidad. ¿Qué tipo de sistema buscas?", 'bot', ["Control de Asistencia RRHH", "Ventas y App Delivery", "Sistema a mi medida"]); chatState = 3; } 
+                    else if(text.includes("Marketing")) { appendMsg("¡Genial! Haremos crecer tu marca. ¿Qué servicio te interesa más?", 'bot', ["Gestión de Redes Sociales", "Branding y Logotipo", "Producción Audiovisual"]); chatState = 3; } 
+                    else { appendMsg("Comprendo. Tienes un reto muy específico. Te sugiero una **Asesoría Especializada** con nuestros expertos.\n\nPara que un especialista revise tu caso, ¿cuál es tu **número de celular**? (9 dígitos)", 'bot'); chatState = 4; }
+                } else if(chatState === 3) { leadData.need += " - " + text; appendMsg(`¡Excelente elección! Un especialista en **${text}** preparará información exclusiva para ti.\n\nPara contactarte, ¿cuál es tu **número de celular**? (9 dígitos)`, 'bot'); chatState = 4; } 
+                else if(chatState === 4) {
                     if(!isValidPhone(text)) { appendMsg("El número debe tener **exactamente 9 dígitos numéricos**.", 'bot'); return; }
-                    leadData.phone = text.replace(/\s+/g, '');
-                    appendMsg("¡Anotado perfectamente! 📱", 'bot');
-                    setTimeout(() => appendMsg("(Opcional) ¿Tienes un **correo electrónico**? Si prefieres no dejarlo, escribe **'No'**.", 'bot'), 600);
-                    chatState = 5;
+                    leadData.phone = text.replace(/\s+/g, ''); appendMsg("¡Anotado perfectamente! 📱", 'bot'); setTimeout(() => appendMsg("(Opcional) ¿Tienes un **correo electrónico**? Si prefieres no dejarlo, escribe **'No'**.", 'bot'), 600); chatState = 5;
                 } else if(chatState === 5) {
-                    const isNo = text.toLowerCase() === 'no';
-                    if(!isNo && !isValidEmail(text)) { appendMsg("Formato de correo inválido. Si prefieres omitir, escribe **'No'**.", 'bot'); return; }
-                    leadData.email = isNo ? 'No proporcionado' : text;
-                    appendMsg("Procesando tu información... ⏳", 'bot');
-                    
-                    const payload = { nombre: leadData.name, celular: leadData.phone, email: leadData.email, requerimiento: leadData.need, origen: "Chatbot" };
-                    fetch(URL_BACKEND_CATALOGO, { method: 'POST', body: JSON.stringify({accion: 'registrarLead', payload: payload}), redirect: 'follow' }).catch(e=>{});
-
+                    const isNo = text.toLowerCase() === 'no'; if(!isNo && !isValidEmail(text)) { appendMsg("Formato de correo inválido. Si prefieres omitir, escribe **'No'**.", 'bot'); return; }
+                    leadData.email = isNo ? 'No proporcionado' : text; appendMsg("Procesando tu información... ⏳", 'bot');
+                    fetch(URL_BACKEND_CATALOGO, { method: 'POST', body: JSON.stringify({accion: 'registrarLead', payload: { nombre: leadData.name, celular: leadData.phone, email: leadData.email, requerimiento: leadData.need, origen: "Chatbot" }}), redirect: 'follow' }).catch(e=>{});
                     setTimeout(() => {
                         appendMsg("¡Tu solicitud está lista! Un experto se comunicará contigo muy pronto. ✅", 'bot');
                         const msgWhatsApp = `¡Hola equipo de *MAS Digital*!\nSoy *${leadData.name}*.\n📱 Cel: ${leadData.phone}\n📧 Email: ${leadData.email}\n💡 Me interesa: *${leadData.need}*\n\n¡Necesito asesoría experta! 🚀`;
-                        setTimeout(() => {
-                            appendMsg(`Si deseas adelantarnos los detalles ahora mismo, haz clic abajo para enviarlo a nuestro WhatsApp:\n\n<a href="https://wa.me/51929389268?text=${encodeURIComponent(msgWhatsApp)}" target="_blank" class="block w-full py-3.5 bg-[#25D366] text-white text-center rounded-xl font-black uppercase tracking-widest text-[11px] shadow-lg shadow-[#25D366]/30 hover:bg-[#1DA851] transition-colors mt-2">📲 INICIAR CHAT EN WHATSAPP</a>`, 'bot');
-                            chatState = 6;
-                        }, 800);
+                        setTimeout(() => { appendMsg(`Si deseas adelantarnos los detalles ahora mismo, haz clic abajo para enviarlo a nuestro WhatsApp:\n\n<a href="https://wa.me/${promoGlobal.wsp || '51929389268'}?text=${encodeURIComponent(msgWhatsApp)}" target="_blank" class="block w-full py-3.5 bg-[#25D366] text-white text-center rounded-xl font-black uppercase tracking-widest text-[11px] shadow-lg shadow-[#25D366]/30 hover:bg-[#1DA851] transition-colors mt-2">📲 INICIAR CHAT EN WHATSAPP</a>`, 'bot'); chatState = 6; }, 800);
                     }, 1500);
                 }
             }, 600);
