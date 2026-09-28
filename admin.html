@@ -29,7 +29,7 @@
 
     <script>
         // 🛑 PEGA AQUÍ TU URL DEL BACKEND DE GOOGLE APPS SCRIPT 🛑
-        const URL_BACKEND = "https://script.google.com/macros/s/AKfycbyV5ZYe4VWAmalvLBSz8dGAozeg_FBNVQLVZhr-OCTXKtXkrCHwQkBF1xjqzgx9IOKU7w/exec"; 
+        const URL_BACKEND = "https://script.google.com/macros/s/AKfycbzMwp3pQfmBRw2uINcpSp7p4_HhrmRBYDNoLRdZ35hedDKlQANKILB-GZiWImboI8jcuA/exec"; 
     </script>
 
     <div id="loader" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[200] hidden items-center justify-center">
@@ -43,11 +43,22 @@
     <div id="auth-box" class="bg-white p-10 rounded-[2.5rem] shadow-2xl w-full max-w-md border border-slate-100 relative z-10">
         <div class="flex items-center justify-center gap-3 mb-8">
             <svg viewBox="0 0 280 150" class="h-10 w-auto shrink-0" xmlns="http://www.w3.org/2000/svg">
-                <defs><linearGradient id="g1-log" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#2563EB"/><stop offset="100%" stop-color="#8B5CF6"/></linearGradient><linearGradient id="g2-log" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#8B5CF6"/><stop offset="100%" stop-color="#EC4899"/></linearGradient><linearGradient id="g3-log" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#EC4899"/><stop offset="100%" stop-color="#F97316"/></linearGradient></defs>
-                <g stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 32 110 L 32 65 A 34 34 0 0 1 100 65 L 100 110" stroke="url(#g1-log)" stroke-width="32" /><path d="M 100 110 L 100 65 A 34 34 0 0 1 168 65 L 168 110" stroke="url(#g2-log)" stroke-width="32" /><path d="M 229 13.2 L 229 53.2 M 209 33.2 L 249 33.2" stroke="url(#g3-log)" stroke-width="24" /></g>
+                <defs>
+                    <linearGradient id="g1-log" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#2563EB"/><stop offset="100%" stop-color="#8B5CF6"/></linearGradient>
+                    <linearGradient id="g2-log" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#8B5CF6"/><stop offset="100%" stop-color="#EC4899"/></linearGradient>
+                    <linearGradient id="g3-log" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#EC4899"/><stop offset="100%" stop-color="#F97316"/></linearGradient>
+                </defs>
+                <g stroke-linecap="round" stroke-linejoin="round" fill="none">
+                    <path d="M 32 110 L 32 65 A 34 34 0 0 1 100 65 L 100 110" stroke="url(#g1-log)" stroke-width="32" />
+                    <path d="M 100 110 L 100 65 A 34 34 0 0 1 168 65 L 168 110" stroke="url(#g2-log)" stroke-width="32" />
+                    <path d="M 229 13.2 L 229 53.2 M 209 33.2 L 249 33.2" stroke="url(#g3-log)" stroke-width="24" />
+                </g>
             </svg>
             <div class="flex flex-col">
-                <div class="flex items-baseline leading-none"><span class="font-display font-[900] text-2xl text-slate-900 tracking-tighter">MAS</span><span class="font-display font-[700] text-2xl text-slate-900 tracking-tighter ml-1">Digital</span></div>
+                <div class="flex items-baseline leading-none">
+                    <span class="font-display font-[900] text-2xl text-slate-900 tracking-tighter">MAS</span>
+                    <span class="font-display font-[700] text-2xl text-slate-900 tracking-tighter ml-1">Digital</span>
+                </div>
                 <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mt-1 block">Panel Administrador</span>
             </div>
         </div>
@@ -66,16 +77,8 @@
                     <div><label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 ml-1">Apellidos</label><input type="text" id="reg-ape" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand-blue outline-none"></div>
                 </div>
                 <div><label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 ml-1">Correo Electrónico</label><input type="email" id="reg-email" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand-blue outline-none"></div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 ml-1">Contraseña</label><input type="password" id="reg-pass" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand-blue outline-none"></div>
-                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 ml-1">Rol</label>
-                        <select id="reg-rol" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand-blue outline-none font-bold">
-                            <option value="Operador">Ventas / Operador</option>
-                            <option value="SuperAdmin">SuperAdmin (Dueño)</option>
-                        </select>
-                    </div>
-                </div>
-                <button onclick="registrarAdmin()" class="w-full bg-brand-blue text-white font-black py-4 rounded-xl hover:bg-blue-600 transition-colors shadow-lg shadow-blue-500/30 mt-2 text-sm uppercase tracking-widest">Crear Cuenta</button>
+                <div><label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 ml-1">Crea una Contraseña</label><input type="password" id="reg-pass" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand-blue outline-none"></div>
+                <button onclick="registrarAdmin()" class="w-full bg-brand-blue text-white font-black py-4 rounded-xl hover:bg-blue-600 transition-colors shadow-lg shadow-blue-500/30 mt-2 text-sm uppercase tracking-widest">Crear Cuenta Operador</button>
                 <div class="text-center mt-4"><button onclick="toggleAuth('login')" class="text-xs font-bold text-slate-500 hover:text-slate-800">Volver a Ingresar</button></div>
             </div>
         </div>
@@ -87,27 +90,33 @@
         <aside class="w-72 bg-brand-dark text-slate-400 flex flex-col shrink-0 transition-all border-r border-slate-800 relative z-20">
             <div class="h-20 flex items-center gap-3 px-8 border-b border-slate-800 bg-slate-900/50">
                 <svg viewBox="0 0 280 150" class="h-8 w-auto shrink-0" xmlns="http://www.w3.org/2000/svg">
-                    <defs><linearGradient id="g1-side" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient><linearGradient id="g2-side" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#ec4899"/></linearGradient><linearGradient id="g3-side" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ec4899"/><stop offset="100%" stop-color="#f97316"/></linearGradient></defs>
-                    <g stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 32 110 L 32 65 A 34 34 0 0 1 100 65 L 100 110" stroke="url(#g1-side)" stroke-width="32" /><path d="M 100 110 L 100 65 A 34 34 0 0 1 168 65 L 168 110" stroke="url(#g2-side)" stroke-width="32" /><path d="M 229 13.2 L 229 53.2 M 209 33.2 L 249 33.2" stroke="url(#g3-side)" stroke-width="24" /></g>
+                    <defs>
+                        <linearGradient id="g1-side" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient>
+                        <linearGradient id="g2-side" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#ec4899"/></linearGradient>
+                        <linearGradient id="g3-side" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ec4899"/><stop offset="100%" stop-color="#f97316"/></linearGradient>
+                    </defs>
+                    <g stroke-linecap="round" stroke-linejoin="round" fill="none">
+                        <path d="M 32 110 L 32 65 A 34 34 0 0 1 100 65 L 100 110" stroke="url(#g1-side)" stroke-width="32" />
+                        <path d="M 100 110 L 100 65 A 34 34 0 0 1 168 65 L 168 110" stroke="url(#g2-side)" stroke-width="32" />
+                        <path d="M 229 13.2 L 229 53.2 M 209 33.2 L 249 33.2" stroke="url(#g3-side)" stroke-width="24" />
+                    </g>
                 </svg>
                 <div class="flex items-baseline leading-none"><span class="font-display font-[900] text-xl text-white tracking-tighter">MAS</span><span class="font-display font-[700] text-xl text-white tracking-tighter ml-1">Digital</span></div>
             </div>
 
             <nav class="flex-1 overflow-y-auto py-6 px-4 space-y-1">
-                <p class="text-[10px] font-black uppercase tracking-widest mb-3 ml-4 mt-2 text-slate-600">Comercial</p>
+                <p class="text-[10px] font-black uppercase tracking-widest mb-3 ml-4 mt-2 text-slate-600">Gestión Operativa</p>
                 <button onclick="switchView('crm')" id="nav-crm" class="w-full text-left px-4 py-3 rounded-xl font-bold text-sm bg-brand-blue text-white flex items-center gap-3 transition-colors shadow-lg shadow-blue-500/20"><svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg> Directorio CRM</button>
-                <button onclick="switchView('leads')" id="nav-leads" class="w-full text-left px-4 py-3 rounded-xl font-bold text-sm hover:bg-slate-800 hover:text-white flex items-center gap-3 transition-colors text-slate-400"><svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg> Bandeja Leads (Web)</button>
-                
-                <p class="text-[10px] font-black uppercase tracking-widest mb-3 ml-4 mt-6 text-slate-600">SaaS & Facturación</p>
-                <button onclick="switchView('suscripciones')" id="nav-suscripciones" class="w-full text-left px-4 py-3 rounded-xl font-bold text-sm hover:bg-slate-800 hover:text-white flex items-center gap-3 transition-colors text-slate-400"><svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg> Suscripciones</button>
-                <button onclick="switchView('finanzas')" id="nav-finanzas" class="w-full text-left px-4 py-3 rounded-xl font-bold text-sm hover:bg-slate-800 hover:text-white flex items-center gap-3 transition-colors text-slate-400"><svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Flujo de Caja</button>
+                <button onclick="switchView('leads')" id="nav-leads" class="w-full text-left px-4 py-3 rounded-xl font-bold text-sm hover:bg-slate-800 hover:text-white flex items-center gap-3 transition-colors text-slate-400"><svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg> Bandeja Leads</button>
+                <button onclick="switchView('suscripciones')" id="nav-suscripciones" class="w-full text-left px-4 py-3 rounded-xl font-bold text-sm hover:bg-slate-800 hover:text-white flex items-center gap-3 transition-colors text-slate-400"><svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg> Suscripciones SaaS</button>
                 <button onclick="switchView('cotizador')" id="nav-cotizador" class="w-full text-left px-4 py-3 rounded-xl font-bold text-sm hover:bg-slate-800 hover:text-white flex items-center gap-3 transition-colors text-slate-400"><svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg> Cotizador PDF</button>
-                
+                <button onclick="switchView('finanzas')" id="nav-finanzas" class="w-full text-left px-4 py-3 rounded-xl font-bold text-sm hover:bg-slate-800 hover:text-white flex items-center gap-3 transition-colors text-slate-400"><svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Flujo de Caja</button>
+
                 <div id="menu-superadmin">
                     <p class="text-[10px] font-black uppercase tracking-widest mb-3 ml-4 mt-8 text-slate-600">Catálogo Web CMS</p>
                     <button onclick="switchView('productos')" id="nav-productos" class="w-full text-left px-4 py-3 rounded-xl font-bold text-sm hover:bg-slate-800 hover:text-white flex items-center gap-3 transition-colors text-slate-400"><svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg> Sistemas & SaaS</button>
                     <button onclick="switchView('servicios')" id="nav-servicios" class="w-full text-left px-4 py-3 rounded-xl font-bold text-sm hover:bg-slate-800 hover:text-white flex items-center gap-3 transition-colors text-slate-400"><svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Content Studio</button>
-                    <button onclick="switchView('promo')" id="nav-promo" class="w-full text-left px-4 py-3 rounded-xl font-bold text-sm hover:bg-slate-800 hover:text-white flex items-center gap-3 transition-colors text-slate-400"><svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path></svg> Configuración Global</button>
+                    <button onclick="switchView('promo')" id="nav-promo" class="w-full text-left px-4 py-3 rounded-xl font-bold text-sm hover:bg-slate-800 hover:text-white flex items-center gap-3 transition-colors text-slate-400"><svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path></svg> Ofertas Globales</button>
                 </div>
             </nav>
 
@@ -131,11 +140,14 @@
                 
                 <!-- VISTA 0: CRM -->
                 <div id="view-crm" class="">
-                    <p class="text-slate-500 mb-6 text-sm font-medium">Base de datos centralizada de tus clientes corporativos.</p>
+                    <div class="flex justify-between items-end mb-6">
+                        <div><p class="text-slate-500 text-sm font-medium">Base de datos centralizada de tus clientes corporativos.</p></div>
+                        <button onclick="abrirModalCRM()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-bold text-sm transition-all shadow-lg flex items-center gap-2"><svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M12 4v16m8-8H4"></path></svg> Nuevo Cliente</button>
+                    </div>
                     <div class="bg-white border border-slate-200 rounded-[2rem] overflow-hidden shadow-sm">
                         <table class="w-full text-left text-sm whitespace-nowrap">
                             <thead class="bg-slate-50 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100">
-                                <tr><th class="px-6 py-4">Empresa</th><th class="px-6 py-4">Responsable</th><th class="px-6 py-4">Contacto</th><th class="px-6 py-4 text-center">Estado</th></tr>
+                                <tr><th class="px-6 py-4">Empresa</th><th class="px-6 py-4">Responsable</th><th class="px-6 py-4">Contacto</th><th class="px-6 py-4">Dirección</th><th class="px-6 py-4 text-center">Acciones</th></tr>
                             </thead>
                             <tbody id="crm-body" class="divide-y divide-slate-100"></tbody>
                         </table>
@@ -144,7 +156,7 @@
 
                 <!-- VISTA 1: LEADS -->
                 <div id="view-leads" class="hidden">
-                    <p class="text-slate-500 mb-6 text-sm font-medium">Prospectos recibidos desde el Carrito de Compras o Chatbot (Landing Page).</p>
+                    <p class="text-slate-500 mb-6 text-sm font-medium">Prospectos recibidos desde el Carrito de Compras o Chatbot.</p>
                     <div class="bg-white border border-slate-200 rounded-[2rem] overflow-hidden shadow-sm">
                         <table class="w-full text-left text-sm whitespace-nowrap">
                             <thead class="bg-slate-50 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100">
@@ -166,19 +178,26 @@
 
                 <!-- VISTA 3: GENERADOR PDF -->
                 <div id="view-cotizador" class="hidden max-w-4xl mx-auto">
-                    <div class="bg-white border border-slate-200 p-8 rounded-[2rem] shadow-sm mb-8 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 w-64 h-64 bg-slate-50 rounded-full blur-3xl -z-10"></div>
-                        <h3 class="font-black text-xl mb-6 text-slate-900 flex items-center gap-3 relative z-10">
-                            <div class="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0"><svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg></div>
-                            Generar Cotización PDF
+                    <div class="bg-white border border-slate-200 p-8 rounded-[2rem] shadow-sm mb-8">
+                        <h3 class="font-black text-xl mb-6 text-slate-900 flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                                <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            </div>
+                            Generar Cotización (PDF)
                         </h3>
-                        <div class="grid grid-cols-2 gap-6 mb-6 relative z-10">
-                            <div class="col-span-2 md:col-span-1"><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Cliente / Empresa</label><input type="text" id="pdf-cliente" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold outline-none focus:border-brand-blue" placeholder="Ej. Restaurante El Buen Sabor"></div>
-                            <div class="col-span-2 md:col-span-1"><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Producto del Catálogo</label><select id="pdf-producto" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-brand-blue font-bold"></select></div>
+                        <div class="grid grid-cols-2 gap-6 mb-6">
+                            <div class="col-span-2 md:col-span-1">
+                                <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Cliente / Empresa</label>
+                                <select id="pdf-cliente" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold outline-none focus:border-brand-blue"></select>
+                            </div>
+                            <div class="col-span-2 md:col-span-1">
+                                <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Producto del Catálogo</label>
+                                <select id="pdf-producto" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-brand-blue font-bold"></select>
+                            </div>
                             <div class="col-span-2"><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Notas adicionales</label><input type="text" id="pdf-notas" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-brand-blue" placeholder="Ej. Incluye dominio y hosting anual."></div>
                         </div>
-                        <button onclick="generarPDFCotizacion()" class="w-full bg-slate-900 hover:bg-brand-blue text-white font-black py-4 rounded-xl shadow-lg transition-all text-sm uppercase tracking-widest flex items-center justify-center gap-2 relative z-10">
-                            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg> Descargar Cotización Oficial
+                        <button onclick="generarPDFCotizacion()" class="w-full bg-slate-900 hover:bg-brand-blue text-white font-black py-4 rounded-xl shadow-lg transition-all text-sm uppercase tracking-widest flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg> Generar Cotización PDF
                         </button>
                     </div>
                 </div>
@@ -188,12 +207,12 @@
                     <div id="finanzas-dash-cards" class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-8">
                         <div class="bg-white border border-slate-200 p-6 rounded-[2rem] shadow-sm flex flex-col justify-center relative overflow-hidden">
                             <div class="absolute -right-4 -top-4 w-20 h-20 bg-green-50 rounded-full z-0"></div>
-                            <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1 relative z-10">Ingresos (Ventas)</p>
+                            <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1 relative z-10">Ingresos Registrados</p>
                             <p class="text-3xl font-black text-slate-900 relative z-10" id="dash-ingresos">S/ 0.00</p>
                         </div>
                         <div class="bg-white border border-slate-200 p-6 rounded-[2rem] shadow-sm flex flex-col justify-center relative overflow-hidden">
                             <div class="absolute -right-4 -top-4 w-20 h-20 bg-rose-50 rounded-full z-0"></div>
-                            <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1 relative z-10">Egresos (Gastos)</p>
+                            <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1 relative z-10">Egresos Registrados</p>
                             <p class="text-3xl font-black text-slate-900 relative z-10" id="dash-egresos">S/ 0.00</p>
                         </div>
                         <div class="bg-slate-900 p-6 rounded-[2rem] shadow-xl lg:col-span-2 text-white relative overflow-hidden">
@@ -217,29 +236,30 @@
                                     </div>
                                     <input type="hidden" id="tx-tipo" value="Ingreso">
                                     
-                                    <div id="div-tx-sus"><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5 ml-1 text-blue-600">¿Vincular Suscripción? (Auto-Renueva)</label>
-                                        <select id="tx-sus-id" class="w-full bg-blue-50 border border-blue-200 rounded-xl px-4 py-3 text-sm font-bold outline-none text-blue-700"></select>
+                                    <div id="div-tx-sus"><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5 ml-1 text-blue-600">¿Asignar a Suscripción? (Autorenovar)</label>
+                                        <select id="tx-sus-id" class="w-full bg-blue-50 border border-blue-200 rounded-xl px-4 py-3.5 text-sm font-bold outline-none text-blue-700"></select>
                                     </div>
 
                                     <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5 ml-1">Categoría</label>
-                                        <select id="tx-cat" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold outline-none focus:border-brand-blue"></select>
+                                        <select id="tx-cat" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm font-bold outline-none focus:border-brand-blue"></select>
                                     </div>
-                                    <div class="grid grid-cols-2 gap-4">
-                                        <div class="col-span-2"><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5 ml-1">Importe (S/)</label>
-                                            <input type="number" id="tx-monto" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xl font-black text-slate-900 outline-none focus:border-brand-blue" placeholder="0.00">
-                                        </div>
+                                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5 ml-1">Importe (S/)</label>
+                                        <input type="number" id="tx-monto" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-xl font-black text-slate-900 outline-none focus:border-brand-blue" placeholder="0.00">
                                     </div>
                                     <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5 ml-1">Concepto / Detalle</label>
-                                        <input type="text" id="tx-detalle" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-brand-blue" placeholder="Ej. Pago Planilla Noviembre">
+                                        <input type="text" id="tx-detalle" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm outline-none focus:border-brand-blue" placeholder="Ej. Pago Planilla Noviembre">
                                     </div>
-                                    <button onclick="guardarTransaccion()" class="w-full bg-slate-900 hover:bg-brand-blue text-white font-bold py-4 rounded-xl shadow-lg mt-2 transition-all text-sm uppercase tracking-widest">Registrar en Caja</button>
+                                    <button onclick="guardarTransaccion()" class="w-full bg-slate-900 hover:bg-brand-blue text-white font-bold py-4 rounded-xl shadow-lg mt-4 transition-all text-sm uppercase tracking-widest">Registrar en Caja</button>
                                 </div>
                             </div>
                         </div>
                         <div class="xl:col-span-2">
-                            <div class="bg-white border border-slate-200 rounded-[2rem] overflow-hidden shadow-sm h-full flex flex-col min-h-[400px]">
+                            <div class="bg-white border border-slate-200 rounded-[2rem] overflow-hidden shadow-sm h-full flex flex-col">
                                 <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-                                    <h3 class="font-black text-lg text-slate-900">Historial de Transacciones</h3>
+                                    <div class="flex items-center gap-4">
+                                        <h3 class="font-black text-lg text-slate-900">Historial de Transacciones</h3>
+                                        <div id="filtro-vendedor-container" class="hidden"><select id="dash-filtro-vendedor" onchange="renderFinanzasList()" class="text-[10px] font-bold bg-white border border-slate-200 px-3 py-1.5 rounded-lg outline-none cursor-pointer text-slate-600"><option value="ALL">Todos los Vendedores</option></select></div>
+                                    </div>
                                     <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest bg-white border border-slate-200 px-3 py-1 rounded-md">Tiempo Real</span>
                                 </div>
                                 <div class="flex-1 overflow-y-auto">
@@ -255,84 +275,98 @@
                     </div>
                 </div>
 
-                <!-- VISTA 5: SISTEMAS SAAS CMS -->
                 <div id="view-productos" class="hidden">
                     <div class="flex justify-between items-end mb-8">
                         <div><p class="text-slate-500 mb-1 text-sm font-medium">Gestiona los sistemas y aplicaciones de tu Landing Page.</p></div>
-                        <button onclick="abrirModalProducto()" class="bg-slate-900 hover:bg-brand-blue text-white px-6 py-3.5 rounded-xl font-bold text-sm transition-all shadow-lg flex items-center gap-2"><svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M12 4v16m8-8H4"></path></svg> Nuevo Sistema</button>
+                        <button onclick="abrirModalProducto()" class="bg-slate-900 hover:bg-brand-blue text-white px-6 py-3.5 rounded-xl font-bold text-sm transition-all shadow-lg flex items-center gap-2">
+                            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M12 4v16m8-8H4"></path></svg> Nuevo Sistema
+                        </button>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="prod-grid"></div>
                 </div>
 
-                <!-- VISTA 6: SERVICIOS STUDIO -->
                 <div id="view-servicios" class="hidden">
                     <div class="flex justify-between items-end mb-8">
                         <div><p class="text-slate-500 mb-1 text-sm font-medium">Gestiona los servicios de agencia creativa (Content Studio).</p></div>
-                        <button onclick="abrirModalServicio()" class="bg-pink-600 hover:bg-pink-700 text-white px-6 py-3.5 rounded-xl font-bold text-sm transition-all shadow-lg shadow-pink-500/30 flex items-center gap-2"><svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M12 4v16m8-8H4"></path></svg> Nuevo Servicio</button>
+                        <button onclick="abrirModalServicio()" class="bg-pink-600 hover:bg-pink-700 text-white px-6 py-3.5 rounded-xl font-bold text-sm transition-all shadow-lg shadow-pink-500/30 flex items-center gap-2">
+                            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M12 4v16m8-8H4"></path></svg> Nuevo Servicio
+                        </button>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="serv-grid"></div>
                 </div>
 
-                <!-- VISTA 7: CONFIGURACION GLOBAL -->
                 <div id="view-promo" class="hidden">
                     <div class="bg-white border border-slate-200 p-8 rounded-[2.5rem] shadow-sm">
-                        <h3 class="text-xl font-black text-slate-900 mb-6">Configuración Global & Ofertas</h3>
-                        <div class="grid md:grid-cols-2 gap-8 max-w-4xl">
-                            <div class="space-y-4">
-                                <h4 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-4 border-b border-slate-100 pb-2">Banner Promocional</h4>
-                                <div class="flex items-center justify-between p-4 border border-slate-200 rounded-2xl bg-slate-50">
-                                    <div><p class="font-bold text-slate-900">Activar Banner Promocional</p><p class="text-[10px] text-slate-500">Tacha precios originales</p></div>
-                                    <label class="relative inline-flex items-center cursor-pointer">
-                                        <input type="checkbox" id="promo-activa" class="sr-only peer">
-                                        <div class="w-12 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-rose-500"></div>
-                                    </label>
-                                </div>
-                                <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Nombre Oferta</label><input type="text" id="promo-nombre" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand-blue outline-none" placeholder="BLACK FRIDAY"></div>
-                                <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">% Descuento</label><input type="number" id="promo-descuento" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand-blue outline-none" placeholder="20"></div>
+                        <h3 class="text-xl font-black text-slate-900 mb-6">Configuración Global Web</h3>
+                        <div class="space-y-4 max-w-lg">
+                            <div class="flex items-center justify-between p-4 border border-slate-200 rounded-2xl bg-slate-50">
+                                <div><p class="font-bold text-slate-900">Activar Banner Promocional</p><p class="text-[10px] text-slate-500">Tacha precios originales</p></div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" id="promo-activa" class="sr-only peer">
+                                    <div class="w-12 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-rose-500"></div>
+                                </label>
                             </div>
-                            <div class="space-y-4">
-                                <h4 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-4 border-b border-slate-100 pb-2">Redes & Contacto Web</h4>
-                                <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">WhatsApp Ventas (Código país + número)</label><input type="text" id="config-wsp" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-green-500 outline-none" placeholder="51999888777"></div>
-                                <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Correo Corporativo</label><input type="email" id="config-email" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-blue-500 outline-none" placeholder="hola@masdigital.pe"></div>
-                                <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Link Facebook</label><input type="text" id="config-fb" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-blue-600 outline-none" placeholder="https://..."></div>
-                                <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Link Instagram</label><input type="text" id="config-ig" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-pink-500 outline-none" placeholder="https://..."></div>
-                            </div>
+                            <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Nombre Oferta</label><input type="text" id="promo-nombre" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand-blue outline-none" placeholder="BLACK FRIDAY"></div>
+                            <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">% Descuento</label><input type="number" id="promo-descuento" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand-blue outline-none" placeholder="20"></div>
+                            
+                            <h4 class="text-xs font-black uppercase tracking-widest text-slate-400 mt-6 pt-4 border-t border-slate-100 mb-4">Redes Sociales</h4>
+                            <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">WhatsApp (Ventas)</label><input type="text" id="promo-wsp" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand-blue outline-none" placeholder="51999888777"></div>
+                            <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Correo</label><input type="email" id="promo-email" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand-blue outline-none"></div>
+                            <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Link Facebook</label><input type="text" id="promo-fb" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand-blue outline-none"></div>
+                            <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Link Instagram</label><input type="text" id="promo-ig" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand-blue outline-none"></div>
+
+                            <button onclick="guardarPromo()" class="w-full bg-brand-blue text-white font-black py-4 rounded-xl shadow-lg mt-4 text-sm uppercase tracking-widest">Guardar Cambios</button>
                         </div>
-                        <button onclick="guardarPromo()" class="w-full max-w-4xl bg-brand-blue text-white font-black py-4 rounded-xl shadow-lg mt-8 text-sm uppercase tracking-widest">Guardar Configuración Global</button>
                     </div>
                 </div>
             </div>
         </main>
     </div>
 
+    <!-- MODAL CRM (NUEVO) -->
+    <div id="modal-crm" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-[300] hidden items-center justify-center p-4">
+        <div class="bg-white p-8 rounded-[2rem] w-full max-w-md shadow-2xl modal-enter border border-slate-100 relative">
+            <h3 class="font-black text-xl mb-1 text-slate-900">Ficha de Cliente</h3>
+            <p class="text-xs text-slate-500 mb-6 pb-4 border-b border-slate-100">Registra los datos para cotizaciones y suscripciones.</p>
+            <input type="hidden" id="mcrm-id">
+            <div class="space-y-4 mb-8">
+                <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Nombre de la Empresa</label><input type="text" id="mcrm-empresa" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold outline-none focus:border-blue-500"></div>
+                <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Responsable / Representante</label><input type="text" id="mcrm-responsable" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-blue-500"></div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Celular</label><input type="text" id="mcrm-celular" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-blue-500"></div>
+                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Email</label><input type="email" id="mcrm-email" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-blue-500"></div>
+                </div>
+                <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Dirección Exacta</label><input type="text" id="mcrm-direccion" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-blue-500"></div>
+            </div>
+            <div class="flex gap-3"><button onclick="cerrarModal('modal-crm')" class="flex-1 py-3.5 bg-slate-100 text-slate-600 font-bold rounded-xl text-sm">Cancelar</button><button onclick="guardarCRM()" class="flex-1 py-3.5 bg-blue-600 text-white font-black uppercase rounded-xl text-sm shadow-md">Guardar Cliente</button></div>
+        </div>
+    </div>
+
     <!-- MODAL SUSCRIPCION (AGREGAR/EDITAR) -->
     <div id="modal-suscripcion" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-[300] hidden items-center justify-center p-4">
         <div class="bg-white p-8 rounded-[2rem] w-full max-w-md shadow-2xl modal-enter border border-slate-100 relative">
-            <button onclick="cerrarModal('modal-suscripcion')" class="absolute top-6 right-6 text-slate-400 hover:text-rose-500 bg-slate-100 rounded-full p-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
-            <h3 class="font-black text-xl mb-1 text-slate-900">Suscripción SaaS</h3>
-            <p class="text-xs text-slate-500 mb-6 pb-4 border-b border-slate-100">Registra el cliente y su plan para auto-notificar cobros.</p>
+            <h3 class="font-black text-xl mb-1 text-slate-900">Suscripción de Cliente</h3>
+            <p class="text-xs text-slate-500 mb-6 pb-4 border-b border-slate-100">Registra y controla vencimientos.</p>
             <input type="hidden" id="msus-id">
             <div class="space-y-4 mb-8">
-                <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Empresa / Razón Social</label><input type="text" id="msus-cliente" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold outline-none focus:border-brand-blue" placeholder="Ej. El Buen Sabor SAC"></div>
-                <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Nombre del Responsable</label><input type="text" id="msus-responsable" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-brand-blue" placeholder="Juan Pérez"></div>
-                
+                <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Empresa / Cliente</label>
+                    <select id="msus-cliente" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold outline-none focus:border-emerald-500"></select>
+                </div>
                 <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Sistema Contratado</label>
-                    <select id="msus-sistema" onchange="cargarPlanesAlModal()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-brand-blue font-bold"></select>
+                    <select id="msus-sistema" onchange="cargarPlanesAlModal()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-emerald-500 font-bold"></select>
                 </div>
-                
                 <div class="grid grid-cols-2 gap-4">
-                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Plan Elegido</label>
-                        <select id="msus-plan" onchange="autoCompletarPrecio()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-brand-blue"></select>
+                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Plan</label>
+                        <select id="msus-plan" onchange="autoCompletarPrecio()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-emerald-500"></select>
                     </div>
-                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Monto Fijo (S/)</label><input type="number" id="msus-monto" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none font-black text-slate-900" placeholder="0.00"></div>
+                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Monto (S/)</label><input type="number" id="msus-monto" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none font-black text-slate-900" placeholder="69.90"></div>
                 </div>
-                
-                <div class="grid grid-cols-2 gap-4 pt-2 border-t border-slate-100">
-                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Fecha Instalación</label><input type="date" id="msus-inicio" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none"></div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Fecha Inicio</label><input type="date" id="msus-inicio" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none"></div>
                     <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5 text-rose-500">Día de Cobro (Próx)</label><input type="date" id="msus-prox" class="w-full bg-rose-50 border border-rose-200 rounded-xl px-4 py-3 text-sm outline-none font-bold text-rose-600"></div>
                 </div>
             </div>
-            <button onclick="guardarSuscripcion()" class="w-full py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-black uppercase tracking-widest rounded-xl text-sm shadow-md transition-colors">Guardar Suscripción</button>
+            <div class="flex gap-3"><button onclick="cerrarModal('modal-suscripcion')" class="flex-1 py-3.5 bg-slate-100 text-slate-600 font-bold rounded-xl text-sm">Cancelar</button><button onclick="guardarSuscripcion()" class="flex-1 py-3.5 bg-emerald-600 text-white font-black uppercase rounded-xl text-sm shadow-md">Guardar</button></div>
         </div>
     </div>
 
@@ -340,29 +374,32 @@
     <div id="modal-producto" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-[300] hidden items-center justify-center p-4 overflow-y-auto">
         <div class="bg-white rounded-[2rem] w-full max-w-4xl shadow-2xl modal-enter border border-slate-200 my-10 flex flex-col max-h-[90vh]">
             <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50 rounded-t-[2rem] shrink-0">
-                <h3 class="font-black text-xl text-slate-900">Catálogo Web: Sistema SaaS</h3><button onclick="cerrarModal('modal-producto')" class="text-slate-400 font-bold hover:bg-slate-200 bg-white rounded-full p-2 border shrink-0"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+                <h3 class="font-black text-xl text-slate-900">Catálogo: Sistema</h3>
+                <button onclick="cerrarModal('modal-producto')" class="text-slate-400 font-bold bg-white rounded-full p-2 border shrink-0">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
             </div>
             <div class="flex-1 overflow-y-auto p-8 space-y-8 bg-white">
                 <input type="hidden" id="mp-id">
-                <div><h4 class="text-xs font-black uppercase tracking-widest mb-4 border-b border-slate-100 pb-2 text-slate-400">1. Info Básica</h4>
+                <div><h4 class="text-xs font-black uppercase mb-4 border-b pb-2">1. Info Básica</h4>
                     <div class="grid grid-cols-2 gap-4">
                         <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Título</label><input type="text" id="mp-titulo" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold outline-none"></div>
-                        <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Ícono (asistencia, ventas, citas...)</label><input type="text" id="mp-icono" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none" placeholder="ventas, citas, etc"></div>
-                        <div class="col-span-2"><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Descripción</label><textarea id="mp-desc" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none" rows="2"></textarea></div>
+                        <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Ícono</label><input type="text" id="mp-icono" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none" placeholder="ventas, citas, etc"></div>
+                        <div class="col-span-2"><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Descripción</label><textarea id="mp-desc" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none"></textarea></div>
                     </div>
                 </div>
-                <div><h4 class="text-xs font-black uppercase tracking-widest mb-4 border-b border-slate-100 pb-2 text-slate-400">2. Diseño Modal (Landing)</h4>
+                <div><h4 class="text-xs font-black uppercase mb-4 border-b pb-2">2. Modal Landing</h4>
                     <div class="grid grid-cols-3 gap-4">
-                        <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Color Principal (Hex)</label><input type="text" id="mp-color" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm" placeholder="#2563EB"></div>
-                        <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Color Fondo Slogan 3</label><input type="text" id="mp-colorbot" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm" placeholder="#1d4ed8"></div>
-                        <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Etiqueta Tag</label><input type="text" id="mp-tag" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm" placeholder="Ej. RESTAURANTES"></div>
-                        <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Slogan Línea 1</label><input type="text" id="mp-s1" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold" placeholder="Vende"></div>
-                        <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Slogan Línea 2</label><input type="text" id="mp-s2" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm" placeholder="Despacha"></div>
-                        <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Slogan Línea 3 (Resaltado)</label><input type="text" id="mp-s3" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold" placeholder="¡Crece!"></div>
+                        <div><input type="text" id="mp-color" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm" placeholder="Color Hex"></div>
+                        <div><input type="text" id="mp-colorbot" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm" placeholder="Slogan 3 Fondo"></div>
+                        <div><input type="text" id="mp-tag" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm" placeholder="Tag Ej. RESTAURANTES"></div>
+                        <div><input type="text" id="mp-s1" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold" placeholder="Slogan 1"></div>
+                        <div><input type="text" id="mp-s2" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm" placeholder="Slogan 2"></div>
+                        <div><input type="text" id="mp-s3" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold" placeholder="Slogan 3"></div>
                     </div>
                 </div>
             </div>
-            <div class="p-6 border-t bg-slate-50 flex justify-end shrink-0"><button onclick="guardarProducto()" class="px-8 py-4 bg-slate-900 hover:bg-brand-blue text-white font-black uppercase tracking-widest rounded-xl transition-colors text-sm">Guardar en Web</button></div>
+            <div class="p-6 border-t bg-slate-50 flex justify-end shrink-0"><button onclick="guardarProducto()" class="px-8 py-3 bg-brand-blue text-white font-black uppercase rounded-xl">Guardar en Web</button></div>
         </div>
     </div>
 
@@ -372,22 +409,22 @@
             <button onclick="cerrarModal('modal-servicio')" class="absolute top-6 right-6 text-slate-400 hover:text-rose-500 bg-slate-100 rounded-full p-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
             <h3 class="font-black text-xl mb-6 text-slate-900">Servicio Studio</h3>
             <input type="hidden" id="ms-id">
-            <input type="text" id="ms-titulo" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold mb-4" placeholder="Título del servicio">
-            <input type="text" id="ms-icono" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm mb-4" placeholder="Ícono (branding, rrss, etc)">
-            <textarea id="ms-desc" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm mb-6" placeholder="Descripción breve" rows="3"></textarea>
-            <button onclick="guardarServicio()" class="w-full py-4 bg-pink-600 hover:bg-pink-700 text-white font-black uppercase tracking-widest rounded-xl text-sm shadow-md transition-colors">Guardar Servicio</button>
+            <input type="text" id="ms-titulo" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold mb-4" placeholder="Título">
+            <input type="text" id="ms-icono" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm mb-4" placeholder="Ícono">
+            <textarea id="ms-desc" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm mb-6" placeholder="Descripción"></textarea>
+            <div class="flex gap-3"><button onclick="guardarServicio()" class="flex-1 py-3 bg-pink-600 text-white font-black uppercase rounded-xl text-sm">Guardar Servicio</button></div>
         </div>
     </div>
 
-    <!-- Plantilla PDF Oculta (MANTENER SVG ORIGINAL) -->
+    <!-- Plantilla PDF Oculta (CON ISOTIPO SVG OPTIMIZADO) -->
     <div id="pdf-template-wrapper" class="absolute top-0 left-0 w-[800px] bg-white text-slate-900 font-sans p-10 z-[-9999]" style="left: -9999px;">
         <div id="pdf-template-content" class="w-full h-full p-8 border-t-8 border-blue-600 bg-white shadow-sm">
             <div class="flex justify-between items-start border-b-2 border-slate-100 pb-8 mb-8">
                 <div>
                     <div class="flex items-center gap-2 mb-2">
+                        <!-- ISOTIPO SIN GRADIENTES PARA PDF PERFECTO -->
                         <svg viewBox="0 0 280 150" class="h-8 w-auto shrink-0" xmlns="http://www.w3.org/2000/svg">
-                            <defs><linearGradient id="g1-pdf" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#2563EB"/><stop offset="100%" stop-color="#8B5CF6"/></linearGradient><linearGradient id="g2-pdf" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#8B5CF6"/><stop offset="100%" stop-color="#EC4899"/></linearGradient><linearGradient id="g3-pdf" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#EC4899"/><stop offset="100%" stop-color="#F97316"/></linearGradient></defs>
-                            <g stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 32 110 L 32 65 A 34 34 0 0 1 100 65 L 100 110" stroke="url(#g1-pdf)" stroke-width="32" /><path d="M 100 110 L 100 65 A 34 34 0 0 1 168 65 L 168 110" stroke="url(#g2-pdf)" stroke-width="32" /><path d="M 229 13.2 L 229 53.2 M 209 33.2 L 249 33.2" stroke="url(#g3-pdf)" stroke-width="24" /></g>
+                            <g stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 32 110 L 32 65 A 34 34 0 0 1 100 65 L 100 110" stroke="#2563EB" stroke-width="32" /><path d="M 100 110 L 100 65 A 34 34 0 0 1 168 65 L 168 110" stroke="#8B5CF6" stroke-width="32" /><path d="M 229 13.2 L 229 53.2 M 209 33.2 L 249 33.2" stroke="#F97316" stroke-width="24" /></g>
                         </svg>
                         <div class="flex items-baseline leading-none"><span class="font-[900] text-3xl tracking-tighter" style="font-family: 'Montserrat', sans-serif;">MAS</span><span class="font-[700] text-3xl tracking-tighter ml-1" style="font-family: 'Montserrat', sans-serif;">Digital</span></div>
                     </div>
@@ -406,9 +443,7 @@
         function toggleLoader(show, text="Procesando...") { const l = document.getElementById('loader'); if(show) { document.getElementById('loader-txt').innerText=text; l.classList.replace('hidden', 'flex'); } else l.classList.replace('flex', 'hidden'); }
         function cerrarModal(id) { document.getElementById(id).classList.replace('flex', 'hidden'); }
 
-        let currentSession = null; let isAdminGbl = false; let g_promoData = null;
-        let bdCatProductos = []; let bdCatServicios = []; let globalSubs = []; let globalCRM = [];
-
+        let currentSession = null; let isAdminGbl = false;
         try { currentSession = JSON.parse(sessionStorage.getItem('mas_admin_cms')); } catch(e){}
         window.onload = () => { if(currentSession && currentSession.token) showDashboard(); }
 
@@ -417,11 +452,10 @@
         function registrarAdmin() {
             const nom = document.getElementById('reg-nom').value.trim(); const ape = document.getElementById('reg-ape').value.trim();
             const email = document.getElementById('reg-email').value.trim(); const pass = document.getElementById('reg-pass').value.trim();
-            const rol = document.getElementById('reg-rol').value;
             if(!nom || !ape || !email || !pass) return toast("Completa todos los campos", true);
 
             toggleLoader(true, "Creando cuenta...");
-            fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'registrarAdmin', payload: { nombres: nom, apellidos: ape, email: email, pass: pass, rol: rol } }) })
+            fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'registrarAdmin', payload: { nombres: nom, apellidos: ape, email: email, pass: pass } }) })
             .then(r => r.json()).then(res => { toggleLoader(false); if(res.success) { toast(res.message); toggleAuth('login'); } else toast(res.message, true); }).catch(e => { toggleLoader(false); toast("Error de red", true); });
         }
 
@@ -436,13 +470,13 @@
 
         const vistas = {
             'crm': { titulo: 'Directorio CRM', el: 'view-crm', nav: 'nav-crm' },
-            'leads': { titulo: 'Bandeja Leads (Web)', el: 'view-leads', nav: 'nav-leads' },
+            'leads': { titulo: 'Bandeja Leads', el: 'view-leads', nav: 'nav-leads' },
             'suscripciones': { titulo: 'Suscripciones SaaS', el: 'view-suscripciones', nav: 'nav-suscripciones' },
             'cotizador': { titulo: 'Cotizador PDF', el: 'view-cotizador', nav: 'nav-cotizador' },
-            'finanzas': { titulo: 'Flujo de Caja', el: 'view-finanzas', nav: 'nav-finanzas' },
+            'finanzas': { titulo: 'Flujo de Caja Real', el: 'view-finanzas', nav: 'nav-finanzas' },
             'productos': { titulo: 'Sistemas SaaS', el: 'view-productos', nav: 'nav-productos' },
             'servicios': { titulo: 'Content Studio', el: 'view-servicios', nav: 'nav-servicios' },
-            'promo': { titulo: 'Configuración Global', el: 'view-promo', nav: 'nav-promo' }
+            'promo': { titulo: 'Ofertas y Web', el: 'view-promo', nav: 'nav-promo' }
         };
 
         function switchView(viewKey) {
@@ -452,10 +486,13 @@
                 if(elNav) elNav.className = "w-full text-left px-4 py-3 rounded-xl font-bold text-sm hover:bg-slate-800 hover:text-white flex items-center gap-3 transition-colors text-slate-400";
             });
             document.getElementById(vistas[viewKey].el).classList.remove('hidden');
-            let activeNav = document.getElementById(vistas[viewKey].nav);
-            if(activeNav) activeNav.className = "w-full text-left px-4 py-3 rounded-xl font-bold text-sm bg-brand-blue text-white flex items-center gap-3 transition-colors shadow-lg shadow-blue-500/20";
+            document.getElementById(vistas[viewKey].nav).className = "w-full text-left px-4 py-3 rounded-xl font-bold text-sm bg-brand-blue text-white flex items-center gap-3 transition-colors shadow-lg shadow-blue-500/20";
             document.getElementById('header-title').innerText = vistas[viewKey].titulo;
+            
+            if(viewKey === 'cotizador') llenarSelectsCotizador();
         }
+
+        let bdCatProductos = []; let bdCatServicios = []; let globalSubs = []; let globalCRM = []; let globalFinanzas = [];
 
         function showDashboard() {
             document.getElementById('auth-box').classList.add('hidden'); document.getElementById('dashboard').classList.replace('hidden', 'flex');
@@ -465,23 +502,29 @@
         }
 
         function cargarDataGlobal() {
-            toggleLoader(true, "Cargando ERP...");
+            toggleLoader(true, "Sincronizando Nube...");
             fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'obtenerDashboardAdmin', payload: { usuario: currentSession.user.usuario, token: currentSession.token } }), redirect: 'follow' })
             .then(r => r.json()).then(res => {
                 toggleLoader(false);
                 if(res.success) { 
                     isAdminGbl = (res.rol === 'SuperAdmin');
-                    if(!isAdminGbl) { document.getElementById('menu-superadmin').style.display = 'none'; document.getElementById('dash-bal-title').innerText = 'Tus Ingresos Generados'; document.getElementById('nav-crm').style.display = 'none'; }
+                    if(!isAdminGbl) { document.getElementById('menu-superadmin').style.display = 'none'; document.getElementById('dash-bal-title').innerText = 'Tu Utilidad (Ventas Propias)'; }
                     
-                    bdCatProductos = res.catalogo.productos; bdCatServicios = res.catalogo.servicios; globalSubs = res.suscripciones; globalCRM = res.crm || [];
-                    g_promoData = res.promo;
+                    bdCatProductos = res.catalogo.productos; bdCatServicios = res.catalogo.servicios; 
+                    globalSubs = res.suscripciones; globalCRM = res.crm || [];
                     
-                    if(isAdminGbl) { renderCRM(); renderCatProductos(); renderCatServicios(); renderPromoConfig(); }
-                    renderLeads(res.leads); renderSuscripciones(res.suscripciones);
-                    if(res.finanzas) renderFinanzas(res.finanzas); 
+                    renderCRM(); renderLeads(res.leads); renderSuscripciones(res.suscripciones);
+                    if(res.finanzas) {
+                        globalFinanzas = res.finanzas.transacciones;
+                        renderFiltroVendedores();
+                        renderFinanzas(res.finanzas);
+                    }
                     
-                    llenarSelectProductos(); llenarSuscripcionesCaja(); actualizarCategoriasTx();
-                    switchView(isAdminGbl ? 'crm' : 'leads'); 
+                    if(isAdminGbl) { renderCatProductos(); renderCatServicios(); renderPromo(res.promo); }
+                    
+                    llenarSuscripcionesCaja(); 
+                    actualizarCategoriasTx(); 
+                    if(!document.getElementById('view-crm').classList.contains('hidden')) switchView('crm'); // Solo auto-switch si acaba de loguear
                 } else { toast(res.message, true); logout(); }
             }).catch(e => { toggleLoader(false); toast("Error de red", true); });
         }
@@ -489,11 +532,23 @@
         // --- CRM ---
         function renderCRM() {
             const tb = document.getElementById('crm-body'); tb.innerHTML = '';
-            if(globalCRM.length === 0) { tb.innerHTML = '<tr><td colspan="4" class="p-6 text-center text-slate-400">No hay clientes.</td></tr>'; return; }
+            if(globalCRM.length === 0) { tb.innerHTML = '<tr><td colspan="5" class="p-6 text-center text-slate-400">No hay clientes.</td></tr>'; return; }
             globalCRM.forEach(c => {
-                tb.innerHTML += `<tr class="hover:bg-slate-50/50"><td class="px-6 py-4 font-black text-slate-900">${c.empresa}</td><td class="px-6 py-4 text-sm font-bold text-slate-700">${c.responsable}</td><td class="px-6 py-4 text-xs text-slate-500">📱 ${c.celular}<br>📧 ${c.email || 'N/A'}</td><td class="px-6 py-4 text-center"><span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-[10px] font-black uppercase">Activo</span></td></tr>`;
+                tb.innerHTML += `<tr class="hover:bg-slate-50/50"><td class="px-6 py-4 font-black text-slate-900">${c.empresa}</td><td class="px-6 py-4 text-sm font-bold text-slate-700">${c.responsable}</td><td class="px-6 py-4 text-xs text-slate-500">📱 ${c.celular}<br>📧 ${c.email || 'N/A'}</td><td class="px-6 py-4 text-xs text-slate-500 truncate max-w-[150px]">${c.direccion}</td><td class="px-6 py-4 text-center"><button onclick="abrirModalCRM('${c.id}')" class="text-blue-500 bg-blue-50 p-2 rounded-lg mr-1 border border-blue-100">✏️</button><button onclick="eliminarCRM('${c.id}')" class="text-rose-500 bg-rose-50 p-2 rounded-lg border border-rose-100">❌</button></td></tr>`;
             });
         }
+        function abrirModalCRM(id) {
+            if(id) { let c = globalCRM.find(x=>x.id===id); document.getElementById('mcrm-id').value=c.id; document.getElementById('mcrm-empresa').value=c.empresa; document.getElementById('mcrm-responsable').value=c.responsable; document.getElementById('mcrm-celular').value=c.celular; document.getElementById('mcrm-email').value=c.email; document.getElementById('mcrm-direccion').value=c.direccion; }
+            else { document.getElementById('mcrm-id').value=''; document.getElementById('mcrm-empresa').value=''; document.getElementById('mcrm-responsable').value=''; document.getElementById('mcrm-celular').value=''; document.getElementById('mcrm-email').value=''; document.getElementById('mcrm-direccion').value=''; }
+            document.getElementById('modal-crm').classList.replace('hidden','flex');
+        }
+        function guardarCRM() {
+            const payload = { usuario: currentSession.user.usuario, token: currentSession.token, cliente: { id: document.getElementById('mcrm-id').value, empresa: document.getElementById('mcrm-empresa').value, responsable: document.getElementById('mcrm-responsable').value, celular: document.getElementById('mcrm-celular').value, email: document.getElementById('mcrm-email').value, direccion: document.getElementById('mcrm-direccion').value } };
+            if(!payload.cliente.empresa) return toast("Ingresa la empresa", true);
+            toggleLoader(true); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'guardarClienteCRM', payload: payload }) }).then(r=>r.json()).then(res => { if(res.success){ cerrarModal('modal-crm'); cargarDataGlobal(); } else { toggleLoader(false); toast(res.message, true); }});
+        }
+        function eliminarCRM(id) { if(!confirm("Borrar Cliente? Esto NO borra sus suscripciones.")) return; toggleLoader(true); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'eliminarClienteCRM', payload: { usuario: currentSession.user.usuario, token: currentSession.token, id: id } }) }).then(r=>r.json()).then(res => { if(res.success) cargarDataGlobal(); else { toggleLoader(false); toast("Error", true); }}); }
+
 
         // --- LEADS ---
         function renderLeads(leads) {
@@ -508,56 +563,58 @@
             toggleLoader(true); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'actualizarLeadEstado', payload: { usuario: currentSession.user.usuario, token: currentSession.token, idLead: id, nuevoEstado: estado } }) }).then(r=>r.json()).then(res => { if(res.success) cargarDataGlobal(); else { toggleLoader(false); toast("Error", true); }});
         }
 
-        // --- SUSCRIPCIONES (DIAS Y AVISOS INTELIGENTES) ---
+        // --- SUSCRIPCIONES ---
         function renderSuscripciones(subs) {
             const grid = document.getElementById('suscripciones-grid'); grid.innerHTML = '';
             if(subs.length === 0) { grid.innerHTML = '<div class="col-span-full p-10 text-center text-slate-500">No tienes suscripciones.</div>'; return; }
             const hoy = new Date(); hoy.setHours(0,0,0,0);
             
             subs.forEach(s => {
-                let dPago = new Date(s.proximoPago + "T00:00:00");
+                let partesF = s.proximoPago.split('-'); let dPago = new Date(partesF[0], partesF[1]-1, partesF[2]);
                 let diffTime = dPago.getTime() - hoy.getTime(); let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
                 
                 let badgeClass = "bg-emerald-50 text-emerald-600 border-emerald-200"; let txtDias = `Faltan ${diffDays} días`; let isVencido = false;
-                let avisoAuto = "";
-                
-                if(diffDays < 0) { badgeClass = "bg-rose-50 text-rose-600 border-rose-200 animate-pulse"; txtDias = "¡VENCIDO!"; isVencido = true; avisoAuto = `<div class="bg-rose-100 text-rose-700 text-[9px] font-black uppercase px-2 py-1 rounded mb-2 w-max shadow-sm border border-rose-200">🚨 Aviso Bloqueo/Corte</div>`; }
-                else if(diffDays === 0) { badgeClass = "bg-rose-50 text-rose-600 border-rose-200"; txtDias = "Vence Hoy"; avisoAuto = `<div class="bg-orange-100 text-orange-700 text-[9px] font-black uppercase px-2 py-1 rounded mb-2 w-max shadow-sm border border-orange-200">⚠️ Último Día Pago</div>`; }
-                else if(diffDays <= 3) { badgeClass = "bg-orange-50 text-orange-600 border-orange-200"; avisoAuto = `<div class="bg-amber-100 text-amber-700 text-[9px] font-black uppercase px-2 py-1 rounded mb-2 w-max shadow-sm border border-amber-200">🔔 Aviso Preventivo</div>`; }
-                else if(diffDays <= 5) badgeClass = "bg-amber-50 text-amber-600 border-amber-200";
+                let autoBanner = "";
 
-                let wspCel = ""; // Si tuviéramos el celular del CRM lo pondríamos aquí
-                let msgWsp = isVencido ? `Hola ${s.responsable} ⚠️\nDe parte de MAS Digital, te informamos que la suscripción de *${s.sistema}* de la empresa *${s.cliente}* se encuentra VENCIDA.\nPor favor, regulariza el pago de S/ ${s.monto.toFixed(2)} para evitar la interrupción del servicio.` : `Hola ${s.responsable} 👋\nDe MAS Digital, te recordamos que el próximo pago del sistema *${s.sistema}* de *${s.cliente}* por S/ ${s.monto.toFixed(2)} vence en ${diffDays} días.\n¡Gracias por tu preferencia!`;
-                let msgWspAnual = `¡Hola ${s.responsable}! 👋\nDesde MAS Digital queremos ofrecerle a *${s.cliente}* un beneficio exclusivo: Renueva el plan de *${s.sistema}* a formato *ANUAL* y obtén *2 MESES GRATIS*.\n¿Te gustaría aprovechar esta oferta? 🚀`;
+                if(diffDays <= 0) { badgeClass = "bg-rose-50 text-rose-600 border-rose-200 animate-pulse"; txtDias = "¡VENCIDO!"; isVencido = true; autoBanner = `<div class="bg-rose-100 text-rose-700 text-[9px] font-black uppercase px-2 py-1 rounded mb-2 w-max shadow-sm border border-rose-200">🚨 Aviso Enviado: CORTE</div>`; }
+                else if(diffDays <= 3) { badgeClass = "bg-orange-50 text-orange-600 border-orange-200"; autoBanner = `<div class="bg-orange-100 text-orange-700 text-[9px] font-black uppercase px-2 py-1 rounded mb-2 w-max shadow-sm border border-orange-200">⚠️ Aviso Automático (3 días)</div>`; }
+                else if(diffDays <= 5) { badgeClass = "bg-amber-50 text-amber-600 border-amber-200"; autoBanner = `<div class="bg-amber-100 text-amber-700 text-[9px] font-black uppercase px-2 py-1 rounded mb-2 w-max shadow-sm border border-amber-200">🔔 Aviso Automático (5 días)</div>`; }
 
-                let vendedorInfo = isAdminGbl ? `<p class="text-[9px] font-bold text-slate-400 mt-2 border-t border-slate-200 pt-2">Operador: ${s.vendedor}</p>` : ``;
+                // Obtener nombre empresa desde CRM
+                let crmClient = globalCRM.find(x => x.id === s.idCliente);
+                let nombreEmpresa = crmClient ? crmClient.empresa : s.idCliente; // Fallback
+
+                let msgWsp = isVencido ? `Hola equipo de *${nombreEmpresa}* ⚠️\nLes saluda MAS Digital. Su suscripción al sistema *${s.sistema}* se encuentra vencida. Por favor, regularizar el pago de S/ ${s.monto} a la brevedad.` : `Hola equipo de *${nombreEmpresa}* 👋\nLes recordamos que su próximo pago de suscripción (*${s.sistema}*) por S/ ${s.monto} vence en ${diffDays} días.\n¡Gracias por seguir creciendo con nosotros! 🚀`;
+                let msgWspAnual = `¡Hola equipo de *${nombreEmpresa}*! 👋\nDesde MAS Digital queremos ofrecerles un beneficio exclusivo: Si renuevan su plan al formato *ANUAL*, obtendrán *2 meses completamente GRATIS*.\n¿Les gustaría aprovechar esta oferta? 🚀`;
+
+                let vendedorInfo = isAdminGbl ? `<p class="text-[9px] font-bold text-slate-400 mt-2">Vendedor: ${s.vendedor}</p>` : ``;
 
                 grid.innerHTML += `
-                    <div class="bg-white rounded-[2rem] border border-slate-200 p-6 shadow-sm flex flex-col hover:shadow-lg transition-shadow relative">
-                        ${avisoAuto}
+                    <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm flex flex-col relative">
+                        ${autoBanner}
                         <div class="flex justify-between items-start mb-4">
-                            <div><p class="text-[10px] font-black uppercase text-slate-400 mb-0.5">Empresa</p><h3 class="font-black text-slate-900 text-lg leading-tight">${s.cliente}</h3><p class="text-xs text-slate-500 font-bold mt-1">👤 ${s.responsable}</p></div>
+                            <div><p class="text-[10px] font-black uppercase text-slate-400 mb-1">Cliente</p><h3 class="font-black text-slate-900 text-lg leading-tight">${nombreEmpresa}</h3></div>
                             <div class="flex gap-2">
-                                <button onclick="abrirModalSuscripcion('${s.id}')" class="text-blue-500 hover:bg-blue-100 bg-blue-50 p-2.5 rounded-xl border border-blue-100 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg></button>
-                                <button onclick="eliminarSuscripcion('${s.id}')" class="text-rose-500 hover:bg-rose-100 bg-rose-50 p-2.5 rounded-xl border border-rose-100 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
+                                <button onclick="abrirModalSuscripcion('${s.id}')" class="text-blue-500 bg-blue-50 p-2 rounded-lg border border-blue-100">✏️</button>
+                                <button onclick="eliminarSuscripcion('${s.id}')" class="text-rose-500 bg-rose-50 p-2 rounded-lg border border-rose-100">❌</button>
                             </div>
                         </div>
-                        <div class="bg-slate-50 rounded-2xl p-5 mb-5 border border-slate-100">
-                            <p class="text-sm font-black text-slate-800">${s.sistema}</p><p class="text-[10px] text-slate-500 uppercase font-bold mb-3">${s.plan}</p>
-                            <div class="flex justify-between items-end">
-                                <div><p class="text-[10px] uppercase text-slate-400 font-bold mb-0.5">Mensualidad</p><p class="font-black text-xl text-brand-blue tracking-tight">S/ ${s.monto.toFixed(2)}</p></div>
-                                <div class="px-3 py-1.5 rounded-lg border text-[11px] font-black uppercase shadow-sm ${badgeClass}">${txtDias}</div>
+                        <div class="bg-slate-50 rounded-xl p-4 mb-4 border border-slate-100">
+                            <p class="text-xs font-bold text-slate-800">${s.sistema}</p><p class="text-[10px] text-slate-500 uppercase">${s.plan}</p>
+                            <div class="mt-3 flex justify-between items-end">
+                                <div><p class="text-[10px] uppercase text-slate-400 font-bold mb-0.5">Mensualidad</p><p class="font-black text-lg text-brand-blue">S/ ${s.monto.toFixed(2)}</p></div>
+                                <div class="px-3 py-1 rounded-lg border text-[11px] font-black uppercase ${badgeClass}">${txtDias}</div>
                             </div>
                             ${vendedorInfo}
                         </div>
                         
                         <div class="mt-auto space-y-2">
                             <div class="flex gap-2">
-                                <a href="https://wa.me/?text=${encodeURIComponent(msgWsp)}" target="_blank" class="flex-1 py-2.5 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold rounded-xl text-center text-[10px] uppercase shadow-sm transition-colors flex items-center justify-center gap-1">Cobro Info</a>
-                                <a href="https://wa.me/?text=${encodeURIComponent(msgWspAnual)}" target="_blank" class="flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-center text-[10px] uppercase shadow-sm transition-colors flex items-center justify-center gap-1">Oferta Anual</a>
+                                <a href="https://wa.me/?text=${encodeURIComponent(msgWsp)}" target="_blank" class="flex-1 py-2 bg-[#25D366] text-white font-bold rounded-lg text-center text-[10px] uppercase shadow-sm">🤖 Aviso WSP</a>
+                                <a href="https://wa.me/?text=${encodeURIComponent(msgWspAnual)}" target="_blank" class="flex-1 py-2 bg-blue-600 text-white font-bold rounded-lg text-center text-[10px] uppercase shadow-sm">🚀 Promover Anual</a>
                             </div>
-                            <select onchange="accionManualWsp(this.value, '${s.cliente}', '${s.sistema}')" class="w-full bg-slate-100 text-slate-600 text-[10px] font-bold uppercase rounded-xl px-3 py-2.5 border border-slate-200 outline-none text-center appearance-none cursor-pointer">
-                                <option value="">Otras Acciones (Modo Manual)</option>
+                            <select onchange="accionManualWsp(this.value, '${nombreEmpresa}', '${s.sistema}')" class="w-full bg-slate-100 text-slate-600 text-[10px] font-bold uppercase rounded-lg px-2 py-2 border border-slate-200 outline-none">
+                                <option value="">Otras Acciones (Manual)</option>
                                 <option value="mantenimiento">Aviso Mantenimiento</option>
                                 <option value="suspension">Aviso Suspensión Oficial</option>
                             </select>
@@ -567,43 +624,34 @@
         }
         function accionManualWsp(tipo, cliente, sist) {
             if(!tipo) return;
-            let msg = tipo === 'mantenimiento' ? `Hola equipo de *${cliente}* 🛠️\nLes informamos que esta madrugada realizaremos un mantenimiento programado en su sistema *${sist}* para implementar mejoras de velocidad. Podrían experimentar breves interrupciones de 15 minutos.\n¡Gracias por su comprensión!` : `*AVISO DE SUSPENSIÓN* ⚠️\nHola equipo de *${cliente}*.\nLamentamos informar que debido a la falta de pago, los servicios del sistema *${sist}* han sido suspendidos automáticamente. Para reactivarlos inmediatamente, por favor enviar el comprobante de pago por este medio.`;
+            let msg = tipo === 'mantenimiento' ? `Hola equipo de *${cliente}* 🛠️\nLes informamos que esta madrugada realizaremos un mantenimiento programado en su sistema *${sist}* para implementar mejoras. Podrían experimentar breves interrupciones.\n¡Gracias por su comprensión!` : `*AVISO OFICIAL DE SUSPENSIÓN* ⚠️\nHola equipo de *${cliente}*.\nDebido a la falta de pago, los servicios del sistema *${sist}* han sido suspendidos automáticamente. Para reactivarlos, por favor enviar el comprobante de pago por este medio.`;
             window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
         }
-
-        // Lógica Modal Suscripciones Dinámico
+        
         function abrirModalSuscripcion(id) {
             let selSis = document.getElementById('msus-sistema'); selSis.innerHTML = '<option value="">Seleccione Sistema...</option>';
             bdCatProductos.forEach(p => selSis.innerHTML += `<option value="${p.titulo}">${p.titulo}</option>`);
+            
+            let selCli = document.getElementById('msus-cliente'); selCli.innerHTML = '<option value="">Seleccione Cliente CRM...</option>';
+            globalCRM.forEach(c => selCli.innerHTML += `<option value="${c.id}">${c.empresa}</option>`);
 
-            if(id) { 
-                let s = globalSubs.find(x=>x.id===id); 
-                document.getElementById('msus-id').value=s.id; document.getElementById('msus-cliente').value=s.cliente; document.getElementById('msus-responsable').value=s.responsable || ''; 
-                selSis.value=s.sistema; cargarPlanesAlModal(); document.getElementById('msus-plan').value=s.plan; document.getElementById('msus-monto').value=s.monto; 
-                document.getElementById('msus-inicio').value=s.fechaInicio; document.getElementById('msus-prox').value=s.proximoPago; 
-            } else { 
-                document.getElementById('msus-id').value=''; document.getElementById('msus-cliente').value=''; document.getElementById('msus-responsable').value=''; 
-                document.getElementById('msus-plan').innerHTML=''; document.getElementById('msus-monto').value=''; 
-                let hoyStr = new Date().toISOString().split('T')[0]; document.getElementById('msus-inicio').value=hoyStr; document.getElementById('msus-prox').value=hoyStr; 
-            }
+            if(id) { let s = globalSubs.find(x=>x.id===id); document.getElementById('msus-id').value=s.id; selCli.value=s.idCliente; selSis.value=s.sistema; cargarPlanesAlModal(); document.getElementById('msus-plan').value=s.plan; document.getElementById('msus-monto').value=s.monto; document.getElementById('msus-inicio').value=s.fechaInicio; document.getElementById('msus-prox').value=s.proximoPago; } 
+            else { document.getElementById('msus-id').value=''; selCli.value=''; selSis.value=''; document.getElementById('msus-plan').innerHTML=''; document.getElementById('msus-monto').value=''; document.getElementById('msus-inicio').value=''; document.getElementById('msus-prox').value=''; }
             document.getElementById('modal-suscripcion').classList.replace('hidden', 'flex');
         }
         function cargarPlanesAlModal() {
             let selSis = document.getElementById('msus-sistema').value; let selPlan = document.getElementById('msus-plan'); selPlan.innerHTML = '<option value="">Seleccione Plan...</option>';
             let prod = bdCatProductos.find(x => x.titulo === selSis);
-            if(prod && prod.planes) {
-                try { let arr = JSON.parse(prod.planes); arr.forEach(pl => selPlan.innerHTML += `<option value="${pl.nombre}" data-precio="${pl.pMes}">${pl.nombre} - S/ ${pl.pMes}</option>`); } catch(e){}
-            }
+            if(prod && prod.planes) { try { let arr = JSON.parse(prod.planes); arr.forEach(pl => selPlan.innerHTML += `<option value="${pl.nombre}" data-precio="${pl.pMes}">${pl.nombre} - S/ ${pl.pMes}</option>`); } catch(e){} }
         }
         function autoCompletarPrecio() {
             let selPlan = document.getElementById('msus-plan');
             if(selPlan.selectedIndex > 0) { document.getElementById('msus-monto').value = selPlan.options[selPlan.selectedIndex].getAttribute('data-precio'); }
         }
-
         function guardarSuscripcion() {
-            const payload = { usuario: currentSession.user.usuario, token: currentSession.token, suscripcion: { id: document.getElementById('msus-id').value, cliente: document.getElementById('msus-cliente').value, responsable: document.getElementById('msus-responsable').value, sistema: document.getElementById('msus-sistema').value, plan: document.getElementById('msus-plan').value, monto: document.getElementById('msus-monto').value, fechaInicio: document.getElementById('msus-inicio').value, proximoPago: document.getElementById('msus-prox').value } };
-            if(!payload.suscripcion.cliente || !payload.suscripcion.sistema) return toast("Empresa y Sistema son obligatorios", true);
-            toggleLoader(true); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'guardarSuscripcion', payload: payload }) }).then(r=>r.json()).then(res => { if(res.success){ cerrarModal('modal-suscripcion'); cargarDataGlobal(); toast(res.message); } else { toggleLoader(false); toast(res.message, true); }});
+            const payload = { usuario: currentSession.user.usuario, token: currentSession.token, suscripcion: { id: document.getElementById('msus-id').value, idCliente: document.getElementById('msus-cliente').value, sistema: document.getElementById('msus-sistema').value, plan: document.getElementById('msus-plan').value, monto: document.getElementById('msus-monto').value, fechaInicio: document.getElementById('msus-inicio').value, proximoPago: document.getElementById('msus-prox').value } };
+            if(!payload.suscripcion.idCliente || !payload.suscripcion.sistema) return toast("Cliente y Sistema requeridos", true);
+            toggleLoader(true); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'guardarSuscripcion', payload: payload }) }).then(r=>r.json()).then(res => { if(res.success){ cerrarModal('modal-suscripcion'); cargarDataGlobal(); } else { toggleLoader(false); toast(res.message, true); }});
         }
         function eliminarSuscripcion(id) {
             if(!confirm("¿Borrar suscripción?")) return; toggleLoader(true); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'eliminarSuscripcion', payload: { usuario: currentSession.user.usuario, token: currentSession.token, id: id } }) }).then(r=>r.json()).then(res => { if(res.success) cargarDataGlobal(); else { toggleLoader(false); toast(res.message, true); }});
@@ -612,17 +660,17 @@
         // --- CAJA FINANCIERA ---
         function setTxTipo(tipo) {
             document.getElementById('tx-tipo').value = tipo; const bIng = document.getElementById('btn-tx-ing'); const bEgr = document.getElementById('btn-tx-egr'); const dSus = document.getElementById('div-tx-sus');
-            if(tipo === 'Ingreso') { bIng.className = "flex-1 py-2 text-xs font-black uppercase rounded-lg bg-white shadow-sm text-green-600 border border-green-200"; bEgr.className = "flex-1 py-2 text-xs font-black uppercase rounded-lg text-slate-500 hover:text-slate-800 border border-transparent"; dSus.style.display = 'block'; } 
-            else { bEgr.className = "flex-1 py-2 text-xs font-black uppercase rounded-lg bg-white shadow-sm text-rose-600 border border-rose-200"; bIng.className = "flex-1 py-2 text-xs font-black uppercase rounded-lg text-slate-500 hover:text-slate-800 border border-transparent"; dSus.style.display = 'none'; document.getElementById('tx-sus-id').value=''; }
+            if(tipo === 'Ingreso') { bIng.className = "flex-1 py-2 text-xs font-black uppercase rounded-lg bg-white shadow-sm text-green-600"; bEgr.className = "flex-1 py-2 text-xs font-black uppercase rounded-lg text-slate-500 hover:text-slate-800"; dSus.style.display = 'block'; } 
+            else { bEgr.className = "flex-1 py-2 text-xs font-black uppercase rounded-lg bg-white shadow-sm text-rose-600"; bIng.className = "flex-1 py-2 text-xs font-black uppercase rounded-lg text-slate-500 hover:text-slate-800"; dSus.style.display = 'none'; document.getElementById('tx-sus-id').value=''; }
             actualizarCategoriasTx();
         }
         function llenarSuscripcionesCaja() {
             let sel = document.getElementById('tx-sus-id'); sel.innerHTML = '<option value="">(Ingreso Libre - Sin Vincular)</option>';
-            globalSubs.forEach(s => { sel.innerHTML += `<option value="${s.id}" data-precio="${s.monto}">Pago SaaS: ${s.cliente} - ${s.sistema}</option>`; });
-            // Auto-relleno de precio si selecciona suscripción
-            sel.addEventListener('change', (e) => {
-                if(sel.selectedIndex > 0) document.getElementById('tx-monto').value = sel.options[sel.selectedIndex].getAttribute('data-precio');
+            globalSubs.forEach(s => { 
+                let crmClient = globalCRM.find(x => x.id === s.idCliente); let nEmp = crmClient ? crmClient.empresa : s.idCliente;
+                sel.innerHTML += `<option value="${s.id}" data-precio="${s.monto}">Pago SaaS: ${nEmp} - ${s.sistema}</option>`; 
             });
+            sel.addEventListener('change', (e) => { if(sel.selectedIndex > 0) document.getElementById('tx-monto').value = sel.options[sel.selectedIndex].getAttribute('data-precio'); });
         }
         function actualizarCategoriasTx() {
             const tipo = document.getElementById('tx-tipo').value; const select = document.getElementById('tx-cat'); select.innerHTML = '';
@@ -631,23 +679,37 @@
                 if(bdCatServicios) bdCatServicios.forEach(s => select.innerHTML += `<option value="Servicio: ${s.titulo}">Servicio: ${s.titulo}</option>`);
                 select.innerHTML += `<option value="Otros Ingresos">Otros Ingresos</option>`;
             } else {
-                if(bdCatProductos) bdCatProductos.forEach(p => select.innerHTML += `<option value="Servidor/Infra: ${p.titulo}">Servidores: ${p.titulo}</option>`);
+                if(bdCatProductos) bdCatProductos.forEach(p => select.innerHTML += `<option value="Servidores/API: ${p.titulo}">Servidores/API: ${p.titulo}</option>`);
                 select.innerHTML += `<option value="Pago Planilla / Sueldos">Pago Planilla / Sueldos</option><option value="Retiro Socios (Ganancia)">Retiro Socios (Ganancia)</option><option value="Publicidad / Marketing">Publicidad / Marketing</option><option value="Gastos Generales">Gastos Generales</option>`;
             }
         }
-        function renderFinanzas(f) {
-            document.getElementById('dash-ingresos').innerText = "S/ " + f.totalIngresos.toFixed(2); document.getElementById('dash-egresos').innerText = "S/ " + f.totalEgresos.toFixed(2);
-            let b = f.balance; let bEl = document.getElementById('dash-balance'); let bBadge = document.getElementById('dash-badge');
+        function renderFiltroVendedores() {
+            if(!isAdminGbl) return;
+            let sel = document.getElementById('dash-filtro-vendedor'); sel.innerHTML = '<option value="ALL">Todos los Vendedores</option>';
+            let vendedores = [...new Set(globalFinanzas.map(item => item.registradoPor))];
+            vendedores.forEach(v => { if(v) sel.innerHTML += `<option value="${v}">${v}</option>`; });
+            document.getElementById('filtro-vendedor-container').classList.remove('hidden');
+        }
+        function renderFinanzasList() {
+            let filtro = isAdminGbl ? document.getElementById('dash-filtro-vendedor').value : "ALL";
+            let fList = globalFinanzas; if(filtro !== "ALL") fList = globalFinanzas.filter(x => x.registradoPor === filtro);
+            
+            let tIng = 0; let tEgr = 0;
+            fList.forEach(t => { if(t.tipo==='Ingreso') tIng+=t.monto; else tEgr+=t.monto; });
+            
+            document.getElementById('dash-ingresos').innerText = "S/ " + tIng.toFixed(2); document.getElementById('dash-egresos').innerText = "S/ " + tEgr.toFixed(2);
+            let b = tIng - tEgr; let bEl = document.getElementById('dash-balance'); let bBadge = document.getElementById('dash-badge');
             bEl.innerText = "S/ " + b.toFixed(2);
             if(b < 0) { bEl.classList.replace('text-white','text-rose-400'); bBadge.innerText = 'Pérdida'; bBadge.className = 'px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-rose-500/20 mb-2 border border-rose-500/30 text-rose-300'; } 
             else { bEl.classList.replace('text-rose-400','text-white'); bBadge.innerText = 'Rentable'; bBadge.className = 'px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-white/10 mb-2 border border-white/20 text-green-300'; }
+            
             const tb = document.getElementById('finanzas-body'); tb.innerHTML = '';
-            f.transacciones.forEach(t => {
+            fList.forEach(t => {
                 let isIng = t.tipo === 'Ingreso'; let regInfo = isAdminGbl ? `<br><span class="text-[9px] text-slate-400 uppercase tracking-widest">Por: ${t.registradoPor}</span>` : ``;
-                let tdAction = isAdminGbl ? `<button onclick="eliminarTransaccion('${t.id}')" class="text-slate-300 hover:text-rose-500 p-2 border border-slate-100 rounded-xl transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>` : ``;
-                tb.innerHTML += `<tr class="hover:bg-slate-50/50"><td class="px-6 py-4 text-[11px] font-bold text-slate-400">${t.fecha}</td><td class="px-6 py-4"><p class="text-sm font-black text-slate-900">${t.detalle}</p><p class="text-[10px] font-bold uppercase mt-1 ${isIng?'text-brand-blue':'text-rose-500'}">${t.categoria}</p>${regInfo}</td><td class="px-6 py-4 text-right font-black text-lg ${isIng?'text-green-600':'text-rose-600'}">${isIng?'+':'-'} S/ ${t.monto.toFixed(2)}</td><td class="px-6 py-4 text-center">${tdAction}</td></tr>`;
+                tb.innerHTML += `<tr class="hover:bg-slate-50/50"><td class="px-6 py-4 text-[11px] font-bold text-slate-400">${t.fecha}</td><td class="px-6 py-4"><p class="text-sm font-black text-slate-900">${t.detalle}</p><p class="text-[10px] font-bold uppercase mt-1 ${isIng?'text-brand-blue':'text-rose-500'}">${t.categoria}</p>${regInfo}</td><td class="px-6 py-4 text-right font-black text-lg ${isIng?'text-green-600':'text-rose-600'}">${isIng?'+':'-'} S/ ${t.monto.toFixed(2)}</td><td class="px-6 py-4 text-center"><button onclick="eliminarTransaccion('${t.id}')" class="text-slate-300 hover:text-rose-500 p-2 border rounded-lg">X</button></td></tr>`;
             });
         }
+        function renderFinanzas(f) { renderFinanzasList(); }
         function guardarTransaccion() {
             const m = parseFloat(document.getElementById('tx-monto').value); const d = document.getElementById('tx-detalle').value.trim(); const idSus = document.getElementById('tx-sus-id').value;
             if(!m || m <= 0 || !d) return toast("Monto y detalle requeridos.", true);
@@ -655,15 +717,13 @@
             toggleLoader(true); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'registrarTransaccion', payload: payload }) }).then(r=>r.json()).then(res => { if(res.success) { document.getElementById('tx-monto').value=""; document.getElementById('tx-detalle').value=""; cargarDataGlobal(); toast(res.message); } else { toggleLoader(false); toast(res.message, true); }});
         }
         function eliminarTransaccion(id) {
-            if(!confirm("¿Borrar movimiento de caja?")) return; toggleLoader(true); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'eliminarTransaccion', payload: { usuario: currentSession.user.usuario, token: currentSession.token, idTx: id } }) }).then(r=>r.json()).then(res => { if(res.success) cargarDataGlobal(); else { toggleLoader(false); toast(res.message, true); }});
+            if(!confirm("¿Borrar movimiento?")) return; toggleLoader(true); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'eliminarTransaccion', payload: { usuario: currentSession.user.usuario, token: currentSession.token, idTx: id } }) }).then(r=>r.json()).then(res => { if(res.success) cargarDataGlobal(); else { toggleLoader(false); toast(res.message, true); }});
         }
 
         // --- CATALOGO CMS (SOLO SUPER ADMIN) ---
         function renderCatProductos() {
             const grid = document.getElementById('prod-grid'); grid.innerHTML = '';
-            bdCatProductos.forEach(p => { 
-                grid.innerHTML += `<div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm"><div class="flex justify-between items-start mb-4"><div class="w-12 h-12 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-xl uppercase font-bold text-slate-700 shadow-sm">${p.icono.charAt(0)}</div><div class="flex gap-2"><button onclick="abrirModalProducto('${p.id}')" class="text-blue-500 hover:bg-blue-100 bg-blue-50 p-2.5 rounded-xl border border-blue-100 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg></button><button onclick="eliminarProducto('${p.id}')" class="text-rose-500 hover:bg-rose-100 bg-rose-50 p-2.5 rounded-xl border border-rose-100 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button></div></div><span class="text-[9px] font-black uppercase tracking-[0.2em] mb-1 block" style="color: ${p.temaColor || '#666'}">${p.tag || 'SISTEMA'}</span><h3 class="font-black text-slate-900 text-lg mb-2">${p.titulo}</h3></div>`; 
-            });
+            bdCatProductos.forEach(p => { grid.innerHTML += `<div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm"><div class="flex justify-between items-start mb-4"><div class="w-12 h-12 rounded-xl bg-slate-50 border flex items-center justify-center text-xl uppercase font-bold text-slate-700">${p.icono.charAt(0)}</div><div class="flex gap-1"><button onclick="abrirModalProducto('${p.id}')" class="text-blue-500 bg-blue-50 p-2 rounded border border-blue-100"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg></button><button onclick="eliminarProducto('${p.id}')" class="text-rose-500 bg-rose-50 p-2 rounded border border-rose-100"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button></div></div><span class="text-[9px] font-black uppercase tracking-[0.2em] mb-1 block" style="color: ${p.temaColor || '#666'}">${p.tag || 'SISTEMA'}</span><h3 class="font-black text-slate-900 text-lg mb-2">${p.titulo}</h3></div>`; });
         }
         function abrirModalProducto(id) { 
             if(id) {
@@ -679,13 +739,11 @@
             let p = { id: document.getElementById('mp-id').value, titulo: document.getElementById('mp-titulo').value, icono: document.getElementById('mp-icono').value, descripcion: document.getElementById('mp-desc').value, temaColor: document.getElementById('mp-color').value, tag: document.getElementById('mp-tag').value, sloganTop: document.getElementById('mp-s1').value, sloganMid: document.getElementById('mp-s2').value, sloganBot: document.getElementById('mp-s3').value, colorBot: document.getElementById('mp-colorbot').value, ventajas: "[]", planes: "[]" };
             toggleLoader(true); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'guardarProducto', payload: { usuario: currentSession.user.usuario, token: currentSession.token, producto: p } }) }).then(r=>r.json()).then(res => { if(res.success){ cerrarModal('modal-producto'); cargarDataGlobal(); } else { toggleLoader(false); toast(res.message, true); }});
         }
-        function eliminarProducto(id) { if(!confirm("Borrar Producto Web?")) return; toggleLoader(true); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'eliminarProducto', payload: { usuario: currentSession.user.usuario, token: currentSession.token, idProd: id } }) }).then(r=>r.json()).then(res => { if(res.success) cargarDataGlobal(); }); }
+        function eliminarProducto(id) { if(!confirm("Borrar?")) return; toggleLoader(true); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'eliminarProducto', payload: { usuario: currentSession.user.usuario, token: currentSession.token, idProd: id } }) }).then(r=>r.json()).then(res => { if(res.success) cargarDataGlobal(); }); }
 
         function renderCatServicios() {
             const grid = document.getElementById('serv-grid'); grid.innerHTML = '';
-            bdCatServicios.forEach(s => { 
-                grid.innerHTML += `<div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm"><div class="flex justify-between items-start mb-4"><div class="w-12 h-12 rounded-xl bg-pink-50 border border-pink-100 flex items-center justify-center text-xl uppercase font-bold text-pink-700 shadow-sm">${s.icono.charAt(0)}</div><div class="flex gap-2"><button onclick="abrirModalServicio('${s.id}')" class="text-blue-500 hover:bg-blue-100 bg-blue-50 p-2.5 rounded-xl border border-blue-100 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg></button><button onclick="eliminarServicio('${s.id}')" class="text-rose-500 hover:bg-rose-100 bg-rose-50 p-2.5 rounded-xl border border-rose-100 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button></div></div><h3 class="font-black text-slate-900 text-lg mb-2">${s.titulo}</h3></div>`; 
-            });
+            bdCatServicios.forEach(s => { grid.innerHTML += `<div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm"><div class="flex justify-between items-start mb-4"><div class="w-12 h-12 rounded-xl bg-pink-50 border border-pink-100 flex items-center justify-center text-xl uppercase font-bold text-pink-700">${s.icono.charAt(0)}</div><div class="flex gap-1"><button onclick="abrirModalServicio('${s.id}')" class="text-blue-500 bg-blue-50 p-2 rounded border border-blue-100"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg></button><button onclick="eliminarServicio('${s.id}')" class="text-rose-500 bg-rose-50 p-2 rounded border border-rose-100"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button></div></div><h3 class="font-black text-slate-900 text-lg mb-2">${s.titulo}</h3></div>`; });
         }
         function abrirModalServicio(id) {
             if(id) { let s = bdCatServicios.find(x => x.id === id); document.getElementById('ms-id').value = s.id; document.getElementById('ms-titulo').value = s.titulo; document.getElementById('ms-icono').value = s.icono; document.getElementById('ms-desc').value = s.descripcion; } 
@@ -696,43 +754,38 @@
             let s = { id: document.getElementById('ms-id').value, titulo: document.getElementById('ms-titulo').value, icono: document.getElementById('ms-icono').value, descripcion: document.getElementById('ms-desc').value };
             toggleLoader(true); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'guardarServicio', payload: { usuario: currentSession.user.usuario, token: currentSession.token, servicio: s } }) }).then(r=>r.json()).then(res => { if(res.success){ cerrarModal('modal-servicio'); cargarDataGlobal(); } });
         }
-        function eliminarServicio(id) { if(!confirm("Borrar Servicio Web?")) return; toggleLoader(true); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'eliminarServicio', payload: { usuario: currentSession.user.usuario, token: currentSession.token, idServ: id } }) }).then(r=>r.json()).then(res => { if(res.success) cargarDataGlobal(); }); }
+        function eliminarServicio(id) { if(!confirm("Borrar?")) return; toggleLoader(true); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'eliminarServicio', payload: { usuario: currentSession.user.usuario, token: currentSession.token, idServ: id } }) }).then(r=>r.json()).then(res => { if(res.success) cargarDataGlobal(); }); }
 
-        function renderPromoConfig() { 
-            let p = g_promoData; if(!p) return;
-            document.getElementById('promo-activa').checked = p.activa; document.getElementById('promo-nombre').value = p.nombre; document.getElementById('promo-descuento').value = p.descuento; 
-            document.getElementById('config-wsp').value = p.wsp; document.getElementById('config-email').value = p.email; document.getElementById('config-fb').value = p.fb; document.getElementById('config-ig').value = p.ig; 
-        }
-        function guardarPromo() { 
-            toggleLoader(true); 
-            let payload = { usuario: currentSession.user.usuario, token: currentSession.token, activa: document.getElementById('promo-activa').checked, nombre: document.getElementById('promo-nombre').value, descuento: parseInt(document.getElementById('promo-descuento').value) || 0, wsp: document.getElementById('config-wsp').value, email: document.getElementById('config-email').value, fb: document.getElementById('config-fb').value, ig: document.getElementById('config-ig').value };
-            fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'guardarPromo', payload: payload }) }).then(r=>r.json()).then(res => { toggleLoader(false); toast("Configuración Global Guardada"); }); 
-        }
+        function renderPromo(p) { document.getElementById('promo-activa').checked = (p.activa === true || p.activa === 'true'); document.getElementById('promo-nombre').value = p.nombre; document.getElementById('promo-descuento').value = p.descuento; document.getElementById('promo-wsp').value = p.wsp; document.getElementById('promo-email').value = p.email; document.getElementById('promo-fb').value = p.fb; document.getElementById('promo-ig').value = p.ig; }
+        function guardarPromo() { toggleLoader(true); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'guardarPromo', payload: { usuario: currentSession.user.usuario, token: currentSession.token, activa: document.getElementById('promo-activa').checked, nombre: document.getElementById('promo-nombre').value, descuento: parseInt(document.getElementById('promo-descuento').value) || 0, wsp: document.getElementById('promo-wsp').value, email: document.getElementById('promo-email').value, fb: document.getElementById('promo-fb').value, ig: document.getElementById('promo-ig').value } }) }).then(r=>r.json()).then(res => { toggleLoader(false); toast("Guardado"); }); }
 
         // --- COTIZADOR PDF ---
-        function llenarSelectProductos() {
-            const sPdf = document.getElementById('pdf-producto'); sPdf.innerHTML = '<option value="">Elegir del Catálogo...</option>';
-            if(bdCatProductos && bdCatProductos.length > 0) bdCatProductos.forEach(p => { sPdf.innerHTML += `<option value="${p.id}">${p.titulo} (SaaS)</option>`; });
-            if(bdCatServicios && bdCatServicios.length > 0) bdCatServicios.forEach(s => { sPdf.innerHTML += `<option value="${s.id}">${s.titulo} (Servicio)</option>`; });
+        function llenarSelectsCotizador() {
+            const sProd = document.getElementById('pdf-producto'); sProd.innerHTML = '<option value="">Elegir del Catálogo...</option>';
+            if(bdCatProductos) bdCatProductos.forEach(p => { sProd.innerHTML += `<option value="${p.id}">${p.titulo} (SaaS)</option>`; });
+            if(bdCatServicios) bdCatServicios.forEach(s => { sProd.innerHTML += `<option value="${s.id}">${s.titulo} (Servicio)</option>`; });
+            
+            const sCli = document.getElementById('pdf-cliente'); sCli.innerHTML = '<option value="">Elegir de mi CRM...</option>';
+            if(globalCRM) globalCRM.forEach(c => { sCli.innerHTML += `<option value="${c.id}">${c.empresa}</option>`; });
         }
         function generarPDFCotizacion() {
-            const cliente = document.getElementById('pdf-cliente').value.trim(); const idProd = document.getElementById('pdf-producto').value; const notas = document.getElementById('pdf-notas').value.trim();
-            if(!cliente) return toast("Ingresa la empresa.", true);
+            const idCli = document.getElementById('pdf-cliente').value; const idProd = document.getElementById('pdf-producto').value; const notas = document.getElementById('pdf-notas').value.trim();
+            if(!idCli) return toast("Selecciona un cliente.", true);
             if(!idProd) return toast("Selecciona un producto.", true);
             
-            document.getElementById('pdf-fecha-hoy').innerText = "Fecha: " + new Date().toLocaleDateString('es-ES'); document.getElementById('pdf-client-name').innerText = cliente;
+            let cliente = globalCRM.find(x => x.id === idCli);
+            document.getElementById('pdf-fecha-hoy').innerText = "Fecha: " + new Date().toLocaleDateString('es-ES'); document.getElementById('pdf-client-name').innerText = cliente.empresa;
             let prod = bdCatProductos.find(x => x.id === idProd) || bdCatServicios.find(x => x.id === idProd);
-            if(!prod) return toast("Error producto.", true);
-
+            
             document.getElementById('pdf-item-title').innerText = prod.titulo; document.getElementById('pdf-item-desc').innerText = prod.descripcion;
             const planesCont = document.getElementById('pdf-item-planes'); planesCont.innerHTML = '';
             if(prod.planes) {
                 try { let planes = JSON.parse(prod.planes); planes.forEach(pl => { planesCont.innerHTML += `<div class="bg-white p-4 rounded-xl border border-slate-100 flex justify-between items-center"><div><p class="font-bold text-slate-800">${pl.nombre}</p><p class="text-xs text-slate-500">${pl.desc}</p></div><div class="text-right"><p class="text-[10px] text-slate-400 uppercase">Mensual</p><p class="font-black text-brand-blue text-lg">S/ ${pl.pMes}</p></div></div>`; }); } catch(e){}
             } else { planesCont.innerHTML = `<div class="bg-white p-4 rounded-xl border border-slate-100"><p class="text-sm text-slate-500 italic">Cotización a medida según requerimientos específicos.</p></div>`; }
-            document.getElementById('pdf-item-notas').innerText = notas || "Precios incluyen IGV. Sujeto a contrato de servicio SaaS.";
+            document.getElementById('pdf-item-notas').innerText = notas || "Precios incluyen IGV. Sujeto a contrato de servicio.";
             
             const element = document.getElementById('pdf-template-content');
-            html2pdf().set({ margin: 0, filename: `Cotizacion_${cliente}.pdf`, image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2 }, jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } }).from(element).save().then(() => toast("¡PDF Descargado!"));
+            html2pdf().set({ margin: 0, filename: `Cotizacion_${cliente.empresa}.pdf`, image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2 }, jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } }).from(element).save().then(() => toast("¡PDF Descargado!"));
         }
     </script>
 </body>
