@@ -10,7 +10,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         // 🛑🛑 ¡PEGA AQUÍ LA URL DE TU SCRIPT DE GOOGLE! 🛑🛑
-        const URL_BACKEND_CATALOGO = "https://script.google.com/macros/s/AKfycbw9S9MittdULC0xVV32z90sU0jtU7ISvdsXdq8GIRFyCle-r04772onS2FJh_JlnWqdeA/exec";
+        const URL_BACKEND_CATALOGO = "https://script.google.com/macros/s/AKfycbyV5ZYe4VWAmalvLBSz8dGAozeg_FBNVQLVZhr-OCTXKtXkrCHwQkBF1xjqzgx9IOKU7w/exec";
 
         // Tailwind Configuration
         tailwind.config = {
@@ -50,7 +50,7 @@
         .modal-enter { animation: modalFadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes modalFadeInUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         .promo-banner { background: repeating-linear-gradient(45deg, #E11D48, #E11D48 10px, #BE123C 10px, #BE123C 20px); }
-        #toast-container { position: fixed; top: 20px; right: 20px; z-index: 99999; display: flex; flex-direction: column; gap: 10px; }
+        #toast-container { position: fixed; top: 20px; right: 20px; z-index: 99999; display: flex; flex-direction: column; gap: 10px; pointer-events: none;}
         .toast { background: #ffffff; border-left: 4px solid #10b981; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); padding: 16px 20px; border-radius: 8px; font-weight: 600; font-size: 14px; animation: slideInRight 0.4s ease forwards, fadeOut 0.4s ease 3s forwards; pointer-events: auto;}
         .toast-error { border-left-color: #ef4444; }
         @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
@@ -254,34 +254,37 @@
     </main>
 
     <!-- MODAL DINÁMICO UNIVERSAL PARA PRODUCTOS -->
-    <div id="product-modal" class="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-[200] hidden opacity-0 transition-opacity duration-300 overflow-y-auto chat-scroll flex items-start md:items-center justify-center md:p-4">
+    <div id="product-modal" class="fixed inset-0 bg-slate-900/95 backdrop-blur-md z-[200] hidden opacity-0 transition-opacity duration-300 overflow-y-auto chat-scroll flex items-start md:items-center justify-center md:p-4">
         
-        <div class="relative w-full min-h-screen md:h-auto md:min-h-0 md:max-w-6xl md:rounded-[2.5rem] bg-white text-left overflow-x-hidden shadow-2xl modal-enter border-0 md:border border-slate-200 flex flex-col pb-10 md:pb-0">
+        <div class="relative w-full min-h-screen md:h-auto md:min-h-0 md:max-w-6xl md:rounded-[2.5rem] bg-white text-left shadow-2xl modal-enter border-0 md:border border-slate-200 flex flex-col pb-10 md:pb-0 overflow-hidden">
             
-            <button onclick="closeProductModal()" class="fixed md:absolute top-4 md:top-6 right-4 md:right-6 w-11 h-11 bg-black/30 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-rose-500 shadow-xl transition-all z-[300] border border-white/30 cursor-pointer shrink-0">
+            <button onclick="closeProductModal()" class="absolute top-4 md:top-6 right-4 md:right-6 w-11 h-11 bg-black/30 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-rose-500 shadow-xl transition-all z-[300] border border-white/30 cursor-pointer shrink-0">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" class="shrink-0"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
 
+            <!-- Cabecera del Modal (Ajustada para que no se oculte nada) -->
             <div id="modal-header-section" class="px-6 md:px-16 pt-20 pb-16 relative overflow-hidden flex flex-col md:flex-row items-center justify-between text-white transition-colors duration-500 shrink-0">
-                <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-white/10 rounded-full blur-[100px] pointer-events-none"></div>
-                <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-black/10 rounded-full blur-[80px] pointer-events-none"></div>
+                <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-white/10 rounded-full blur-[100px] pointer-events-none z-0"></div>
+                <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-black/10 rounded-full blur-[80px] pointer-events-none z-0"></div>
 
-                <div class="z-10 w-full md:w-[55%] flex flex-col items-center md:items-start text-center md:text-left">
-                    <div class="mb-6"><span id="modal-tag" class="px-5 py-2 rounded-full font-black text-[10px] sm:text-xs uppercase tracking-widest shadow-md inline-flex items-center gap-2 bg-white shrink-0"></span></div>
-                    <div class="bg-white rounded-[2rem] p-6 sm:p-8 md:p-12 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] inline-block w-full max-w-[420px] transform md:-rotate-2 transition-transform hover:rotate-0 relative z-20">
-                        <div id="modal-title-html" class="flex flex-col items-center select-none w-full"></div>
+                <div class="z-20 w-full md:w-[55%] flex flex-col items-center md:items-start text-center md:text-left">
+                    <div class="mb-6"><span id="modal-tag" class="px-5 py-2 rounded-full font-black text-[10px] sm:text-xs uppercase tracking-widest shadow-md inline-flex items-center gap-2 bg-white shrink-0 text-slate-900"></span></div>
+                    
+                    <div class="bg-white rounded-[2rem] p-6 sm:p-8 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] inline-block w-full max-w-[420px] transform md:-rotate-2 transition-transform hover:rotate-0 relative z-30">
+                        <div id="modal-title-html" class="flex flex-col items-center md:items-start select-none w-full relative z-40"></div>
                     </div>
-                    <p id="modal-desc" class="text-base md:text-lg text-white/95 max-w-lg font-medium mt-10 leading-relaxed drop-shadow-md px-2 md:px-0"></p>
+                    
+                    <p id="modal-desc" class="text-base md:text-lg text-white/95 max-w-lg font-medium mt-10 leading-relaxed drop-shadow-md px-2 md:px-0 relative z-30"></p>
                 </div>
 
-                <div class="z-10 w-full md:w-[45%] flex justify-center mt-16 md:mt-0 relative">
+                <div class="z-20 w-full md:w-[45%] flex justify-center mt-12 md:mt-0 relative">
                     <div id="modal-hero-icon" class="text-white drop-shadow-[0_20px_30px_rgba(0,0,0,0.3)] flex items-center justify-center transform hover:scale-105 transition-transform duration-500 shrink-0"></div>
                 </div>
             </div>
 
-            <div id="modal-advantages" class="bg-slate-50 py-16 px-6 md:px-12 relative z-20 border-b border-slate-100 shrink-0" style="display: none;"></div>
+            <div id="modal-advantages" class="bg-slate-50 py-16 px-0 md:px-12 relative z-20 border-b border-slate-100 shrink-0" style="display: none;"></div>
 
-            <div class="py-16 px-0 md:px-10 bg-slate-50 flex-grow">
+            <div class="py-16 px-0 md:px-10 bg-slate-50 flex-grow relative z-20">
                 <div class="text-center mb-10 px-6">
                     <h3 class="text-3xl font-black text-slate-900 mb-2">Elige el plan ideal para tu empresa</h3>
                     <p class="text-slate-500 text-sm font-medium">Suscripción clara. Soporte y actualizaciones continuas incluidas.</p>
@@ -289,12 +292,13 @@
                     <div class="flex justify-center mt-6">
                         <div class="bg-slate-200 p-1.5 rounded-full inline-flex relative shadow-inner items-center">
                             <button id="modal-btn-mensual" onclick="toggleModalPricing('mensual')" class="px-8 py-2.5 rounded-full text-sm font-black bg-white text-slate-900 shadow-sm transition-all duration-300 shrink-0">Mensual</button>
-                            <button id="modal-btn-anual" onclick="toggleModalPricing('anual')" class="px-8 py-2.5 rounded-full text-sm font-black text-slate-500 hover:text-slate-800 transition-all duration-300 flex items-center gap-2 shrink-0">
-                                Anual <span class="bg-green-100 text-green-700 text-[10px] uppercase font-black px-2 py-0.5 rounded-full border border-green-200 shrink-0 hidden sm:inline-block">2 Meses Gratis</span>
+                            <button id="modal-btn-anual" onclick="toggleModalPricing('anual')" class="px-6 md:px-8 py-2.5 rounded-full text-sm font-black text-slate-500 hover:text-slate-800 transition-all duration-300 flex items-center gap-2 shrink-0">
+                                Anual <span class="bg-green-100 text-green-700 text-[10px] uppercase font-black px-2 py-0.5 rounded-full border border-green-200 shrink-0 whitespace-nowrap">2 Meses Gratis</span>
                             </button>
                         </div>
                     </div>
 
+                    <!-- Indicador de Scroll en Móviles -->
                     <div class="flex justify-center mt-8 xl:hidden">
                         <span class="bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full flex items-center gap-2 shadow-sm animate-pulse border border-blue-100 shrink-0">
                             <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" class="shrink-0"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
@@ -304,7 +308,8 @@
                     </div>
                 </div>
 
-                <div id="modal-pricing-grid" class="flex flex-nowrap overflow-x-auto xl:flex-wrap xl:overflow-x-visible snap-x snap-mandatory gap-6 pb-8 xl:pb-0 px-6 xl:px-0 hide-scrollbar mx-auto items-stretch xl:justify-center max-w-6xl">
+                <!-- Grilla Convertida a Carrusel para Celulares y Tablets (iPads) -->
+                <div id="modal-pricing-grid" class="flex flex-nowrap overflow-x-auto xl:flex-wrap xl:justify-center snap-x snap-mandatory gap-6 pb-8 px-6 hide-scrollbar items-stretch w-full">
                 </div>
             </div>
         </div>
@@ -335,7 +340,7 @@
                     </div>
                 </div>
                 <div class="input-icon-wrapper">
-                    <input type="email" id="client-email" placeholder="Correo electrónico (Opcional)" class="w-full bg-white rounded-xl py-3.5 pr-4 text-sm font-bold text-slate-800 border-2 border-slate-200 focus:outline-none focus:border-[#2563EB] pl-11">
+                    <input type="email" id="client-email" placeholder="Correo electrónico (Obligatorio)" class="w-full bg-white rounded-xl py-3.5 pr-4 text-sm font-bold text-slate-800 border-2 border-slate-200 focus:outline-none focus:border-[#2563EB] pl-11">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="shrink-0"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                 </div>
             </div>
@@ -479,8 +484,8 @@
         function actualizarRedesSociales() {
             if(promoGlobal.wsp) { document.getElementById('foot-wsp').innerText = '+' + promoGlobal.wsp; document.getElementById('link-wsp').href = 'https://wa.me/' + promoGlobal.wsp; }
             if(promoGlobal.email) { document.getElementById('foot-email').innerText = promoGlobal.email; }
-            if(promoGlobal.fb) { document.getElementById('link-fb').href = promoGlobal.fb; }
-            if(promoGlobal.ig) { document.getElementById('link-ig').href = promoGlobal.ig; }
+            if(promoGlobal.fb && promoGlobal.fb !== "") { document.getElementById('link-fb').href = promoGlobal.fb; }
+            if(promoGlobal.ig && promoGlobal.ig !== "") { document.getElementById('link-ig').href = promoGlobal.ig; }
         }
 
         function activarBannerPromo() {
@@ -535,10 +540,9 @@
             document.getElementById('modal-header-section').style.backgroundColor = info.themeColor;
             document.getElementById('modal-tag').innerHTML = `<span class="w-2.5 h-2.5 rounded-full inline-block mr-1 shrink-0" style="background-color: ${info.themeColor}"></span> <span style="color: ${info.themeColor}">${info.tag}</span>`;
             
-            // CORRECCIÓN RESPONSIVA PARA TEXTOS GIGANTES EN MÓVIL
             document.getElementById('modal-title-html').innerHTML = `
-                <span class="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-none text-center md:text-left block w-full px-2">${info.sloganTop}</span>
-                <span class="text-2xl sm:text-3xl md:text-4xl font-semibold text-slate-600 tracking-tight mt-2 mb-3 leading-none text-center md:text-left block w-full px-2">${info.sloganMid}</span>
+                <span class="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-none text-center md:text-left block w-full px-2 drop-shadow-sm">${info.sloganTop}</span>
+                <span class="text-2xl sm:text-3xl md:text-4xl font-semibold text-slate-700 tracking-tight mt-2 mb-3 leading-none text-center md:text-left block w-full px-2">${info.sloganMid}</span>
                 <span class="text-white px-6 sm:px-8 py-2 sm:py-2.5 rounded-full inline-block mt-3 text-2xl sm:text-3xl md:text-4xl font-black transform -rotate-3 shadow-[0_10px_20px_rgba(0,0,0,0.15)]" style="background-color: ${info.sloganBottomColor}">${info.sloganBottom}</span>`;
             
             document.getElementById('modal-desc').innerHTML = data.descripcion;
@@ -620,8 +624,8 @@
             const btnMensual = document.getElementById('modal-btn-mensual'); const btnAnual = document.getElementById('modal-btn-anual');
             if(tipo === 'mensual' && btnMensual.classList.contains('bg-white')) return;
             if(tipo === 'anual' && btnAnual.classList.contains('bg-white')) return;
-            if(tipo === 'mensual') { btnMensual.className = "px-8 py-2.5 rounded-full text-sm font-black bg-white text-slate-900 shadow-sm transition-all duration-300 shrink-0"; btnAnual.className = "px-8 py-2.5 rounded-full text-sm font-black text-slate-500 hover:text-slate-800 transition-all duration-300 flex items-center gap-2 shrink-0"; } 
-            else { btnAnual.className = "px-8 py-2.5 rounded-full text-sm font-black bg-white text-slate-900 shadow-sm transition-all duration-300 flex items-center gap-2 shrink-0"; btnMensual.className = "px-8 py-2.5 rounded-full text-sm font-black text-slate-500 hover:text-slate-800 transition-all duration-300 shrink-0"; }
+            if(tipo === 'mensual') { btnMensual.className = "px-8 py-2.5 rounded-full text-sm font-black bg-white text-slate-900 shadow-sm transition-all duration-300 shrink-0"; btnAnual.className = "px-6 md:px-8 py-2.5 rounded-full text-sm font-black text-slate-500 hover:text-slate-800 transition-all duration-300 flex items-center gap-2 shrink-0"; } 
+            else { btnAnual.className = "px-6 md:px-8 py-2.5 rounded-full text-sm font-black bg-white text-slate-900 shadow-sm transition-all duration-300 flex items-center gap-2 shrink-0"; btnMensual.className = "px-8 py-2.5 rounded-full text-sm font-black text-slate-500 hover:text-slate-800 transition-all duration-300 shrink-0"; }
             if(currentModalProductId) openDynamicModal(currentModalProductId);
         }
 
