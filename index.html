@@ -10,7 +10,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         // 🛑🛑 ¡PEGA AQUÍ LA URL DE TU SCRIPT DE GOOGLE! 🛑🛑
-        const URL_BACKEND_CATALOGO = "https://script.google.com/macros/s/AKfycbzMwp3pQfmBRw2uINcpSp7p4_HhrmRBYDNoLRdZ35hedDKlQANKILB-GZiWImboI8jcuA/exec";
+        const URL_BACKEND_CATALOGO = "https://script.google.com/macros/s/AKfycbxeIjyDa5tYgK2W2fF529RfwuOewxsjcl2zcX7NzOYEH_YZyvuNU8adZpf4mJK9AOSKZw/exec";
 
         // Tailwind Configuration
         tailwind.config = {
@@ -126,7 +126,6 @@
     </header>
 
     <main class="overflow-hidden pb-10">
-        <!-- Hero Section -->
         <section class="relative grad-hero pt-12 md:pt-24 pb-20 md:pb-48 diagonal-cut overflow-hidden reveal active">
             <!-- Decorative Elements -->
             <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-[100px] pointer-events-none"></div>
@@ -175,7 +174,6 @@
             </div>
         </section>
 
-        <!-- About Us Section -->
         <section id="nosotros" class="bg-white py-24 md:py-32 relative reveal -mt-20">
             <div class="max-w-7xl mx-auto relative z-10">
                 <div class="text-center max-w-3xl mx-auto mb-16 px-4">
@@ -203,7 +201,6 @@
             </div>
         </section>
 
-        <!-- Tech & Apps Section -->
         <section id="tech" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 scroll-mt-24 reveal">
             <div class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-200 pb-6">
                 <div>
@@ -219,7 +216,6 @@
             <div id="tech-grid" class="hidden"></div>
         </section>
 
-        <!-- Content Studio Section -->
         <section id="studio" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 scroll-mt-24 reveal">
             <div class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-200 pb-6">
                 <div>
@@ -233,7 +229,6 @@
             <div id="studio-grid" class="flex overflow-x-auto md:grid md:grid-cols-3 snap-x snap-mandatory gap-6 pb-8 hide-scrollbar items-stretch"></div>
         </section>
         
-        <!-- FAQ Section -->
         <section id="faq" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24 scroll-mt-24 reveal">
             <div class="text-center mb-12"><h2 class="text-3xl md:text-5xl font-black text-slate-900 mb-4 tracking-tight">Preguntas Frecuentes</h2><p class="text-slate-500 font-medium text-lg">Todo lo que necesitas saber antes de trabajar con nosotros.</p></div>
             <div class="space-y-4">
@@ -254,62 +249,64 @@
     </main>
 
     <!-- MODAL DINÁMICO UNIVERSAL PARA PRODUCTOS -->
-    <div id="product-modal" class="fixed inset-0 bg-slate-900/95 backdrop-blur-md z-[200] hidden opacity-0 transition-opacity duration-300 overflow-y-auto chat-scroll flex items-start md:items-center justify-center md:p-4">
-        
-        <div class="relative w-full min-h-screen md:h-auto md:min-h-0 md:max-w-6xl md:rounded-[2.5rem] bg-white text-left shadow-2xl modal-enter border-0 md:border border-slate-200 flex flex-col pb-10 md:pb-0 overflow-hidden">
-            
-            <button onclick="closeProductModal()" class="absolute top-4 md:top-6 right-4 md:right-6 w-11 h-11 bg-black/30 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-rose-500 shadow-xl transition-all z-[300] border border-white/30 cursor-pointer shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" class="shrink-0"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-            </button>
+    <!-- FIX: Ensuring overflow-y-auto is correctly handled to prevent cutoff -->
+    <div id="product-modal" class="fixed inset-0 bg-slate-900/95 backdrop-blur-md z-[200] hidden opacity-0 transition-opacity duration-300 overflow-hidden flex flex-col">
+        <div class="w-full flex-grow overflow-y-auto chat-scroll flex items-start justify-center md:p-4">
+            <div class="relative w-full min-h-[100dvh] md:min-h-0 md:h-auto md:max-w-6xl md:rounded-[2.5rem] bg-white text-left shadow-2xl modal-enter border-0 md:border border-slate-200 flex flex-col overflow-hidden my-auto">
+                
+                <button onclick="closeProductModal()" class="absolute top-4 md:top-6 right-4 md:right-6 w-11 h-11 bg-black/30 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-rose-500 shadow-xl transition-all z-[300] border border-white/30 cursor-pointer shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" class="shrink-0"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
 
-            <!-- Cabecera del Modal (Z-Index ajustado) -->
-            <div id="modal-header-section" class="px-6 md:px-16 pt-20 pb-16 relative overflow-hidden flex flex-col md:flex-row items-center justify-between text-white transition-colors duration-500 shrink-0">
-                <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-white/10 rounded-full blur-[100px] pointer-events-none z-0"></div>
-                <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-black/10 rounded-full blur-[80px] pointer-events-none z-0"></div>
+                <!-- Cabecera del Modal (Ajustada z-index vital) -->
+                <div id="modal-header-section" class="px-6 md:px-16 pt-20 pb-16 relative overflow-hidden flex flex-col md:flex-row items-center justify-between text-white transition-colors duration-500 shrink-0">
+                    <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-white/10 rounded-full blur-[100px] pointer-events-none z-0"></div>
+                    <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-black/10 rounded-full blur-[80px] pointer-events-none z-0"></div>
 
-                <div class="z-[60] w-full md:w-[55%] flex flex-col items-center md:items-start text-center md:text-left relative">
-                    <div class="mb-6"><span id="modal-tag" class="px-5 py-2 rounded-full font-black text-[10px] sm:text-xs uppercase tracking-widest shadow-md inline-flex items-center gap-2 bg-white shrink-0 text-slate-900"></span></div>
-                    
-                    <div class="bg-white rounded-[2rem] p-6 sm:p-8 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] inline-block w-full max-w-[420px] transform md:-rotate-2 transition-transform hover:rotate-0 relative z-[60]">
-                        <div id="modal-title-html" class="flex flex-col items-center md:items-start select-none w-full relative z-[70]"></div>
+                    <div class="z-[60] w-full md:w-[55%] flex flex-col items-center md:items-start text-center md:text-left relative">
+                        <div class="mb-6"><span id="modal-tag" class="px-5 py-2 rounded-full font-black text-[10px] sm:text-xs uppercase tracking-widest shadow-md inline-flex items-center gap-2 bg-white shrink-0 text-slate-900"></span></div>
+                        
+                        <div class="bg-white rounded-[2rem] p-6 sm:p-8 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] inline-block w-full max-w-[420px] transform md:-rotate-2 transition-transform hover:rotate-0 relative z-[60]">
+                            <div id="modal-title-html" class="flex flex-col items-center md:items-start select-none w-full relative z-[70]"></div>
+                        </div>
+                        
+                        <p id="modal-desc" class="text-base md:text-lg text-white/95 max-w-lg font-medium mt-10 leading-relaxed drop-shadow-md px-2 md:px-0 relative z-[60]"></p>
                     </div>
-                    
-                    <p id="modal-desc" class="text-base md:text-lg text-white/95 max-w-lg font-medium mt-10 leading-relaxed drop-shadow-md px-2 md:px-0 relative z-[60]"></p>
+
+                    <div class="z-[60] w-full md:w-[45%] flex justify-center mt-12 md:mt-0 relative">
+                        <div id="modal-hero-icon" class="text-white drop-shadow-[0_20px_30px_rgba(0,0,0,0.3)] flex items-center justify-center transform hover:scale-105 transition-transform duration-500 shrink-0"></div>
+                    </div>
                 </div>
 
-                <div class="z-[60] w-full md:w-[45%] flex justify-center mt-12 md:mt-0 relative">
-                    <div id="modal-hero-icon" class="text-white drop-shadow-[0_20px_30px_rgba(0,0,0,0.3)] flex items-center justify-center transform hover:scale-105 transition-transform duration-500 shrink-0"></div>
-                </div>
-            </div>
+                <div id="modal-advantages" class="bg-slate-50 py-16 px-0 md:px-12 relative z-20 border-b border-slate-100 shrink-0" style="display: none;"></div>
 
-            <div id="modal-advantages" class="bg-slate-50 py-16 px-0 md:px-12 relative z-20 border-b border-slate-100 shrink-0" style="display: none;"></div>
+                <div class="py-16 px-0 md:px-10 bg-slate-50 flex-grow relative z-20">
+                    <div class="text-center mb-10 px-6">
+                        <h3 class="text-3xl font-black text-slate-900 mb-2">Elige el plan ideal para tu empresa</h3>
+                        <p class="text-slate-500 text-sm font-medium">Suscripción clara. Soporte y actualizaciones continuas incluidas.</p>
 
-            <div class="py-16 px-0 md:px-10 bg-slate-50 flex-grow relative z-20">
-                <div class="text-center mb-10 px-6">
-                    <h3 class="text-3xl font-black text-slate-900 mb-2">Elige el plan ideal para tu empresa</h3>
-                    <p class="text-slate-500 text-sm font-medium">Suscripción clara. Soporte y actualizaciones continuas incluidas.</p>
+                        <div class="flex justify-center mt-6">
+                            <div class="bg-slate-200 p-1.5 rounded-full inline-flex relative shadow-inner items-center">
+                                <button id="modal-btn-mensual" onclick="toggleModalPricing('mensual')" class="px-8 py-2.5 rounded-full text-sm font-black bg-white text-slate-900 shadow-sm transition-all duration-300 shrink-0">Mensual</button>
+                                <button id="modal-btn-anual" onclick="toggleModalPricing('anual')" class="px-6 md:px-8 py-2.5 rounded-full text-sm font-black text-slate-500 hover:text-slate-800 transition-all duration-300 flex items-center gap-2 shrink-0">
+                                    Anual <span class="bg-green-100 text-green-700 text-[10px] uppercase font-black px-2 py-0.5 rounded-full border border-green-200 shrink-0 whitespace-nowrap">2 Meses Gratis</span>
+                                </button>
+                            </div>
+                        </div>
 
-                    <div class="flex justify-center mt-6">
-                        <div class="bg-slate-200 p-1.5 rounded-full inline-flex relative shadow-inner items-center">
-                            <button id="modal-btn-mensual" onclick="toggleModalPricing('mensual')" class="px-8 py-2.5 rounded-full text-sm font-black bg-white text-slate-900 shadow-sm transition-all duration-300 shrink-0">Mensual</button>
-                            <button id="modal-btn-anual" onclick="toggleModalPricing('anual')" class="px-6 md:px-8 py-2.5 rounded-full text-sm font-black text-slate-500 hover:text-slate-800 transition-all duration-300 flex items-center gap-2 shrink-0">
-                                Anual <span class="bg-green-100 text-green-700 text-[10px] uppercase font-black px-2 py-0.5 rounded-full border border-green-200 shrink-0 whitespace-nowrap">2 Meses Gratis</span>
-                            </button>
+                        <!-- Indicador de Scroll en Móviles y Tablets -->
+                        <div class="flex justify-center mt-8 xl:hidden">
+                            <span class="bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full flex items-center gap-2 shadow-sm animate-pulse border border-blue-100 shrink-0">
+                                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" class="shrink-0"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
+                                Desliza para ver más
+                                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" class="shrink-0"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+                            </span>
                         </div>
                     </div>
 
-                    <!-- Indicador de Scroll en Móviles y Tablets -->
-                    <div class="flex justify-center mt-8 xl:hidden">
-                        <span class="bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full flex items-center gap-2 shadow-sm animate-pulse border border-blue-100 shrink-0">
-                            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" class="shrink-0"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
-                            Desliza para ver más
-                            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" class="shrink-0"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
-                        </span>
+                    <!-- Grilla Convertida a Carrusel para Celulares y Tablets (iPads) (xl:flex-wrap) -->
+                    <div id="modal-pricing-grid" class="flex flex-nowrap overflow-x-auto xl:flex-wrap xl:justify-center snap-x snap-mandatory gap-6 pb-8 px-6 hide-scrollbar items-stretch w-full">
                     </div>
-                </div>
-
-                <!-- Grilla Convertida a Carrusel para Celulares y Tablets (iPads) (xl:flex-wrap) -->
-                <div id="modal-pricing-grid" class="flex flex-nowrap overflow-x-auto xl:flex-wrap xl:justify-center snap-x snap-mandatory gap-6 pb-8 px-6 hide-scrollbar items-stretch w-full">
                 </div>
             </div>
         </div>
@@ -448,9 +445,9 @@
         };
 
         const planIcons = {
-            'basico': '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>',
-            'pro': '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><path d="M13.5 21v-7.5a.75.75 0 0 1 .75-.75h3a2.25 2.25 0 0 0 2.25-2.25v-6.75a9 9 0 0 0-9-9 9 9 0 0 0-9 9v6.75a2.25 2.25 0 0 0 2.25 2.25h3a.75.75 0 0 1 .75.75V21m-4.5 0h9"></path><path d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>',
-            'premium': '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><path d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5z"></path></svg>'
+            'basico': '<svg class="shrink-0 w-7 h-7" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>',
+            'pro': '<svg class="shrink-0 w-7 h-7" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 21v-7.5a.75.75 0 0 1 .75-.75h3a2.25 2.25 0 0 0 2.25-2.25v-6.75a9 9 0 0 0-9-9 9 9 0 0 0-9 9v6.75a2.25 2.25 0 0 0 2.25 2.25h3a.75.75 0 0 1 .75.75V21m-4.5 0h9"></path><path d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>',
+            'premium': '<svg class="shrink-0 w-7 h-7" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5z"></path></svg>'
         };
 
         let dbProductos = {}; let dbServicios = [];
@@ -537,13 +534,13 @@
             const data = dbProductos[productId]; if(!data || !data.modalInfo) return;
             const info = data.modalInfo; currentModalProductId = productId;
 
-            document.getElementById('modal-header-section').style.backgroundColor = info.themeColor;
-            document.getElementById('modal-tag').innerHTML = `<span class="w-2.5 h-2.5 rounded-full inline-block mr-1 shrink-0" style="background-color: ${info.themeColor}"></span> <span style="color: ${info.themeColor}">${info.tag}</span>`;
+            document.getElementById('modal-header-section').style.backgroundColor = info.themeColor || '#2563EB';
+            document.getElementById('modal-tag').innerHTML = `<span class="w-2.5 h-2.5 rounded-full inline-block mr-1 shrink-0" style="background-color: ${info.themeColor || '#2563EB'}"></span> <span style="color: ${info.themeColor || '#2563EB'}">${info.tag || 'SISTEMA'}</span>`;
             
             document.getElementById('modal-title-html').innerHTML = `
-                <span class="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-none text-center md:text-left block w-full px-2 drop-shadow-sm">${info.sloganTop}</span>
-                <span class="text-2xl sm:text-3xl md:text-4xl font-semibold text-slate-700 tracking-tight mt-2 mb-3 leading-none text-center md:text-left block w-full px-2">${info.sloganMid}</span>
-                <span class="text-white px-6 sm:px-8 py-2 sm:py-2.5 rounded-full inline-block mt-3 text-2xl sm:text-3xl md:text-4xl font-black transform -rotate-3 shadow-[0_10px_20px_rgba(0,0,0,0.15)]" style="background-color: ${info.sloganBottomColor}">${info.sloganBottom}</span>`;
+                <span class="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-none text-center md:text-left block w-full px-2 drop-shadow-sm">${info.sloganTop || ''}</span>
+                <span class="text-2xl sm:text-3xl md:text-4xl font-semibold text-slate-700 tracking-tight mt-2 mb-3 leading-none text-center md:text-left block w-full px-2">${info.sloganMid || ''}</span>
+                <span class="text-white px-6 sm:px-8 py-2 sm:py-2.5 rounded-full inline-block mt-3 text-2xl sm:text-3xl md:text-4xl font-black transform -rotate-3 shadow-[0_10px_20px_rgba(0,0,0,0.15)]" style="background-color: ${info.sloganBottomColor || '#EC4899'}">${info.sloganBottom || ''}</span>`;
             
             document.getElementById('modal-desc').innerHTML = data.descripcion;
             document.getElementById('modal-hero-icon').innerHTML = heroSvgs[productId] || heroSvgs['default'];
@@ -554,8 +551,8 @@
                 advContainer.innerHTML = '<div class="flex overflow-x-auto md:grid md:grid-cols-3 snap-x snap-mandatory gap-6 pb-6 hide-scrollbar max-w-6xl mx-auto px-4 md:px-0">' + 
                     info.ventajas.map(v => `
                         <div class="w-[85vw] md:w-auto shrink-0 snap-center bg-white rounded-[2rem] p-8 border border-slate-200 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-2xl transition-all duration-300 group hover:-translate-y-2 relative overflow-hidden text-left z-10">
-                            <div class="absolute top-0 right-0 w-32 h-32 rounded-bl-full -z-10 opacity-[0.04] transition-transform duration-500 group-hover:scale-125" style="background-color: ${info.themeColor}"></div>
-                            <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-sm transition-transform duration-300 group-hover:scale-110 border border-slate-50 shrink-0" style="background-color: ${info.themeColor}15; color: ${info.themeColor};">${iconSVG}</div>
+                            <div class="absolute top-0 right-0 w-32 h-32 rounded-bl-full -z-10 opacity-[0.04] transition-transform duration-500 group-hover:scale-125" style="background-color: ${info.themeColor || '#2563EB'}"></div>
+                            <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-sm transition-transform duration-300 group-hover:scale-110 border border-slate-50 shrink-0" style="background-color: ${(info.themeColor || '#2563EB')}15; color: ${info.themeColor || '#2563EB'};">${iconSVG}</div>
                             <h4 class="font-black text-xl mb-3 text-slate-900">${v.title}</h4>
                             <p class="text-slate-500 text-[13px] leading-relaxed font-medium">${v.desc}</p>
                         </div>`).join('') + '</div>';
@@ -565,51 +562,61 @@
             const grid = document.getElementById('modal-pricing-grid'); grid.innerHTML = '';
             const isMensual = document.getElementById('modal-btn-mensual').classList.contains('bg-white');
 
-            info.planes.forEach((plan) => {
-                const price = isMensual ? plan.pMes : plan.pAnual;
-                const period = isMensual ? '/mes' : '/año';
-                const setup = isMensual ? `Setup inicial: S/ ${plan.setupM}` : `Setup inicial: ${plan.setupA}`;
-                
-                let cardClass, btnClass, headerBg, setupClass, listColor;
-                let finalIcon = plan.premium ? planIcons['premium'] : (plan.destacado ? planIcons['pro'] : planIcons['basico']);
-                let originalPriceHtml = ''; let finalPrice = price; let promoBadge = '';
-                
-                if (promoGlobal && promoGlobal.activa) {
-                    let numPrice = parseFloat(price.replace(/,/g, ''));
-                    if (!isNaN(numPrice)) {
-                        let descVal = numPrice * (promoGlobal.descuento / 100); let newPrice = (numPrice - descVal).toFixed(2);
-                        if(newPrice.endsWith('.00')) newPrice = parseInt(newPrice);
-                        finalPrice = `<span class="text-rose-500">${newPrice}</span>`;
-                        originalPriceHtml = `<div class="absolute -top-7 left-0 right-0 text-center text-slate-400 font-bold line-through text-lg decoration-rose-500 decoration-2">S/ ${price}</div>`;
-                        promoBadge = `<div class="absolute -top-4 -right-4 bg-rose-600 text-white w-16 h-16 rounded-full flex items-center justify-center font-black text-[17px] rotate-12 shadow-xl border-4 border-white z-20 animate-[bounce_2s_infinite] shrink-0">-${promoGlobal.descuento}%</div>`;
+            let planesRenderizar = [];
+            // Parsear si viene como JSON string desde el backend/cache
+            if(typeof info.planes === 'string') {
+                try { planesRenderizar = JSON.parse(info.planes); } catch(e) { planesRenderizar = []; }
+            } else {
+                planesRenderizar = info.planes;
+            }
+
+            if(planesRenderizar && planesRenderizar.length > 0) {
+                planesRenderizar.forEach((plan) => {
+                    const price = isMensual ? plan.pMes : plan.pAnual;
+                    const period = isMensual ? '/mes' : '/año';
+                    const setup = isMensual ? `Setup inicial: S/ ${plan.setupM}` : `Setup inicial: ${plan.setupA}`;
+                    
+                    let cardClass, btnClass, headerBg, setupClass, listColor;
+                    let finalIcon = plan.premium ? planIcons['premium'] : (plan.destacado ? planIcons['pro'] : planIcons['basico']);
+                    let originalPriceHtml = ''; let finalPrice = price; let promoBadge = '';
+                    
+                    if (promoGlobal && promoGlobal.activa) {
+                        let numPrice = parseFloat(price.replace(/,/g, ''));
+                        if (!isNaN(numPrice)) {
+                            let descVal = numPrice * (promoGlobal.descuento / 100); let newPrice = (numPrice - descVal).toFixed(2);
+                            if(newPrice.endsWith('.00')) newPrice = parseInt(newPrice);
+                            finalPrice = `<span class="text-rose-500">${newPrice}</span>`;
+                            originalPriceHtml = `<div class="absolute -top-7 left-0 right-0 text-center text-slate-400 font-bold line-through text-lg decoration-rose-500 decoration-2">S/ ${price}</div>`;
+                            promoBadge = `<div class="absolute -top-4 -right-4 bg-rose-600 text-white w-16 h-16 rounded-full flex items-center justify-center font-black text-[17px] rotate-12 shadow-xl border-4 border-white z-20 animate-[bounce_2s_infinite] shrink-0">-${promoGlobal.descuento}%</div>`;
+                        }
                     }
-                }
 
-                if(plan.premium) { cardClass = "bg-slate-900 text-white border-slate-800 shadow-xl"; headerBg = "bg-slate-800 text-amber-400"; btnClass = "bg-white text-slate-900 hover:bg-slate-100"; setupClass = isMensual ? "bg-slate-800 text-slate-300 border-slate-700" : "bg-green-500/20 text-green-400 border-green-500/30"; listColor = "text-slate-300"; } 
-                else if(plan.destacado) { cardClass = `bg-white shadow-2xl relative transform xl:-translate-y-4 border-2`; headerBg = `bg-slate-50 text-slate-900`; btnClass = `text-white shadow-md hover:opacity-90`; setupClass = isMensual ? "bg-slate-50 text-slate-700 border-slate-200" : "bg-green-50 text-green-700 border-green-200"; listColor = "text-slate-700"; } 
-                else { cardClass = "bg-white border-slate-200 shadow-sm hover:shadow-lg"; headerBg = "bg-slate-50 text-slate-600"; btnClass = "bg-slate-100 text-slate-800 hover:bg-slate-200"; setupClass = isMensual ? "bg-slate-50 text-slate-500 border-slate-200" : "bg-green-50 text-green-700 border-green-200"; listColor = "text-slate-600"; }
+                    if(plan.premium) { cardClass = "bg-slate-900 text-white border-slate-800 shadow-xl"; headerBg = "bg-slate-800 text-amber-400"; btnClass = "bg-white text-slate-900 hover:bg-slate-100"; setupClass = isMensual ? "bg-slate-800 text-slate-300 border-slate-700" : "bg-green-500/20 text-green-400 border-green-500/30"; listColor = "text-slate-300"; } 
+                    else if(plan.destacado) { cardClass = `bg-white shadow-2xl relative transform xl:-translate-y-4 border-2`; headerBg = `bg-slate-50 text-slate-900`; btnClass = `text-white shadow-md hover:opacity-90`; setupClass = isMensual ? "bg-slate-50 text-slate-700 border-slate-200" : "bg-green-50 text-green-700 border-green-200"; listColor = "text-slate-700"; } 
+                    else { cardClass = "bg-white border-slate-200 shadow-sm hover:shadow-lg"; headerBg = "bg-slate-50 text-slate-600"; btnClass = "bg-slate-100 text-slate-800 hover:bg-slate-200"; setupClass = isMensual ? "bg-slate-50 text-slate-500 border-slate-200" : "bg-green-50 text-green-700 border-green-200"; listColor = "text-slate-600"; }
 
-                let featuresHtml = "";
-                if(Array.isArray(plan.features)) {
-                    featuresHtml = plan.features.map(f => `<li class="flex items-start gap-3"><div class="mt-0.5 w-5 h-5 rounded-full ${plan.premium ? 'bg-amber-500/20 text-amber-400' : (plan.destacado ? 'bg-emerald-500/20 text-emerald-500' : 'bg-green-500/20 text-green-600')} flex items-center justify-center shrink-0"><svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg></div><span class="leading-relaxed">${f}</span></li>`).join('');
-                }
+                    let featuresHtml = "";
+                    if(Array.isArray(plan.features)) {
+                        featuresHtml = plan.features.map(f => `<li class="flex items-start gap-3"><div class="mt-0.5 w-5 h-5 rounded-full ${plan.premium ? 'bg-amber-500/20 text-amber-400' : (plan.destacado ? 'bg-emerald-500/20 text-emerald-500' : 'bg-green-500/20 text-green-600')} flex items-center justify-center shrink-0"><svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg></div><span class="leading-relaxed">${f}</span></li>`).join('');
+                    }
 
-                grid.innerHTML += `
-                    <div class="w-[85vw] sm:w-[320px] shrink-0 snap-center rounded-[2rem] border ${cardClass} overflow-hidden flex flex-col transition-all h-full relative" ${plan.destacado ? `style="border-color: ${info.themeColor};"` : ''}>
-                        ${plan.destacado ? `<div class="text-white text-[10px] font-black uppercase tracking-[0.2em] py-2.5 text-center shadow-sm" style="background-color: ${info.themeColor}">Recomendado para Crecer</div>` : ''}
-                        <div class="p-8 border-b ${plan.premium ? 'border-slate-800' : 'border-slate-100'}">
-                            <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 shadow-sm shrink-0 ${headerBg}">
-                                ${finalIcon}
+                    grid.innerHTML += `
+                        <div class="w-[85vw] sm:w-[320px] shrink-0 snap-center rounded-[2rem] border ${cardClass} overflow-hidden flex flex-col transition-all h-full relative" ${plan.destacado ? `style="border-color: ${info.themeColor || '#2563EB'};"` : ''}>
+                            ${plan.destacado ? `<div class="text-white text-[10px] font-black uppercase tracking-[0.2em] py-2.5 text-center shadow-sm" style="background-color: ${info.themeColor || '#2563EB'}">Recomendado para Crecer</div>` : ''}
+                            <div class="p-8 border-b ${plan.premium ? 'border-slate-800' : 'border-slate-100'}">
+                                <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 shadow-sm shrink-0 ${headerBg}">
+                                    ${finalIcon}
+                                </div>
+                                <h4 class="text-xl font-black mb-2 ${plan.premium ? 'text-white' : 'text-slate-900'}">${plan.nombre}</h4>
+                                <p class="text-xs mb-6 min-h-[45px] leading-relaxed ${plan.premium ? 'text-slate-400' : 'text-slate-500'}">${plan.desc}</p>
+                                <div class="flex items-end gap-1 mb-4 relative mt-8">${promoBadge}${originalPriceHtml}<span class="font-bold text-xl mb-1 ${plan.premium ? 'text-slate-500' : 'text-slate-400'}">S/</span><span class="text-5xl font-black tracking-tight" ${plan.destacado && (!promoGlobal || !promoGlobal.activa) ? `style="color: ${info.themeColor || '#2563EB'};"` : ''}>${finalPrice}</span><span class="font-bold mb-1 ${plan.premium ? 'text-slate-500' : 'text-slate-400'}">${period}</span></div>
+                                <div class="text-[11px] font-bold py-2.5 px-3 rounded-xl border mb-6 text-center shadow-sm transition-colors ${setupClass}">${setup}</div>
+                                <button onclick="selectModalPlan('${plan.nombre}')" class="w-full py-4 font-black text-[13px] uppercase tracking-widest rounded-xl transition-all flex items-center justify-center gap-2 shrink-0 ${btnClass}" ${plan.destacado ? `style="background-color: ${info.themeColor || '#2563EB'};"` : ''}>Añadir a Cotización</button>
                             </div>
-                            <h4 class="text-xl font-black mb-2 ${plan.premium ? 'text-white' : 'text-slate-900'}">${plan.nombre}</h4>
-                            <p class="text-xs mb-6 min-h-[45px] leading-relaxed ${plan.premium ? 'text-slate-400' : 'text-slate-500'}">${plan.desc}</p>
-                            <div class="flex items-end gap-1 mb-4 relative mt-8">${promoBadge}${originalPriceHtml}<span class="font-bold text-xl mb-1 ${plan.premium ? 'text-slate-500' : 'text-slate-400'}">S/</span><span class="text-5xl font-black tracking-tight" ${plan.destacado && (!promoGlobal || !promoGlobal.activa) ? `style="color: ${info.themeColor};"` : ''}>${finalPrice}</span><span class="font-bold mb-1 ${plan.premium ? 'text-slate-500' : 'text-slate-400'}">${period}</span></div>
-                            <div class="text-[11px] font-bold py-2.5 px-3 rounded-xl border mb-6 text-center shadow-sm transition-colors ${setupClass}">${setup}</div>
-                            <button onclick="selectModalPlan('${plan.nombre}')" class="w-full py-4 font-black text-[13px] uppercase tracking-widest rounded-xl transition-all flex items-center justify-center gap-2 shrink-0 ${btnClass}" ${plan.destacado ? `style="background-color: ${info.themeColor};"` : ''}>Añadir a Cotización</button>
-                        </div>
-                        <div class="p-8 flex-1 ${plan.premium ? 'bg-slate-800/50' : 'bg-slate-50/50'}"><ul class="space-y-4 text-xs font-medium ${listColor}">${featuresHtml}</ul></div>
-                    </div>`;
-            });
+                            <div class="p-8 flex-1 ${plan.premium ? 'bg-slate-800/50' : 'bg-slate-50/50'}"><ul class="space-y-4 text-xs font-medium ${listColor}">${featuresHtml}</ul></div>
+                        </div>`;
+                });
+            }
 
             const modal = document.getElementById('product-modal'); modal.classList.remove('hidden');
             setTimeout(() => modal.classList.remove('opacity-0'), 10); document.body.style.overflow = 'hidden';
