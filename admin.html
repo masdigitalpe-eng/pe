@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SaaS ERP | MAS Digital</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -16,22 +16,30 @@
         .glass-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.5); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05); }
         .modal-enter { animation: zoomIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes zoomIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        
         #toast-container { position: fixed; top: 20px; right: 20px; z-index: 99999; display: flex; flex-direction: column; gap: 10px; }
         .toast { background: #1e293b; color: white; border-left: 4px solid #3b82f6; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2); padding: 16px 20px; border-radius: 8px; font-weight: 600; font-size: 13px; animation: slideInRight 0.4s ease forwards, fadeOut 0.4s ease 3s forwards;}
         .toast-error { border-left-color: #ef4444; }
         @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
         @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; visibility: hidden; } }
+        
+        /* Modern Table Styles */
+        .modern-table-container { @apply w-full overflow-x-auto bg-white rounded-2xl border border-slate-200 shadow-sm; }
+        .modern-table { @apply w-full text-left text-sm whitespace-nowrap; }
+        .modern-table thead { @apply bg-slate-50 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-200 sticky top-0 z-10; }
+        .modern-table th { @apply px-4 md:px-6 py-4; }
+        .modern-table tbody { @apply divide-y divide-slate-100; }
+        .modern-table tr { @apply hover:bg-slate-50 transition-colors duration-150; }
+        .modern-table td { @apply px-4 md:px-6 py-4; }
     </style>
 </head>
 <body class="antialiased h-screen flex items-center justify-center relative bg-slate-100">
-
     <div id="toast-container"></div>
 
     <script>
         // 🛑 PEGA AQUÍ TU URL DEL BACKEND DE GOOGLE APPS SCRIPT 🛑
-        const URL_BACKEND = "https://script.google.com/macros/s/AKfycbzMwp3pQfmBRw2uINcpSp7p4_HhrmRBYDNoLRdZ35hedDKlQANKILB-GZiWImboI8jcuA/exec"; 
+        const URL_BACKEND = "https://script.google.com/macros/s/AKfycbxeIjyDa5tYgK2W2fF529RfwuOewxsjcl2zcX7NzOYEH_YZyvuNU8adZpf4mJK9AOSKZw/exec"; 
     </script>
-
     <div id="loader" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[200] hidden items-center justify-center">
         <div class="bg-white p-6 rounded-3xl shadow-2xl flex flex-col items-center gap-4">
             <svg class="animate-spin h-10 w-10 text-brand-blue" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
@@ -39,8 +47,22 @@
         </div>
     </div>
 
+    <!-- Modal Custom Confirm -->
+    <div id="confirm-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-[9999] hidden items-center justify-center p-4">
+      <div class="bg-white p-8 rounded-[2rem] max-w-sm w-full text-center shadow-2xl border border-slate-100 modal-enter">
+         <div class="w-16 h-16 bg-rose-50 text-rose-500 rounded-full flex items-center justify-center mx-auto mb-4">
+             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+         </div>
+         <h3 class="text-xl font-black text-slate-900 mb-2">Confirmar Acción</h3>
+         <p id="confirm-msg" class="text-sm text-slate-500 font-medium mb-8">¿Estás seguro de continuar?</p>
+         <div class="flex gap-3">
+             <button id="btn-confirm-cancel" class="flex-1 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-sm transition-colors">Cancelar</button>
+             <button id="btn-confirm-ok" class="flex-1 py-3 bg-rose-600 hover:bg-rose-700 text-white font-black rounded-xl text-sm shadow-md transition-colors">Sí, Confirmar</button>
+         </div>
+      </div>
+    </div>
     <!-- PANTALLA DE AUTENTICACIÓN -->
-    <div id="auth-box" class="bg-white p-10 rounded-[2.5rem] shadow-2xl w-full max-w-md border border-slate-100 relative z-10">
+    <div id="auth-box" class="bg-white p-8 md:p-10 rounded-[2.5rem] shadow-2xl w-[90%] max-w-md border border-slate-100 relative z-10">
         <div class="flex items-center justify-center gap-3 mb-8">
             <svg viewBox="0 0 280 150" class="h-10 w-auto shrink-0" xmlns="http://www.w3.org/2000/svg">
                 <defs>
@@ -66,7 +88,7 @@
         <div id="auth-forms-container">
             <div id="form-login" class="space-y-5 transition-all">
                 <div><label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 ml-1">Usuario</label><input type="text" id="log-user" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:border-brand-blue outline-none transition-colors" placeholder="Tus credenciales"></div>
-                <div><label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 ml-1">Contraseña</label><input type="password" id="log-pass" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:border-brand-blue outline-none transition-colors font-mono tracking-widest" placeholder="••••••••"></div>
+                <div><label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 ml-1">Contraseña</label><input type="password" id="log-pass" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm focus:border-brand-blue outline-none transition-colors font-mono tracking-widest" placeholder="••••••••" onkeypress="if(event.key === 'Enter') login()"></div>
                 <button onclick="login()" class="w-full bg-slate-900 text-white font-black py-4 rounded-xl hover:bg-brand-blue transition-colors shadow-xl mt-2 text-sm uppercase tracking-widest">Ingresar</button>
                 <div class="text-center mt-4"><button onclick="toggleAuth('register')" class="text-xs font-bold text-slate-500 hover:text-brand-blue">¿No tienes cuenta? Regístrate</button></div>
             </div>
@@ -83,12 +105,14 @@
             </div>
         </div>
     </div>
-
     <!-- PANEL ADMINISTRADOR PRINCIPAL -->
     <div id="dashboard" class="hidden w-full h-screen bg-slate-50 flex overflow-hidden">
         
-        <aside class="w-72 bg-brand-dark text-slate-400 flex flex-col shrink-0 transition-all border-r border-slate-800 relative z-20">
-            <div class="h-20 flex items-center gap-3 px-8 border-b border-slate-800 bg-slate-900/50">
+        <!-- Overlay Móvil para Sidebar -->
+        <div id="sidebar-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-30 hidden md:hidden" onclick="toggleSidebar()"></div>
+
+        <aside id="admin-sidebar" class="fixed md:relative inset-y-0 left-0 w-72 bg-brand-dark text-slate-400 flex flex-col shrink-0 transition-transform duration-300 transform -translate-x-full md:translate-x-0 border-r border-slate-800 z-40">
+            <div class="h-20 flex items-center gap-3 px-8 border-b border-slate-800 bg-slate-900/50 shrink-0">
                 <svg viewBox="0 0 280 150" class="h-8 w-auto shrink-0" xmlns="http://www.w3.org/2000/svg">
                     <defs>
                         <linearGradient id="g1-side" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient>
@@ -102,6 +126,7 @@
                     </g>
                 </svg>
                 <div class="flex items-baseline leading-none"><span class="font-display font-[900] text-xl text-white tracking-tighter">MAS</span><span class="font-display font-[700] text-xl text-white tracking-tighter ml-1">Digital</span></div>
+                <button onclick="toggleSidebar()" class="md:hidden ml-auto text-white p-2"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
             </div>
 
             <nav class="flex-1 overflow-y-auto py-6 px-4 space-y-1">
@@ -120,7 +145,7 @@
                 </div>
             </nav>
 
-            <div class="p-4 border-t border-slate-800 flex items-center justify-between">
+            <div class="p-4 border-t border-slate-800 flex items-center justify-between shrink-0">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center font-bold text-white shadow-inner" id="user-avatar">U</div>
                     <div><p class="text-xs font-bold text-white" id="user-name-display">Usuario</p><p class="text-[10px] font-bold tracking-widest uppercase text-emerald-400" id="user-role-display">Rol</p></div>
@@ -128,57 +153,89 @@
                 <button onclick="logout()" class="p-2 hover:bg-slate-800 rounded-lg text-slate-500 hover:text-rose-400 transition-colors"><svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg></button>
             </div>
         </aside>
-
         <main class="flex-1 flex flex-col h-screen overflow-hidden bg-slate-50/50 relative">
             
-            <header class="h-20 bg-white border-b border-slate-200 flex items-center px-10 shrink-0 z-10 shadow-sm justify-between relative">
-                <h2 id="header-title" class="text-2xl font-black text-slate-900 tracking-tight">Directorio CRM</h2>
+            <header class="h-20 bg-white border-b border-slate-200 flex items-center px-4 md:px-10 shrink-0 z-10 shadow-sm justify-between relative">
+                <div class="flex items-center gap-3">
+                    <button class="md:hidden text-slate-600 hover:text-brand-blue p-2" onclick="toggleSidebar()"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
+                    <h2 id="header-title" class="text-lg md:text-2xl font-black text-slate-900 tracking-tight">Directorio CRM</h2>
+                </div>
                 <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest border border-slate-200 px-3 py-1.5 rounded-lg bg-slate-50 flex items-center" id="header-date"></div>
             </header>
 
-            <div class="flex-1 overflow-y-auto p-10 relative z-0" id="main-content">
+            <div class="flex-1 overflow-y-auto p-4 md:p-10 relative z-0" id="main-content">
                 
                 <!-- VISTA 0: CRM -->
                 <div id="view-crm" class="">
-                    <div class="flex justify-between items-end mb-6">
-                        <div><p class="text-slate-500 text-sm font-medium">Base de datos centralizada de tus clientes corporativos.</p></div>
-                        <button onclick="abrirModalCRM()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-bold text-sm transition-all shadow-lg flex items-center gap-2"><svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M12 4v16m8-8H4"></path></svg> Nuevo Cliente</button>
+                    <div class="flex flex-col md:flex-row justify-between md:items-end mb-6 gap-4">
+                        <div>
+                            <p class="text-slate-500 text-sm font-medium mb-3">Base de datos centralizada de tus clientes corporativos.</p>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></span>
+                                <input type="text" id="crm-search" onkeyup="buscarCRM()" placeholder="Buscar cliente por nombre o responsable..." class="w-full md:w-96 bg-white border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-sm outline-none focus:border-brand-blue shadow-sm transition-colors">
+                            </div>
+                        </div>
+                        <button onclick="abrirModalCRM()" class="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-bold text-sm transition-all shadow-lg flex items-center justify-center gap-2"><svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M12 4v16m8-8H4"></path></svg> Nuevo Cliente</button>
                     </div>
-                    <div class="bg-white border border-slate-200 rounded-[2rem] overflow-hidden shadow-sm">
-                        <table class="w-full text-left text-sm whitespace-nowrap">
-                            <thead class="bg-slate-50 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100">
-                                <tr><th class="px-6 py-4">Empresa</th><th class="px-6 py-4">Responsable</th><th class="px-6 py-4">Contacto</th><th class="px-6 py-4">Dirección</th><th class="px-6 py-4 text-center">Acciones</th></tr>
+
+                    <div class="modern-table-container">
+                        <table class="modern-table">
+                            <thead>
+                                <tr>
+                                    <th>Empresa</th>
+                                    <th>Contacto</th>
+                                    <th>Email / Teléfono</th>
+                                    <th class="text-center">Acciones</th>
+                                </tr>
                             </thead>
-                            <tbody id="crm-body" class="divide-y divide-slate-100"></tbody>
+                            <tbody id="crm-table-body">
+                            </tbody>
                         </table>
+                        <div class="px-6 py-4 border-t border-slate-200 flex items-center justify-between bg-white rounded-b-2xl">
+                            <span class="text-xs font-bold text-slate-500" id="crm-pagination-info">Mostrando 0 - 0 de 0</span>
+                            <div class="flex items-center gap-2">
+                                <button onclick="changeCrmPage(-1)" class="p-2 rounded-lg border border-slate-200 text-slate-500 hover:bg-slate-50 disabled:opacity-50 transition-colors" id="crm-btn-prev"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
+                                <button onclick="changeCrmPage(1)" class="p-2 rounded-lg border border-slate-200 text-slate-500 hover:bg-slate-50 disabled:opacity-50 transition-colors" id="crm-btn-next"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- VISTA 1: LEADS -->
                 <div id="view-leads" class="hidden">
                     <p class="text-slate-500 mb-6 text-sm font-medium">Prospectos recibidos desde el Carrito de Compras o Chatbot.</p>
-                    <div class="bg-white border border-slate-200 rounded-[2rem] overflow-hidden shadow-sm">
-                        <table class="w-full text-left text-sm whitespace-nowrap">
-                            <thead class="bg-slate-50 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100">
-                                <tr><th class="px-6 py-4">Fecha</th><th class="px-6 py-4">Cliente / Contacto</th><th class="px-6 py-4">Requerimiento / Interés</th><th class="px-6 py-4">Estado</th></tr>
+                    <div class="modern-table-container">
+                        <table class="modern-table">
+                            <thead>
+                                <tr><th>Fecha</th><th>Cliente / Contacto</th><th>Requerimiento / Interés</th><th>Estado</th></tr>
                             </thead>
-                            <tbody id="leads-body" class="divide-y divide-slate-100"></tbody>
+                            <tbody id="leads-body"></tbody>
                         </table>
                     </div>
                 </div>
 
                 <!-- VISTA 2: SUSCRIPCIONES (SAAS) -->
                 <div id="view-suscripciones" class="hidden">
-                    <div class="flex justify-between items-end mb-6">
-                        <div><p class="text-slate-500 text-sm font-medium">Control de mensualidades y licencias de tus clientes activos.</p></div>
-                        <button onclick="abrirModalSuscripcion()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-xl font-bold text-sm transition-all shadow-lg flex items-center gap-2"><svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M12 4v16m8-8H4"></path></svg> Nueva Suscripción</button>
+                    <div class="flex flex-col md:flex-row justify-between md:items-end mb-6 gap-4">
+                        <div>
+                            <p class="text-slate-500 text-sm font-medium mb-2">Control de mensualidades y licencias de tus clientes activos.</p>
+                            <!-- Filtro Vendedores Suscripciones -->
+                            <div id="filtro-sus-vendedor-container" class="hidden flex items-center gap-2 bg-white px-3 py-1.5 rounded-lg border border-slate-200 shadow-sm w-max">
+                                <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                                <select id="dash-filtro-sus-vendedor" onchange="renderSuscripcionesList()" class="text-xs font-bold bg-transparent outline-none cursor-pointer text-slate-700">
+                                    <option value="ALL">Todas las Licencias</option>
+                                </select>
+                                <span class="bg-blue-100 text-blue-700 text-[10px] font-black px-2 py-0.5 rounded-md ml-2" id="badge-total-licencias">0</span>
+                            </div>
+                        </div>
+                        <button onclick="abrirModalSuscripcion()" class="w-full md:w-auto bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-xl font-bold text-sm transition-all shadow-lg flex items-center justify-center gap-2"><svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M12 4v16m8-8H4"></path></svg> Nueva Suscripción</button>
                     </div>
-                    <div class="grid grid-cols-1 xl:grid-cols-3 gap-6" id="suscripciones-grid"></div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6" id="suscripciones-grid"></div>
                 </div>
 
                 <!-- VISTA 3: GENERADOR PDF -->
                 <div id="view-cotizador" class="hidden max-w-4xl mx-auto">
-                    <div class="bg-white border border-slate-200 p-8 rounded-[2rem] shadow-sm mb-8">
+                    <div class="bg-white border border-slate-200 p-6 md:p-8 rounded-[2rem] shadow-sm mb-8">
                         <h3 class="font-black text-xl mb-6 text-slate-900 flex items-center gap-3">
                             <div class="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
                                 <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
@@ -204,18 +261,29 @@
 
                 <!-- VISTA 4: FINANZAS -->
                 <div id="view-finanzas" class="hidden">
-                    <div id="finanzas-dash-cards" class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="mb-6 flex items-center justify-between">
+                        <p class="text-slate-500 text-sm font-medium">Control de ingresos y egresos de la agencia.</p>
+                        <!-- Filtro Financiero (RBAC SuperAdmin) -->
+                        <div id="filtro-vendedor-container" class="hidden flex items-center gap-2 bg-white px-4 py-2 rounded-xl border border-slate-200 shadow-sm w-max">
+                            <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+                            <select id="dash-filtro-vendedor" onchange="renderFinanzasList()" class="text-sm font-bold bg-transparent outline-none cursor-pointer text-slate-700">
+                                <option value="ALL">Ventas Unificadas (Consolidado)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="finanzas-dash-cards" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                         <div class="bg-white border border-slate-200 p-6 rounded-[2rem] shadow-sm flex flex-col justify-center relative overflow-hidden">
                             <div class="absolute -right-4 -top-4 w-20 h-20 bg-green-50 rounded-full z-0"></div>
-                            <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1 relative z-10">Ingresos Registrados</p>
+                            <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1 relative z-10">Ingresos Filtrados</p>
                             <p class="text-3xl font-black text-slate-900 relative z-10" id="dash-ingresos">S/ 0.00</p>
                         </div>
                         <div class="bg-white border border-slate-200 p-6 rounded-[2rem] shadow-sm flex flex-col justify-center relative overflow-hidden">
                             <div class="absolute -right-4 -top-4 w-20 h-20 bg-rose-50 rounded-full z-0"></div>
-                            <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1 relative z-10">Egresos Registrados</p>
+                            <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1 relative z-10">Egresos Filtrados</p>
                             <p class="text-3xl font-black text-slate-900 relative z-10" id="dash-egresos">S/ 0.00</p>
                         </div>
-                        <div class="bg-slate-900 p-6 rounded-[2rem] shadow-xl lg:col-span-2 text-white relative overflow-hidden">
+                        <div class="bg-slate-900 p-6 rounded-[2rem] shadow-xl lg:col-span-2 text-white relative overflow-hidden sm:col-span-2">
                             <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500 rounded-full blur-[60px] opacity-40 pointer-events-none"></div>
                             <div class="absolute bottom-0 left-0 w-32 h-32 bg-purple-500 rounded-full blur-[60px] opacity-40 pointer-events-none"></div>
                             <div class="relative z-10 h-full flex flex-col justify-center">
@@ -227,7 +295,7 @@
 
                     <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
                         <div class="xl:col-span-1">
-                            <div class="bg-white border border-slate-200 p-8 rounded-[2rem] shadow-sm">
+                            <div class="bg-white border border-slate-200 p-6 md:p-8 rounded-[2rem] shadow-sm">
                                 <h3 class="font-black text-lg mb-6 text-slate-900">Registrar Movimiento</h3>
                                 <div class="space-y-4">
                                     <div class="flex gap-2 p-1 bg-slate-100 rounded-xl mb-4">
@@ -254,20 +322,17 @@
                             </div>
                         </div>
                         <div class="xl:col-span-2">
-                            <div class="bg-white border border-slate-200 rounded-[2rem] overflow-hidden shadow-sm h-full flex flex-col">
-                                <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-                                    <div class="flex items-center gap-4">
-                                        <h3 class="font-black text-lg text-slate-900">Historial de Transacciones</h3>
-                                        <div id="filtro-vendedor-container" class="hidden"><select id="dash-filtro-vendedor" onchange="renderFinanzasList()" class="text-[10px] font-bold bg-white border border-slate-200 px-3 py-1.5 rounded-lg outline-none cursor-pointer text-slate-600"><option value="ALL">Todos los Vendedores</option></select></div>
-                                    </div>
-                                    <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest bg-white border border-slate-200 px-3 py-1 rounded-md">Tiempo Real</span>
+                            <div class="modern-table-container h-full flex flex-col min-h-[400px]">
+                                <div class="p-4 md:p-6 border-b border-slate-100 flex flex-col sm:flex-row justify-between sm:items-center bg-slate-50 gap-4">
+                                    <h3 class="font-black text-lg text-slate-900">Historial Transacciones</h3>
+                                    <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest bg-white border border-slate-200 px-3 py-1 rounded-md shadow-sm shrink-0">Tiempo Real</span>
                                 </div>
                                 <div class="flex-1 overflow-y-auto">
-                                    <table class="w-full text-left text-sm whitespace-nowrap">
-                                        <thead class="bg-white text-[10px] font-black text-slate-400 uppercase tracking-widest sticky top-0 border-b border-slate-100 shadow-sm z-10">
-                                            <tr><th class="px-6 py-4">Fecha</th><th class="px-6 py-4">Concepto & Categoría</th><th class="px-6 py-4 text-right">Importe</th><th class="px-6 py-4 text-center">Acción</th></tr>
+                                    <table class="modern-table">
+                                        <thead>
+                                            <tr><th>Fecha</th><th>Concepto & Categoría</th><th class="text-right">Importe</th><th class="text-center">Acción</th></tr>
                                         </thead>
-                                        <tbody id="finanzas-body" class="divide-y divide-slate-50"></tbody>
+                                        <tbody id="finanzas-body"></tbody>
                                     </table>
                                 </div>
                             </div>
@@ -276,31 +341,26 @@
                 </div>
 
                 <div id="view-productos" class="hidden">
-                    <div class="flex justify-between items-end mb-8">
+                    <div class="flex flex-col sm:flex-row justify-between sm:items-end mb-8 gap-4">
                         <div><p class="text-slate-500 mb-1 text-sm font-medium">Gestiona los sistemas y aplicaciones de tu Landing Page.</p></div>
-                        <button onclick="abrirModalProducto()" class="bg-slate-900 hover:bg-brand-blue text-white px-6 py-3.5 rounded-xl font-bold text-sm transition-all shadow-lg flex items-center gap-2">
-                            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M12 4v16m8-8H4"></path></svg> Nuevo Sistema
-                        </button>
+                        <button onclick="abrirModalProducto()" class="w-full sm:w-auto bg-slate-900 hover:bg-brand-blue text-white px-6 py-3.5 rounded-xl font-bold text-sm transition-all shadow-lg flex items-center justify-center gap-2"><svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M12 4v16m8-8H4"></path></svg> Nuevo Sistema</button>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="prod-grid"></div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6" id="prod-grid"></div>
                 </div>
 
                 <div id="view-servicios" class="hidden">
-                    <div class="flex justify-between items-end mb-8">
+                    <div class="flex flex-col sm:flex-row justify-between sm:items-end mb-8 gap-4">
                         <div><p class="text-slate-500 mb-1 text-sm font-medium">Gestiona los servicios de agencia creativa (Content Studio).</p></div>
-                        <button onclick="abrirModalServicio()" class="bg-pink-600 hover:bg-pink-700 text-white px-6 py-3.5 rounded-xl font-bold text-sm transition-all shadow-lg shadow-pink-500/30 flex items-center gap-2">
-                            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M12 4v16m8-8H4"></path></svg> Nuevo Servicio
-                        </button>
+                        <button onclick="abrirModalServicio()" class="w-full sm:w-auto bg-pink-600 hover:bg-pink-700 text-white px-6 py-3.5 rounded-xl font-bold text-sm transition-all shadow-lg shadow-pink-500/30 flex items-center justify-center gap-2"><svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M12 4v16m8-8H4"></path></svg> Nuevo Servicio</button>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="serv-grid"></div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6" id="serv-grid"></div>
                 </div>
-
                 <div id="view-promo" class="hidden">
-                    <div class="bg-white border border-slate-200 p-8 rounded-[2.5rem] shadow-sm">
+                    <div class="bg-white border border-slate-200 p-6 md:p-8 rounded-[2.5rem] shadow-sm">
                         <h3 class="text-xl font-black text-slate-900 mb-6">Configuración Global Web</h3>
                         <div class="space-y-4 max-w-lg">
                             <div class="flex items-center justify-between p-4 border border-slate-200 rounded-2xl bg-slate-50">
-                                <div><p class="font-bold text-slate-900">Activar Banner Promocional</p><p class="text-[10px] text-slate-500">Tacha precios originales</p></div>
+                                <div><p class="font-bold text-slate-900">Activar Banner Promocional</p><p class="text-[10px] text-slate-500">Muestra banner de oferta en la web</p></div>
                                 <label class="relative inline-flex items-center cursor-pointer">
                                     <input type="checkbox" id="promo-activa" class="sr-only peer">
                                     <div class="w-12 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-rose-500"></div>
@@ -309,13 +369,13 @@
                             <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Nombre Oferta</label><input type="text" id="promo-nombre" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand-blue outline-none" placeholder="BLACK FRIDAY"></div>
                             <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">% Descuento</label><input type="number" id="promo-descuento" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand-blue outline-none" placeholder="20"></div>
                             
-                            <h4 class="text-xs font-black uppercase tracking-widest text-slate-400 mt-6 pt-4 border-t border-slate-100 mb-4">Redes Sociales</h4>
+                            <h4 class="text-xs font-black uppercase tracking-widest text-slate-400 mt-6 pt-4 border-t border-slate-100 mb-4">Redes Sociales / Contacto</h4>
                             <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">WhatsApp (Ventas)</label><input type="text" id="promo-wsp" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand-blue outline-none" placeholder="51999888777"></div>
                             <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Correo</label><input type="email" id="promo-email" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand-blue outline-none"></div>
                             <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Link Facebook</label><input type="text" id="promo-fb" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand-blue outline-none"></div>
                             <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Link Instagram</label><input type="text" id="promo-ig" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand-blue outline-none"></div>
 
-                            <button onclick="guardarPromo()" class="w-full bg-brand-blue text-white font-black py-4 rounded-xl shadow-lg mt-4 text-sm uppercase tracking-widest">Guardar Cambios</button>
+                            <button onclick="guardarPromo()" class="w-full bg-brand-blue text-white font-black py-4 rounded-xl shadow-lg mt-4 text-sm uppercase tracking-widest hover:bg-blue-600 transition-colors">Guardar Cambios</button>
                         </div>
                     </div>
                 </div>
@@ -323,30 +383,50 @@
         </main>
     </div>
 
-    <!-- MODAL CRM (NUEVO) -->
+    <!-- MODAL CRM / FICHA CLIENTE -->
     <div id="modal-crm" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-[300] hidden items-center justify-center p-4">
-        <div class="bg-white p-8 rounded-[2rem] w-full max-w-md shadow-2xl modal-enter border border-slate-100 relative">
-            <h3 class="font-black text-xl mb-1 text-slate-900">Ficha de Cliente</h3>
-            <p class="text-xs text-slate-500 mb-6 pb-4 border-b border-slate-100">Registra los datos para cotizaciones y suscripciones.</p>
+        <div class="bg-white p-6 md:p-8 rounded-[2rem] w-full max-w-lg shadow-2xl modal-enter border border-slate-100 relative max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-start mb-6 pb-4 border-b border-slate-100">
+                <div>
+                    <h3 class="font-black text-xl md:text-2xl text-slate-900">Ficha de Cliente</h3>
+                    <p class="text-xs text-slate-500 mt-1">Registra los datos corporativos de la empresa.</p>
+                </div>
+                <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-xl font-black shrink-0" id="crm-modal-avatar">?</div>
+            </div>
+            
             <input type="hidden" id="mcrm-id">
             <div class="space-y-4 mb-8">
-                <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Nombre de la Empresa</label><input type="text" id="mcrm-empresa" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold outline-none focus:border-blue-500"></div>
-                <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Responsable / Representante</label><input type="text" id="mcrm-responsable" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-blue-500"></div>
+                <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Nombre de la Empresa</label>
+                <input type="text" id="mcrm-empresa" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold outline-none focus:border-blue-500" placeholder="Razón Social o Nombre Comercial" oninput="document.getElementById('crm-modal-avatar').innerText = this.value.charAt(0).toUpperCase() || '?'"></div>
+                <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Responsable / Representante</label>
+                <input type="text" id="mcrm-responsable" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-blue-500" placeholder="Nombre completo"></div>
                 <div class="grid grid-cols-2 gap-4">
-                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Celular</label><input type="text" id="mcrm-celular" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-blue-500"></div>
-                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Email</label><input type="email" id="mcrm-email" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-blue-500"></div>
+                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Celular</label>
+                    <input type="text" id="mcrm-celular" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-blue-500" placeholder="Ej. 999888777"></div>
+                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Email</label>
+                    <input type="email" id="mcrm-email" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-blue-500" placeholder="correo@empresa.com"></div>
                 </div>
-                <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Dirección Exacta</label><input type="text" id="mcrm-direccion" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-blue-500"></div>
+                <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Dirección Exacta</label>
+                <input type="text" id="mcrm-direccion" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-blue-500" placeholder="Calle, Av., Distrito, Ciudad"></div>
             </div>
-            <div class="flex gap-3"><button onclick="cerrarModal('modal-crm')" class="flex-1 py-3.5 bg-slate-100 text-slate-600 font-bold rounded-xl text-sm">Cancelar</button><button onclick="guardarCRM()" class="flex-1 py-3.5 bg-blue-600 text-white font-black uppercase rounded-xl text-sm shadow-md">Guardar Cliente</button></div>
+            
+            <div id="crm-quick-actions" class="hidden mb-6 pt-4 border-t border-slate-100">
+                <p class="text-[10px] font-bold text-slate-500 uppercase mb-3">Mensajes Rápidos (WhatsApp)</p>
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="enviarWspCRM('contacto')" class="text-xs bg-[#25D366]/10 text-[#25D366] hover:bg-[#25D366]/20 font-bold px-3 py-2 rounded-lg transition-colors border border-[#25D366]/30 flex items-center gap-1"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Nuevo Contacto</button>
+                    <button onclick="enviarWspCRM('cotizacion')" class="text-xs bg-blue-50 text-blue-600 hover:bg-blue-100 font-bold px-3 py-2 rounded-lg transition-colors border border-blue-200">Envió Cotización</button>
+                    <button onclick="enviarWspCRM('seguimiento')" class="text-xs bg-amber-50 text-amber-600 hover:bg-amber-100 font-bold px-3 py-2 rounded-lg transition-colors border border-amber-200">Seguimiento</button>
+                </div>
+            </div>
+
+            <div class="flex gap-3"><button onclick="cerrarModal('modal-crm')" class="flex-1 py-3.5 bg-slate-100 hover:bg-slate-200 transition-colors text-slate-600 font-bold rounded-xl text-sm">Cancelar</button><button onclick="guardarCRM()" class="flex-1 py-3.5 bg-blue-600 hover:bg-blue-700 transition-colors text-white font-black uppercase rounded-xl text-sm shadow-md">Guardar Cliente</button></div>
         </div>
     </div>
-
-    <!-- MODAL SUSCRIPCION (AGREGAR/EDITAR) -->
+    <!-- MODAL SUSCRIPCION (Editar Info Básica) -->
     <div id="modal-suscripcion" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-[300] hidden items-center justify-center p-4">
-        <div class="bg-white p-8 rounded-[2rem] w-full max-w-md shadow-2xl modal-enter border border-slate-100 relative">
+        <div class="bg-white p-6 md:p-8 rounded-[2rem] w-full max-w-md shadow-2xl modal-enter border border-slate-100 relative max-h-[90vh] overflow-y-auto">
             <h3 class="font-black text-xl mb-1 text-slate-900">Suscripción de Cliente</h3>
-            <p class="text-xs text-slate-500 mb-6 pb-4 border-b border-slate-100">Registra y controla vencimientos.</p>
+            <p class="text-xs text-slate-500 mb-6 pb-4 border-b border-slate-100">Registra una nueva suscripción al sistema.</p>
             <input type="hidden" id="msus-id">
             <div class="space-y-4 mb-8">
                 <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Empresa / Cliente</label>
@@ -363,85 +443,151 @@
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                     <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Fecha Inicio</label><input type="date" id="msus-inicio" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none"></div>
-                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5 text-rose-500">Día de Cobro (Próx)</label><input type="date" id="msus-prox" class="w-full bg-rose-50 border border-rose-200 rounded-xl px-4 py-3 text-sm outline-none font-bold text-rose-600"></div>
+                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5 text-rose-500">Próximo Pago</label><input type="date" id="msus-prox" class="w-full bg-rose-50 border border-rose-200 rounded-xl px-4 py-3 text-sm outline-none font-bold text-rose-600"></div>
                 </div>
             </div>
-            <div class="flex gap-3"><button onclick="cerrarModal('modal-suscripcion')" class="flex-1 py-3.5 bg-slate-100 text-slate-600 font-bold rounded-xl text-sm">Cancelar</button><button onclick="guardarSuscripcion()" class="flex-1 py-3.5 bg-emerald-600 text-white font-black uppercase rounded-xl text-sm shadow-md">Guardar</button></div>
+            <div class="flex gap-3"><button onclick="cerrarModal('modal-suscripcion')" class="flex-1 py-3.5 bg-slate-100 hover:bg-slate-200 transition-colors text-slate-600 font-bold rounded-xl text-sm">Cancelar</button><button onclick="guardarSuscripcion()" class="flex-1 py-3.5 bg-emerald-600 hover:bg-emerald-700 transition-colors text-white font-black uppercase rounded-xl text-sm shadow-md">Guardar</button></div>
+        </div>
+    </div>
+
+    <!-- MODAL ADMINISTRAR LICENCIA (Avanzado) -->
+    <div id="modal-licencia-avanzado" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-[400] hidden items-center justify-center p-4">
+        <div class="bg-white p-6 md:p-8 rounded-[2rem] w-full max-w-md shadow-2xl modal-enter border border-slate-100 relative max-h-[90vh] overflow-y-auto">
+            <h3 class="font-black text-xl mb-1 text-slate-900">Administrar Licencia</h3>
+            <p class="text-xs text-slate-500 mb-6 pb-4 border-b border-slate-100">Controla el acceso al sistema del cliente y envía mensajes.</p>
+            
+            <input type="hidden" id="mlic-id">
+            <div class="space-y-4 mb-6">
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Estado del Sistema</label>
+                    <select id="mlic-estado" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold outline-none cursor-pointer">
+                        <option value="ACTIVO">✅ Activo (Funcionando Normal)</option>
+                        <option value="AVISO">⚠️ En Aviso (Mostrar Mensaje)</option>
+                        <option value="SUSPENDIDO">⛔ Suspendido (Bloqueo Total)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Mensaje a mostrar en el sistema del cliente</label>
+                    <textarea id="mlic-mensaje" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-blue-500 h-24" placeholder="Ej: Su suscripción vence pronto..."></textarea>
+                </div>
+            </div>
+
+            <p class="text-[10px] font-bold text-slate-500 uppercase mb-3">Plantillas Rápidas</p>
+            <div class="flex flex-wrap gap-2 mb-8">
+                <button onclick="fillLicenceTemplate('5d')" class="text-[10px] bg-amber-50 text-amber-600 font-bold px-3 py-2 rounded border border-amber-200 hover:bg-amber-100">Recordatorio 5 Días</button>
+                <button onclick="fillLicenceTemplate('3d')" class="text-[10px] bg-orange-50 text-orange-600 font-bold px-3 py-2 rounded border border-orange-200 hover:bg-orange-100">Recordatorio 3 Días</button>
+                <button onclick="fillLicenceTemplate('1d')" class="text-[10px] bg-rose-50 text-rose-600 font-bold px-3 py-2 rounded border border-rose-200 hover:bg-rose-100">Alerta 1 Día</button>
+                <button onclick="fillLicenceTemplate('mant')" class="text-[10px] bg-blue-50 text-blue-600 font-bold px-3 py-2 rounded border border-blue-200 hover:bg-blue-100">Mantenimiento</button>
+                <button onclick="fillLicenceTemplate('susp')" class="text-[10px] bg-slate-800 text-white font-bold px-3 py-2 rounded border border-slate-700 hover:bg-slate-700">Corte de Servicio</button>
+            </div>
+
+            <div class="flex gap-3">
+                <button onclick="cerrarModal('modal-licencia-avanzado')" class="flex-1 py-3.5 bg-slate-100 hover:bg-slate-200 transition-colors text-slate-600 font-bold rounded-xl text-sm">Cancelar</button>
+                <button onclick="guardarEstadoLicenciaAvanzado()" class="flex-1 py-3.5 bg-slate-900 hover:bg-black transition-colors text-white font-black uppercase rounded-xl text-sm shadow-md">Aplicar Cambios</button>
+            </div>
         </div>
     </div>
 
     <!-- MODAL PRODUCTO -->
-    <div id="modal-producto" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-[300] hidden items-center justify-center p-4 overflow-y-auto">
-        <div class="bg-white rounded-[2rem] w-full max-w-4xl shadow-2xl modal-enter border border-slate-200 my-10 flex flex-col max-h-[90vh]">
+    <div id="modal-producto" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-[300] hidden items-start justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-[2rem] w-full max-w-4xl shadow-2xl modal-enter border border-slate-200 my-4 md:my-10 flex flex-col max-h-[95vh] md:max-h-[90vh]">
             <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50 rounded-t-[2rem] shrink-0">
-                <h3 class="font-black text-xl text-slate-900">Catálogo: Sistema</h3>
-                <button onclick="cerrarModal('modal-producto')" class="text-slate-400 font-bold bg-white rounded-full p-2 border shrink-0">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
+                <h3 class="font-black text-xl text-slate-900">Catálogo: Sistema</h3><button onclick="cerrarModal('modal-producto')" class="text-slate-400 hover:text-rose-500 font-bold bg-white rounded-full p-2 border border-slate-200 shrink-0 transition-colors"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
             </div>
-            <div class="flex-1 overflow-y-auto p-8 space-y-8 bg-white">
+            <div class="flex-1 overflow-y-auto p-6 md:p-8 space-y-8 bg-white">
                 <input type="hidden" id="mp-id">
                 <div><h4 class="text-xs font-black uppercase mb-4 border-b pb-2">1. Info Básica</h4>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Título</label><input type="text" id="mp-titulo" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold outline-none"></div>
-                        <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Ícono</label><input type="text" id="mp-icono" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none" placeholder="ventas, citas, etc"></div>
-                        <div class="col-span-2"><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Descripción</label><textarea id="mp-desc" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none"></textarea></div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Título</label><input type="text" id="mp-titulo" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold outline-none focus:border-blue-500"></div>
+                        <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Ícono</label><input type="text" id="mp-icono" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-blue-500" placeholder="ventas, citas, etc"></div>
+                        <div class="md:col-span-2"><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Descripción</label><textarea id="mp-desc" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-blue-500"></textarea></div>
                     </div>
                 </div>
                 <div><h4 class="text-xs font-black uppercase mb-4 border-b pb-2">2. Modal Landing</h4>
-                    <div class="grid grid-cols-3 gap-4">
-                        <div><input type="text" id="mp-color" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm" placeholder="Color Hex"></div>
-                        <div><input type="text" id="mp-colorbot" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm" placeholder="Slogan 3 Fondo"></div>
-                        <div><input type="text" id="mp-tag" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm" placeholder="Tag Ej. RESTAURANTES"></div>
-                        <div><input type="text" id="mp-s1" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold" placeholder="Slogan 1"></div>
-                        <div><input type="text" id="mp-s2" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm" placeholder="Slogan 2"></div>
-                        <div><input type="text" id="mp-s3" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold" placeholder="Slogan 3"></div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Color Tema</label><input type="text" id="mp-color" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-blue-500 outline-none" placeholder="Color Hex"></div>
+                        <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Color Fondo Slogan 3</label><input type="text" id="mp-colorbot" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-blue-500 outline-none" placeholder="Slogan 3 Fondo"></div>
+                        <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Etiqueta Tag</label><input type="text" id="mp-tag" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-blue-500 outline-none" placeholder="Tag Ej. RESTAURANTES"></div>
+                        <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Slogan 1</label><input type="text" id="mp-s1" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold focus:border-blue-500 outline-none" placeholder="Slogan 1"></div>
+                        <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Slogan 2</label><input type="text" id="mp-s2" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-blue-500 outline-none" placeholder="Slogan 2"></div>
+                        <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Slogan 3</label><input type="text" id="mp-s3" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold focus:border-blue-500 outline-none" placeholder="Slogan 3"></div>
                     </div>
                 </div>
             </div>
-            <div class="p-6 border-t bg-slate-50 flex justify-end shrink-0"><button onclick="guardarProducto()" class="px-8 py-3 bg-brand-blue text-white font-black uppercase rounded-xl">Guardar en Web</button></div>
+            <div class="p-6 border-t bg-slate-50 flex justify-end shrink-0 rounded-b-[2rem]"><button onclick="guardarProducto()" class="w-full md:w-auto px-8 py-4 md:py-3 bg-brand-blue hover:bg-blue-600 transition-colors text-white font-black uppercase rounded-xl shadow-md">Guardar en Web</button></div>
         </div>
     </div>
-
     <!-- MODAL SERVICIO -->
     <div id="modal-servicio" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-[300] hidden items-center justify-center p-4">
-        <div class="bg-white p-8 rounded-[2rem] w-full max-w-md shadow-2xl modal-enter relative">
-            <button onclick="cerrarModal('modal-servicio')" class="absolute top-6 right-6 text-slate-400 hover:text-rose-500 bg-slate-100 rounded-full p-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+        <div class="bg-white p-6 md:p-8 rounded-[2rem] w-full max-w-md shadow-2xl modal-enter relative">
+            <button onclick="cerrarModal('modal-servicio')" class="absolute top-6 right-6 text-slate-400 hover:text-rose-500 bg-slate-100 rounded-full p-2 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
             <h3 class="font-black text-xl mb-6 text-slate-900">Servicio Studio</h3>
             <input type="hidden" id="ms-id">
-            <input type="text" id="ms-titulo" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold mb-4" placeholder="Título">
-            <input type="text" id="ms-icono" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm mb-4" placeholder="Ícono">
-            <textarea id="ms-desc" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm mb-6" placeholder="Descripción"></textarea>
-            <div class="flex gap-3"><button onclick="guardarServicio()" class="flex-1 py-3 bg-pink-600 text-white font-black uppercase rounded-xl text-sm">Guardar Servicio</button></div>
+            <input type="text" id="ms-titulo" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold mb-4 focus:border-pink-500 outline-none" placeholder="Título">
+            <input type="text" id="ms-icono" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm mb-4 focus:border-pink-500 outline-none" placeholder="Ícono">
+            <textarea id="ms-desc" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm mb-6 focus:border-pink-500 outline-none" placeholder="Descripción"></textarea>
+            <div class="flex gap-3"><button onclick="guardarServicio()" class="flex-1 py-3 bg-pink-600 hover:bg-pink-700 transition-colors text-white font-black uppercase rounded-xl text-sm shadow-md">Guardar Servicio</button></div>
         </div>
     </div>
 
-    <!-- Plantilla PDF Oculta (CON ISOTIPO SVG OPTIMIZADO) -->
+    <!-- PDF TEMPLATE -->
     <div id="pdf-template-wrapper" class="absolute top-0 left-0 w-[800px] bg-white text-slate-900 font-sans p-10 z-[-9999]" style="left: -9999px;">
-        <div id="pdf-template-content" class="w-full h-full p-8 border-t-8 border-blue-600 bg-white shadow-sm">
+        <div id="pdf-template-content" class="w-full h-full p-8 border-t-8 border-blue-600 bg-white shadow-sm relative">
             <div class="flex justify-between items-start border-b-2 border-slate-100 pb-8 mb-8">
                 <div>
                     <div class="flex items-center gap-2 mb-2">
-                        <!-- ISOTIPO SIN GRADIENTES PARA PDF PERFECTO -->
-                        <svg viewBox="0 0 280 150" class="h-8 w-auto shrink-0" xmlns="http://www.w3.org/2000/svg">
-                            <g stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 32 110 L 32 65 A 34 34 0 0 1 100 65 L 100 110" stroke="#2563EB" stroke-width="32" /><path d="M 100 110 L 100 65 A 34 34 0 0 1 168 65 L 168 110" stroke="#8B5CF6" stroke-width="32" /><path d="M 229 13.2 L 229 53.2 M 209 33.2 L 249 33.2" stroke="#F97316" stroke-width="24" /></g>
-                        </svg>
+                        <svg viewBox="0 0 280 150" class="h-8 w-auto shrink-0" xmlns="http://www.w3.org/2000/svg"><g stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 32 110 L 32 65 A 34 34 0 0 1 100 65 L 100 110" stroke="#2563EB" stroke-width="32" /><path d="M 100 110 L 100 65 A 34 34 0 0 1 168 65 L 168 110" stroke="#8B5CF6" stroke-width="32" /><path d="M 229 13.2 L 229 53.2 M 209 33.2 L 249 33.2" stroke="#F97316" stroke-width="24" /></g></svg>
                         <div class="flex items-baseline leading-none"><span class="font-[900] text-3xl tracking-tighter" style="font-family: 'Montserrat', sans-serif;">MAS</span><span class="font-[700] text-3xl tracking-tighter ml-1" style="font-family: 'Montserrat', sans-serif;">Digital</span></div>
                     </div>
-                    <p class="text-xs text-slate-500 font-bold uppercase tracking-widest">Desarrollo de Software & Agencia</p>
+                    <p class="text-xs text-slate-500 font-bold uppercase tracking-widest">Sistemas SaaS & Agencia Digital</p>
                 </div>
                 <div class="text-right"><h1 class="text-3xl font-black text-slate-200 uppercase tracking-widest mb-2">Cotización</h1><p class="text-sm font-bold text-slate-500" id="pdf-fecha-hoy">Fecha: 01/01/2026</p></div>
             </div>
+            
             <div class="mb-10"><p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Preparado para:</p><h2 class="text-2xl font-black text-slate-800" id="pdf-client-name">Empresa</h2></div>
-            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-8 mb-8"><h3 class="text-xl font-black text-blue-600 mb-2" id="pdf-item-title">Ecosistema Delivery</h3><p class="text-sm text-slate-600 leading-relaxed mb-6" id="pdf-item-desc">Descripción</p><h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Planes Disponibles</h4><div id="pdf-item-planes" class="space-y-3"></div></div>
+            
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-8 mb-8">
+                <div id="pdf-item-header" class="mb-6 p-6 rounded-xl bg-white border border-slate-100 shadow-sm text-center">
+                    <span id="pdf-item-tag" class="text-[10px] font-black uppercase tracking-widest px-3 py-1 bg-slate-100 rounded-full mb-3 inline-block">SISTEMA</span>
+                    <h2 id="pdf-item-s1" class="text-3xl font-black text-slate-900 leading-tight"></h2>
+                    <h3 id="pdf-item-s2" class="text-xl font-bold text-slate-600 mt-1"></h3>
+                    <div id="pdf-item-s3" class="mt-4 px-6 py-2 inline-block rounded-full text-white font-black text-xl transform -rotate-2"></div>
+                </div>
+
+                <h3 class="text-xl font-black text-blue-600 mb-2" id="pdf-item-title">Sistema</h3>
+                <p class="text-sm text-slate-600 leading-relaxed mb-6" id="pdf-item-desc">Descripción</p>
+                
+                <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Planes Disponibles</h4>
+                <div id="pdf-item-planes" class="space-y-4"></div>
+            </div>
+            
             <div class="border-l-4 border-amber-400 bg-amber-50 p-4 rounded-r-xl mb-12"><p class="text-sm text-amber-800 font-medium" id="pdf-item-notas">Notas</p></div>
+            
+            <div class="absolute bottom-8 left-8 right-8 border-t border-slate-200 pt-4 flex justify-between items-center text-xs text-slate-500 font-bold">
+                <span id="pdf-contact-email">hola@masdigital.pe</span>
+                <span id="pdf-contact-phone">+51 900 000 000</span>
+            </div>
         </div>
     </div>
-
     <script>
         function toast(msg, err=false) { const container = document.getElementById('toast-container'); const t = document.createElement('div'); t.className = `toast ${err ? 'toast-error' : ''}`; t.innerText = msg; container.appendChild(t); setTimeout(() => t.remove(), 3500); }
         function toggleLoader(show, text="Procesando...") { const l = document.getElementById('loader'); if(show) { document.getElementById('loader-txt').innerText=text; l.classList.replace('hidden', 'flex'); } else l.classList.replace('flex', 'hidden'); }
         function cerrarModal(id) { document.getElementById(id).classList.replace('flex', 'hidden'); }
+        
+        function showConfirm(msg, onConfirm) {
+            document.getElementById('confirm-msg').innerText = msg;
+            const modal = document.getElementById('confirm-modal');
+            modal.classList.replace('hidden', 'flex');
+            document.getElementById('btn-confirm-cancel').onclick = () => modal.classList.replace('flex', 'hidden');
+            document.getElementById('btn-confirm-ok').onclick = () => { modal.classList.replace('flex', 'hidden'); onConfirm(); };
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('admin-sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
 
         let currentSession = null; let isAdminGbl = false;
         try { currentSession = JSON.parse(sessionStorage.getItem('mas_admin_cms')); } catch(e){}
@@ -473,10 +619,10 @@
             'leads': { titulo: 'Bandeja Leads', el: 'view-leads', nav: 'nav-leads' },
             'suscripciones': { titulo: 'Suscripciones SaaS', el: 'view-suscripciones', nav: 'nav-suscripciones' },
             'cotizador': { titulo: 'Cotizador PDF', el: 'view-cotizador', nav: 'nav-cotizador' },
-            'finanzas': { titulo: 'Flujo de Caja Real', el: 'view-finanzas', nav: 'nav-finanzas' },
+            'finanzas': { titulo: 'Caja Real', el: 'view-finanzas', nav: 'nav-finanzas' },
             'productos': { titulo: 'Sistemas SaaS', el: 'view-productos', nav: 'nav-productos' },
             'servicios': { titulo: 'Content Studio', el: 'view-servicios', nav: 'nav-servicios' },
-            'promo': { titulo: 'Ofertas y Web', el: 'view-promo', nav: 'nav-promo' }
+            'promo': { titulo: 'Ofertas Web', el: 'view-promo', nav: 'nav-promo' }
         };
 
         function switchView(viewKey) {
@@ -489,16 +635,23 @@
             document.getElementById(vistas[viewKey].nav).className = "w-full text-left px-4 py-3 rounded-xl font-bold text-sm bg-brand-blue text-white flex items-center gap-3 transition-colors shadow-lg shadow-blue-500/20";
             document.getElementById('header-title').innerText = vistas[viewKey].titulo;
             
+            if(window.innerWidth < 768) {
+                document.getElementById('admin-sidebar').classList.add('-translate-x-full');
+                document.getElementById('sidebar-overlay').classList.add('hidden');
+            }
             if(viewKey === 'cotizador') llenarSelectsCotizador();
         }
 
-        let bdCatProductos = []; let bdCatServicios = []; let globalSubs = []; let globalCRM = []; let globalFinanzas = [];
+        let bdCatProductos = []; let bdCatServicios = []; let globalSubs = []; let globalCRM = []; let globalFinanzas = []; let dataPromo = {};
 
         function showDashboard() {
             document.getElementById('auth-box').classList.add('hidden'); document.getElementById('dashboard').classList.replace('hidden', 'flex');
             document.getElementById('user-name-display').innerText = currentSession.user.nombres; document.getElementById('user-avatar').innerText = currentSession.user.nombres.charAt(0).toUpperCase();
             document.getElementById('user-role-display').innerText = currentSession.user.rol || 'Operador';
             cargarDataGlobal();
+            
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('header-date').innerText = new Date().toLocaleDateString('es-ES', options);
         }
 
         function cargarDataGlobal() {
@@ -510,168 +663,348 @@
                     isAdminGbl = (res.rol === 'SuperAdmin');
                     if(!isAdminGbl) { document.getElementById('menu-superadmin').style.display = 'none'; document.getElementById('dash-bal-title').innerText = 'Tu Utilidad (Ventas Propias)'; }
                     
-                    bdCatProductos = res.catalogo.productos; bdCatServicios = res.catalogo.servicios; 
-                    globalSubs = res.suscripciones; globalCRM = res.crm || [];
+                    bdCatProductos = (typeof res.catalogo.productos === 'string') ? JSON.parse(res.catalogo.productos) : res.catalogo.productos; 
+                    bdCatServicios = (typeof res.catalogo.servicios === 'string') ? JSON.parse(res.catalogo.servicios) : res.catalogo.servicios; 
+                    
+                    globalSubs = res.suscripciones; globalCRM = res.crm || []; dataPromo = res.promo;
                     
                     renderCRM(); renderLeads(res.leads); renderSuscripciones(res.suscripciones);
-                    if(res.finanzas) {
-                        globalFinanzas = res.finanzas.transacciones;
-                        renderFiltroVendedores();
-                        renderFinanzas(res.finanzas);
-                    }
+                    if(res.finanzas) { globalFinanzas = res.finanzas.transacciones; renderFiltroVendedores(); renderFinanzasList(); }
+                    if(isAdminGbl) { renderCatProductos(); renderCatServicios(); renderPromoConfig(res.promo); }
                     
-                    if(isAdminGbl) { renderCatProductos(); renderCatServicios(); renderPromo(res.promo); }
-                    
-                    llenarSuscripcionesCaja(); 
-                    actualizarCategoriasTx(); 
-                    if(!document.getElementById('view-crm').classList.contains('hidden')) switchView('crm'); // Solo auto-switch si acaba de loguear
+                    llenarSuscripcionesCaja(); actualizarCategoriasTx(); 
+                    if(!document.getElementById('view-crm').classList.contains('hidden')) switchView('crm');
                 } else { toast(res.message, true); logout(); }
-            }).catch(e => { toggleLoader(false); toast("Error de red", true); });
+            }).catch(e => { toggleLoader(false); toast("Error de red, revisa tu conexión", true); });
         }
 
-        // --- CRM ---
-        function renderCRM() {
-            const tb = document.getElementById('crm-body'); tb.innerHTML = '';
-            if(globalCRM.length === 0) { tb.innerHTML = '<tr><td colspan="5" class="p-6 text-center text-slate-400">No hay clientes.</td></tr>'; return; }
-            globalCRM.forEach(c => {
-                tb.innerHTML += `<tr class="hover:bg-slate-50/50"><td class="px-6 py-4 font-black text-slate-900">${c.empresa}</td><td class="px-6 py-4 text-sm font-bold text-slate-700">${c.responsable}</td><td class="px-6 py-4 text-xs text-slate-500">📱 ${c.celular}<br>📧 ${c.email || 'N/A'}</td><td class="px-6 py-4 text-xs text-slate-500 truncate max-w-[150px]">${c.direccion}</td><td class="px-6 py-4 text-center"><button onclick="abrirModalCRM('${c.id}')" class="text-blue-500 bg-blue-50 p-2 rounded-lg mr-1 border border-blue-100">✏️</button><button onclick="eliminarCRM('${c.id}')" class="text-rose-500 bg-rose-50 p-2 rounded-lg border border-rose-100">❌</button></td></tr>`;
-            });
+        let currentCrmPage = 1; const crmItemsPerPage = 10; let filteredCrmData = [];
+
+        function renderCRM() { buscarCRM(); }
+        
+        function buscarCRM() {
+            let term = (document.getElementById('crm-search') ? document.getElementById('crm-search').value.toLowerCase() : "");
+            if(globalCRM.length === 0) { 
+                document.getElementById('crm-table-body').innerHTML = '<tr><td colspan="4" class="p-8 text-center text-slate-500">No hay clientes en el directorio.</td></tr>'; 
+                document.getElementById('crm-pagination-info').innerText = "Mostrando 0 de 0";
+                return; 
+            }
+            filteredCrmData = globalCRM.filter(c => c.empresa.toLowerCase().includes(term) || c.responsable.toLowerCase().includes(term) || c.celular.includes(term));
+            currentCrmPage = 1; 
+            updateCrmTable();
         }
+
+        function updateCrmTable() {
+            const tbody = document.getElementById('crm-table-body'); tbody.innerHTML = '';
+            if(filteredCrmData.length === 0) {
+                 tbody.innerHTML = '<tr><td colspan="4" class="p-8 text-center text-slate-500">No se encontraron resultados.</td></tr>';
+                 document.getElementById('crm-pagination-info').innerText = "Mostrando 0 de 0";
+                 document.getElementById('crm-btn-prev').disabled = true; document.getElementById('crm-btn-next').disabled = true;
+                 return;
+            }
+            const totalPages = Math.ceil(filteredCrmData.length / crmItemsPerPage);
+            const startIndex = (currentCrmPage - 1) * crmItemsPerPage; const endIndex = Math.min(startIndex + crmItemsPerPage, filteredCrmData.length);
+            const pageData = filteredCrmData.slice(startIndex, endIndex);
+
+            pageData.forEach(c => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 text-white flex items-center justify-center font-black shadow-sm shrink-0">${c.empresa.charAt(0)}</div>
+                                <div><p class="font-bold text-slate-900">${c.empresa}</p><p class="text-[10px] text-slate-500 max-w-[150px] md:max-w-[200px] truncate" title="${c.direccion}">${c.direccion || 'Sin dirección'}</p></div>
+                            </div>
+                        </td>
+                        <td><p class="font-bold text-slate-700 text-sm uppercase">${c.responsable}</p></td>
+                        <td>
+                            <p class="text-sm font-medium text-slate-600 flex items-center gap-2"><svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg> ${c.celular}</p>
+                            <p class="text-xs text-slate-500 flex items-center gap-2 truncate max-w-[150px] mt-1" title="${c.email}"><svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg> ${c.email || 'N/A'}</p>
+                        </td>
+                        <td class="text-center">
+                            <div class="flex justify-center gap-2">
+                                <button onclick="abrirModalCRM('${c.id}')" title="Editar Cliente" class="text-blue-600 bg-blue-50 p-2 rounded-lg border border-blue-100 hover:bg-blue-100 transition-colors shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg></button>
+                                <button onclick="eliminarCRM('${c.id}')" title="Eliminar Cliente" class="text-rose-600 bg-rose-50 p-2 rounded-lg border border-rose-100 hover:bg-rose-100 transition-colors shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
+                            </div>
+                        </td>
+                    </tr>`;
+            });
+
+            document.getElementById('crm-pagination-info').innerText = `Mostrando ${startIndex + 1} - ${endIndex} de ${filteredCrmData.length}`;
+            document.getElementById('crm-btn-prev').disabled = currentCrmPage === 1; document.getElementById('crm-btn-next').disabled = currentCrmPage === totalPages;
+        }
+
+        function changeCrmPage(dir) { currentCrmPage += dir; updateCrmTable(); }
+
         function abrirModalCRM(id) {
-            if(id) { let c = globalCRM.find(x=>x.id===id); document.getElementById('mcrm-id').value=c.id; document.getElementById('mcrm-empresa').value=c.empresa; document.getElementById('mcrm-responsable').value=c.responsable; document.getElementById('mcrm-celular').value=c.celular; document.getElementById('mcrm-email').value=c.email; document.getElementById('mcrm-direccion').value=c.direccion; }
-            else { document.getElementById('mcrm-id').value=''; document.getElementById('mcrm-empresa').value=''; document.getElementById('mcrm-responsable').value=''; document.getElementById('mcrm-celular').value=''; document.getElementById('mcrm-email').value=''; document.getElementById('mcrm-direccion').value=''; }
+            let containerActions = document.getElementById('crm-quick-actions');
+            if(id) { 
+                let c = globalCRM.find(x=>x.id===id); 
+                document.getElementById('mcrm-id').value=c.id; document.getElementById('mcrm-empresa').value=c.empresa; document.getElementById('mcrm-responsable').value=c.responsable; document.getElementById('mcrm-celular').value=c.celular; document.getElementById('mcrm-email').value=c.email; document.getElementById('mcrm-direccion').value=c.direccion; 
+                document.getElementById('crm-modal-avatar').innerText = c.empresa.charAt(0).toUpperCase();
+                containerActions.classList.remove('hidden'); 
+            } else { 
+                document.getElementById('mcrm-id').value=''; document.getElementById('mcrm-empresa').value=''; document.getElementById('mcrm-responsable').value=''; document.getElementById('mcrm-celular').value=''; document.getElementById('mcrm-email').value=''; document.getElementById('mcrm-direccion').value=''; 
+                document.getElementById('crm-modal-avatar').innerText = '?';
+                containerActions.classList.add('hidden');
+            }
             document.getElementById('modal-crm').classList.replace('hidden','flex');
         }
+
+        function enviarWspCRM(tipo) {
+            const celRaw = document.getElementById('mcrm-celular').value; const res = document.getElementById('mcrm-responsable').value; const emp = document.getElementById('mcrm-empresa').value;
+            if(!celRaw || celRaw.length < 9) return toast("El cliente no tiene un celular válido", true);
+            let celLimpio = celRaw.replace(/\D/g, '');
+            let msgs = {
+                'contacto': `¡Hola ${res}! 👋\nTe saludamos del equipo de MAS Digital. Nos ponemos en contacto contigo para conversar sobre las soluciones tecnológicas para *${emp}*.\n¿En qué horario te viene bien una breve llamada?`,
+                'cotizacion': `¡Hola ${res}! 🚀\nDesde MAS Digital te compartimos que hemos preparado la cotización solicitada para *${emp}*.\nCualquier duda técnica o de implementación, estamos para ayudarte.`,
+                'seguimiento': `¡Hola ${res}! 😊\nEsperamos que estés teniendo una excelente semana.\nTe escribimos de MAS Digital para saber si lograste revisar la propuesta enviada para *${emp}* y si tienes alguna consulta adicional.`
+            };
+            let texto = encodeURIComponent(msgs[tipo] || "Hola, te saludamos de MAS Digital.");
+            window.open(`https://wa.me/${celLimpio}?text=${texto}`, '_blank');
+        }
+
         function guardarCRM() {
             const payload = { usuario: currentSession.user.usuario, token: currentSession.token, cliente: { id: document.getElementById('mcrm-id').value, empresa: document.getElementById('mcrm-empresa').value, responsable: document.getElementById('mcrm-responsable').value, celular: document.getElementById('mcrm-celular').value, email: document.getElementById('mcrm-email').value, direccion: document.getElementById('mcrm-direccion').value } };
             if(!payload.cliente.empresa) return toast("Ingresa la empresa", true);
             toggleLoader(true); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'guardarClienteCRM', payload: payload }) }).then(r=>r.json()).then(res => { if(res.success){ cerrarModal('modal-crm'); cargarDataGlobal(); } else { toggleLoader(false); toast(res.message, true); }});
         }
-        function eliminarCRM(id) { if(!confirm("Borrar Cliente? Esto NO borra sus suscripciones.")) return; toggleLoader(true); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'eliminarClienteCRM', payload: { usuario: currentSession.user.usuario, token: currentSession.token, id: id } }) }).then(r=>r.json()).then(res => { if(res.success) cargarDataGlobal(); else { toggleLoader(false); toast("Error", true); }}); }
+        function eliminarCRM(id) { 
+            showConfirm("¿Estás seguro de borrar este cliente del directorio CRM?", () => {
+                toggleLoader(true); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'eliminarClienteCRM', payload: { usuario: currentSession.user.usuario, token: currentSession.token, id: id } }) }).then(r=>r.json()).then(res => { if(res.success) cargarDataGlobal(); else { toggleLoader(false); toast(res.message, true); }});
+            });
+        }
 
-
-        // --- LEADS ---
         function renderLeads(leads) {
             const tb = document.getElementById('leads-body'); tb.innerHTML = '';
             if(leads.length === 0) { tb.innerHTML = '<tr><td colspan="4" class="p-6 text-center text-slate-400">No hay prospectos.</td></tr>'; return; }
             leads.forEach(l => {
                 let badge = {'Nuevo':'bg-blue-100 text-blue-700', 'Contactado':'bg-amber-100 text-amber-700', 'Cerrado':'bg-emerald-100 text-emerald-700', 'Perdido':'bg-slate-100 text-slate-500'}[l.estado] || 'bg-slate-100 text-slate-700';
-                tb.innerHTML += `<tr class="hover:bg-slate-50/50"><td class="px-6 py-4 text-xs text-slate-400">${l.fecha}</td><td class="px-6 py-4"><p class="text-sm font-bold text-slate-900">${l.nombre}</p><p class="text-xs text-slate-500 mt-1">📱 ${l.celular}</p></td><td class="px-6 py-4 text-sm font-medium text-slate-700 truncate max-w-xs" title="${l.requerimiento}">${l.requerimiento}</td><td class="px-6 py-4"><select onchange="cambiarEstadoLead('${l.id}', this.value)" class="text-xs font-bold px-3 py-1.5 rounded-lg border-0 outline-none cursor-pointer ${badge}"><option value="Nuevo" ${l.estado==='Nuevo'?'selected':''}>Nuevo</option><option value="Contactado" ${l.estado==='Contactado'?'selected':''}>Contactado</option><option value="Cerrado" ${l.estado==='Cerrado'?'selected':''}>Cerrado</option><option value="Perdido" ${l.estado==='Perdido'?'selected':''}>Perdido</option></select></td></tr>`;
+                tb.innerHTML += `<tr class="hover:bg-slate-50/50"><td class="px-4 md:px-6 py-4 text-[10px] md:text-xs text-slate-400">${l.fecha}</td><td class="px-4 md:px-6 py-4"><p class="text-sm font-bold text-slate-900">${l.nombre}</p><p class="text-[10px] md:text-xs text-slate-500 mt-1">📱 ${l.celular}</p></td><td class="px-4 md:px-6 py-4 text-xs md:text-sm font-medium text-slate-700 truncate max-w-[150px] md:max-w-xs" title="${l.requerimiento}">${l.requerimiento}</td><td class="px-4 md:px-6 py-4"><select onchange="cambiarEstadoLead('${l.id}', this.value)" class="text-[10px] md:text-xs font-bold px-3 py-1.5 rounded-lg border-0 outline-none cursor-pointer ${badge}"><option value="Nuevo" ${l.estado==='Nuevo'?'selected':''}>Nuevo</option><option value="Contactado" ${l.estado==='Contactado'?'selected':''}>Contactado</option><option value="Cerrado" ${l.estado==='Cerrado'?'selected':''}>Cerrado</option><option value="Perdido" ${l.estado==='Perdido'?'selected':''}>Perdido</option></select></td></tr>`;
             });
         }
         function cambiarEstadoLead(id, estado) {
             toggleLoader(true); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'actualizarLeadEstado', payload: { usuario: currentSession.user.usuario, token: currentSession.token, idLead: id, nuevoEstado: estado } }) }).then(r=>r.json()).then(res => { if(res.success) cargarDataGlobal(); else { toggleLoader(false); toast("Error", true); }});
         }
 
-        // --- SUSCRIPCIONES ---
+        // --- SUSCRIPCIONES Y LICENCIAS ---
         function renderSuscripciones(subs) {
             const grid = document.getElementById('suscripciones-grid'); grid.innerHTML = '';
-            if(subs.length === 0) { grid.innerHTML = '<div class="col-span-full p-10 text-center text-slate-500">No tienes suscripciones.</div>'; return; }
+            
+            // FILTRO DE LICENCIAS POR VENDEDOR
+            if(isAdminGbl) {
+                let filterContainer = document.getElementById('filtro-sus-vendedor-container');
+                let selSus = document.getElementById('dash-filtro-sus-vendedor');
+                
+                if (selSus.options.length === 1) { 
+                    let vendedores = [...new Set(subs.map(item => item.vendedor))];
+                    vendedores.forEach(v => { 
+                        if(v && v !== currentSession.user.usuario) {
+                            selSus.innerHTML += `<option value="${v}">Ventas de: ${v}</option>`; 
+                        }
+                    });
+                    selSus.innerHTML += `<option value="${currentSession.user.usuario}">Mis Ventas</option>`;
+                }
+                filterContainer.classList.remove('hidden');
+                
+                let valFiltro = selSus.value;
+                if(valFiltro !== 'ALL') subs = subs.filter(x => x.vendedor === valFiltro);
+            }
+
+            document.getElementById('badge-total-licencias').innerText = subs.length;
+
+            if(subs.length === 0) { grid.innerHTML = '<div class="col-span-full p-10 text-center text-slate-500">No hay suscripciones en esta vista.</div>'; return; }
             const hoy = new Date(); hoy.setHours(0,0,0,0);
             
             subs.forEach(s => {
-                let partesF = s.proximoPago.split('-'); let dPago = new Date(partesF[0], partesF[1]-1, partesF[2]);
-                let diffTime = dPago.getTime() - hoy.getTime(); let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                
-                let badgeClass = "bg-emerald-50 text-emerald-600 border-emerald-200"; let txtDias = `Faltan ${diffDays} días`; let isVencido = false;
+                // Cálculo 100% Blindado y Exacto de Días
+                let diffDays = 0;
+                let isVencido = false;
+                let dPago;
+                try {
+                    let pPago = s.proximoPago ? String(s.proximoPago).split('T')[0] : "";
+                    let parts = pPago.split('-');
+                    if(parts.length === 3) {
+                        dPago = new Date(parts[0], parts[1]-1, parts[2]);
+                        let diffTime = dPago.getTime() - hoy.getTime();
+                        diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                    } else {
+                        diffDays = NaN;
+                    }
+                } catch(e) { diffDays = NaN; }
+
+                let txtDias = isNaN(diffDays) ? "Sin Fecha" : `Faltan ${diffDays} días`;
+                let badgeClass = "bg-emerald-50 text-emerald-600 border-emerald-200";
                 let autoBanner = "";
 
-                if(diffDays <= 0) { badgeClass = "bg-rose-50 text-rose-600 border-rose-200 animate-pulse"; txtDias = "¡VENCIDO!"; isVencido = true; autoBanner = `<div class="bg-rose-100 text-rose-700 text-[9px] font-black uppercase px-2 py-1 rounded mb-2 w-max shadow-sm border border-rose-200">🚨 Aviso Enviado: CORTE</div>`; }
-                else if(diffDays <= 3) { badgeClass = "bg-orange-50 text-orange-600 border-orange-200"; autoBanner = `<div class="bg-orange-100 text-orange-700 text-[9px] font-black uppercase px-2 py-1 rounded mb-2 w-max shadow-sm border border-orange-200">⚠️ Aviso Automático (3 días)</div>`; }
-                else if(diffDays <= 5) { badgeClass = "bg-amber-50 text-amber-600 border-amber-200"; autoBanner = `<div class="bg-amber-100 text-amber-700 text-[9px] font-black uppercase px-2 py-1 rounded mb-2 w-max shadow-sm border border-amber-200">🔔 Aviso Automático (5 días)</div>`; }
+                if(isNaN(diffDays)) {
+                     badgeClass = "bg-slate-50 text-slate-600 border-slate-200";
+                } else if(diffDays <= 0) {
+                    badgeClass = "bg-rose-50 text-rose-600 border-rose-200 animate-pulse";
+                    txtDias = "¡VENCIDO!";
+                    isVencido = true;
+                    autoBanner = `<div class="bg-rose-100 text-rose-800 text-[10px] font-black uppercase px-3 py-1.5 rounded-md mb-3 w-max shadow-sm border border-rose-200 flex items-center gap-1">🚨 Aviso Enviado: CORTE</div>`;
+                } else if(diffDays <= 3) {
+                    badgeClass = "bg-orange-50 text-orange-600 border-orange-200";
+                    autoBanner = `<div class="bg-orange-100 text-orange-800 text-[10px] font-black uppercase px-3 py-1.5 rounded-md mb-3 w-max shadow-sm border border-orange-200 flex items-center gap-1">⚠️ Aviso Automático (3 días)</div>`;
+                } else if(diffDays <= 5) {
+                    badgeClass = "bg-amber-50 text-amber-600 border-amber-200";
+                    autoBanner = `<div class="bg-amber-100 text-amber-800 text-[10px] font-black uppercase px-3 py-1.5 rounded-md mb-3 w-max shadow-sm border border-amber-200 flex items-center gap-1">🔔 Aviso Automático (5 días)</div>`;
+                } else {
+                    autoBanner = `<div class="bg-emerald-100 text-emerald-800 text-[10px] font-black uppercase px-3 py-1.5 rounded-md mb-3 w-max shadow-sm border border-emerald-200 flex items-center gap-1">🟢 Automático al día</div>`;
+                }
 
-                // Obtener nombre empresa desde CRM
-                let crmClient = globalCRM.find(x => x.id === s.idCliente);
-                let nombreEmpresa = crmClient ? crmClient.empresa : s.idCliente; // Fallback
+                // Prioridad Manual
+                if(s.estado === 'AVISO') {
+                    autoBanner = `<div class="bg-amber-800 text-white text-[10px] font-black uppercase px-3 py-1.5 rounded-md mb-3 w-max shadow-md flex items-center gap-1">⚠️️ EN AVISO (MANUAL)</div>`;
+                } else if(s.estado === 'SUSPENDIDO') {
+                    autoBanner = `<div class="bg-slate-900 text-white text-[10px] font-black uppercase px-3 py-1.5 rounded-md mb-3 w-max shadow-md flex items-center gap-1">⛔ BLOQUEADO (MANUAL)</div>`;
+                }
 
-                let msgWsp = isVencido ? `Hola equipo de *${nombreEmpresa}* ⚠️\nLes saluda MAS Digital. Su suscripción al sistema *${s.sistema}* se encuentra vencida. Por favor, regularizar el pago de S/ ${s.monto} a la brevedad.` : `Hola equipo de *${nombreEmpresa}* 👋\nLes recordamos que su próximo pago de suscripción (*${s.sistema}*) por S/ ${s.monto} vence en ${diffDays} días.\n¡Gracias por seguir creciendo con nosotros! 🚀`;
-                let msgWspAnual = `¡Hola equipo de *${nombreEmpresa}*! 👋\nDesde MAS Digital queremos ofrecerles un beneficio exclusivo: Si renuevan su plan al formato *ANUAL*, obtendrán *2 meses completamente GRATIS*.\n¿Les gustaría aprovechar esta oferta? 🚀`;
+                let crmClient = globalCRM.find(x => String(x.id) === String(s.idCliente));
+                let nombreEmpresa = crmClient ? crmClient.empresa : (s.idCliente || "Desconocido");
+                let celularClient = crmClient ? String(crmClient.celular).replace(/\D/g, '') : "";
+                
+                let montoFormateado = "0.00";
+                if(!isNaN(parseFloat(s.monto))) montoFormateado = parseFloat(s.monto).toFixed(2);
 
+                let textWsp = `Hola equipo de *${nombreEmpresa}* 👋\nLes recordamos que su pago de S/ ${montoFormateado} vence en ${diffDays} días.`;
+                if(diffDays === 0) { textWsp = `Hola equipo de *${nombreEmpresa}* 🚨\nSu pago vence HOY. Por favor regularizar.`; }
+                if(diffDays < 0) { textWsp = `Hola equipo de *${nombreEmpresa}* ⛔\nSu suscripción está VENCIDA hace ${Math.abs(diffDays)} días. Regularice para evitar el corte.`; }
+                
                 let vendedorInfo = isAdminGbl ? `<p class="text-[9px] font-bold text-slate-400 mt-2">Vendedor: ${s.vendedor}</p>` : ``;
 
+                let bgCard = s.estado === 'SUSPENDIDO' ? 'bg-slate-50 border-slate-200' : 'bg-white border-slate-200';
+                let opacCard = s.estado === 'SUSPENDIDO' ? 'opacity-70 grayscale-[50%]' : '';
+
                 grid.innerHTML += `
-                    <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm flex flex-col relative">
+                    <div class="${bgCard} ${opacCard} rounded-3xl border p-6 shadow-sm flex flex-col relative transition-all duration-300 hover:shadow-md">
                         ${autoBanner}
                         <div class="flex justify-between items-start mb-4">
-                            <div><p class="text-[10px] font-black uppercase text-slate-400 mb-1">Cliente</p><h3 class="font-black text-slate-900 text-lg leading-tight">${nombreEmpresa}</h3></div>
-                            <div class="flex gap-2">
-                                <button onclick="abrirModalSuscripcion('${s.id}')" class="text-blue-500 bg-blue-50 p-2 rounded-lg border border-blue-100">✏️</button>
-                                <button onclick="eliminarSuscripcion('${s.id}')" class="text-rose-500 bg-rose-50 p-2 rounded-lg border border-rose-100">❌</button>
+                            <div><p class="text-[10px] font-black uppercase text-slate-400 mb-1">Cliente</p><h3 class="font-black text-slate-900 text-lg leading-tight truncate max-w-[160px]" title="${nombreEmpresa}">${nombreEmpresa}</h3></div>
+                            <div class="flex gap-1 shrink-0">
+                                <button onclick="abrirModalLicenciaAvanzado('${s.id}')" title="Administrar Licencia (Activo/Suspendido)" class="text-slate-500 bg-white p-2 rounded-lg border border-slate-200 shadow-sm hover:bg-slate-50">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                </button>
+                                <button onclick="abrirModalSuscripcion('${s.id}')" title="Editar Suscripción" class="text-blue-500 bg-white p-2 rounded-lg border border-blue-100 shadow-sm hover:bg-blue-50">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                                </button>
+                                <button onclick="eliminarSuscripcion('${s.id}')" title="Borrar" class="text-rose-500 bg-white p-2 rounded-lg border border-rose-100 shadow-sm hover:bg-rose-50">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                </button>
                             </div>
                         </div>
-                        <div class="bg-slate-50 rounded-xl p-4 mb-4 border border-slate-100">
-                            <p class="text-xs font-bold text-slate-800">${s.sistema}</p><p class="text-[10px] text-slate-500 uppercase">${s.plan}</p>
-                            <div class="mt-3 flex justify-between items-end">
-                                <div><p class="text-[10px] uppercase text-slate-400 font-bold mb-0.5">Mensualidad</p><p class="font-black text-lg text-brand-blue">S/ ${s.monto.toFixed(2)}</p></div>
-                                <div class="px-3 py-1 rounded-lg border text-[11px] font-black uppercase ${badgeClass}">${txtDias}</div>
+                        <div class="bg-white rounded-xl p-4 mb-4 border border-slate-100 shadow-sm">
+                            <div class="flex justify-between items-start mb-2">
+                                <div><p class="text-xs font-bold text-slate-800">${s.sistema}</p><p class="text-[10px] text-slate-500 uppercase">${s.plan}</p></div>
+                            </div>
+                            <div class="mt-3 flex justify-between items-end flex-wrap gap-2">
+                                <div><p class="text-[10px] uppercase text-slate-400 font-bold mb-0.5">Mensualidad</p><p class="font-black text-lg text-brand-blue">S/ ${montoFormateado}</p></div>
+                                <div class="px-3 py-1 rounded-lg border text-[10px] md:text-[11px] font-black uppercase whitespace-nowrap shrink-0 ${badgeClass}">${txtDias}</div>
                             </div>
                             ${vendedorInfo}
                         </div>
-                        
-                        <div class="mt-auto space-y-2">
-                            <div class="flex gap-2">
-                                <a href="https://wa.me/?text=${encodeURIComponent(msgWsp)}" target="_blank" class="flex-1 py-2 bg-[#25D366] text-white font-bold rounded-lg text-center text-[10px] uppercase shadow-sm">🤖 Aviso WSP</a>
-                                <a href="https://wa.me/?text=${encodeURIComponent(msgWspAnual)}" target="_blank" class="flex-1 py-2 bg-blue-600 text-white font-bold rounded-lg text-center text-[10px] uppercase shadow-sm">🚀 Promover Anual</a>
-                            </div>
-                            <select onchange="accionManualWsp(this.value, '${nombreEmpresa}', '${s.sistema}')" class="w-full bg-slate-100 text-slate-600 text-[10px] font-bold uppercase rounded-lg px-2 py-2 border border-slate-200 outline-none">
-                                <option value="">Otras Acciones (Manual)</option>
-                                <option value="mantenimiento">Aviso Mantenimiento</option>
-                                <option value="suspension">Aviso Suspensión Oficial</option>
-                            </select>
+                        <div class="mt-auto flex gap-2">
+                            <a href="https://wa.me/${celularClient}?text=${encodeURIComponent(textWsp)}" target="_blank" class="flex-1 py-2 bg-[#25D366] hover:bg-[#20bd5a] transition-colors text-white font-bold rounded-lg text-center text-[10px] uppercase shadow-sm flex items-center justify-center gap-1">
+                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Notificar
+                            </a>
                         </div>
                     </div>`;
             });
         }
-        function accionManualWsp(tipo, cliente, sist) {
-            if(!tipo) return;
-            let msg = tipo === 'mantenimiento' ? `Hola equipo de *${cliente}* 🛠️\nLes informamos que esta madrugada realizaremos un mantenimiento programado en su sistema *${sist}* para implementar mejoras. Podrían experimentar breves interrupciones.\n¡Gracias por su comprensión!` : `*AVISO OFICIAL DE SUSPENSIÓN* ⚠️\nHola equipo de *${cliente}*.\nDebido a la falta de pago, los servicios del sistema *${sist}* han sido suspendidos automáticamente. Para reactivarlos, por favor enviar el comprobante de pago por este medio.`;
-            window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
+
+        function renderSuscripcionesList() { renderSuscripciones(globalSubs); }
+
+        function abrirModalLicenciaAvanzado(id) {
+            let s = globalSubs.find(x => x.id === id);
+            if(!s) return;
+            document.getElementById('mlic-id').value = s.id;
+            document.getElementById('mlic-estado').value = s.estado || 'ACTIVO';
+            document.getElementById('mlic-mensaje').value = s.mensaje || "";
+            document.getElementById('modal-licencia-avanzado').classList.replace('hidden', 'flex');
         }
-        
+
+        function fillLicenceTemplate(type) {
+            const txt = document.getElementById('mlic-mensaje');
+            const est = document.getElementById('mlic-estado');
+            if(type === '5d') { est.value = 'AVISO'; txt.value = '⚠️ Su suscripción vence en 5 días. Por favor, regularice su pago para evitar interrupciones en el servicio.'; }
+            if(type === '3d') { est.value = 'AVISO'; txt.value = '⚠️️ Su suscripción vence en 3 días. Evite el corte automático del servicio y cargos por reconexión.'; }
+            if(type === '1d') { est.value = 'AVISO'; txt.value = '🚨 Su suscripción vence MAÑANA. El sistema se suspenderá pronto.'; }
+            if(type === 'mant') { est.value = 'AVISO'; txt.value = '🛠️ Mantenimiento programado. El sistema podría presentar intermitencias esta madrugada debido a mejoras.'; }
+            if(type === 'susp') { est.value = 'SUSPENDIDO'; txt.value = '⛔ SERVICIO SUSPENDIDO por falta de pago. Por favor, comuníquese con soporte para regularizar.'; }
+        }
+
+        function guardarEstadoLicenciaAvanzado() {
+            const id = document.getElementById('mlic-id').value;
+            const estado = document.getElementById('mlic-estado').value;
+            const mensaje = document.getElementById('mlic-mensaje').value;
+            toggleLoader(true); 
+            fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'actualizarEstadoLicencia', payload: { usuario: currentSession.user.usuario, token: currentSession.token, idSub: id, nuevoEstado: estado, mensajeLicencia: mensaje } }) })
+            .then(r=>r.json()).then(res => { 
+                if(res.success) { cerrarModal('modal-licencia-avanzado'); cargarDataGlobal(); } 
+                else { toggleLoader(false); toast("Error al actualizar licencia", true); }
+            });
+        }
+
         function abrirModalSuscripcion(id) {
             let selSis = document.getElementById('msus-sistema'); selSis.innerHTML = '<option value="">Seleccione Sistema...</option>';
             bdCatProductos.forEach(p => selSis.innerHTML += `<option value="${p.titulo}">${p.titulo}</option>`);
             
             let selCli = document.getElementById('msus-cliente'); selCli.innerHTML = '<option value="">Seleccione Cliente CRM...</option>';
-            globalCRM.forEach(c => selCli.innerHTML += `<option value="${c.id}">${c.empresa}</option>`);
+            globalCRM.forEach(c => selCli.innerHTML += `<option value="${c.id}">${c.empresa} (${c.responsable})</option>`);
 
-            if(id) { let s = globalSubs.find(x=>x.id===id); document.getElementById('msus-id').value=s.id; selCli.value=s.idCliente; selSis.value=s.sistema; cargarPlanesAlModal(); document.getElementById('msus-plan').value=s.plan; document.getElementById('msus-monto').value=s.monto; document.getElementById('msus-inicio').value=s.fechaInicio; document.getElementById('msus-prox').value=s.proximoPago; } 
-            else { document.getElementById('msus-id').value=''; selCli.value=''; selSis.value=''; document.getElementById('msus-plan').innerHTML=''; document.getElementById('msus-monto').value=''; document.getElementById('msus-inicio').value=''; document.getElementById('msus-prox').value=''; }
+            if(id) { 
+                let s = globalSubs.find(x=>x.id===id); 
+                document.getElementById('msus-id').value=s.id; selCli.value=s.idCliente; selSis.value=s.sistema; 
+                cargarPlanesAlModal(); document.getElementById('msus-plan').value=s.plan; 
+                document.getElementById('msus-monto').value=s.monto; document.getElementById('msus-inicio').value=s.fechaInicio; 
+                document.getElementById('msus-prox').value=s.proximoPago ? String(s.proximoPago).split('T')[0] : ""; 
+            } 
+            else { 
+                document.getElementById('msus-id').value=''; selCli.value=''; selSis.value=''; document.getElementById('msus-plan').innerHTML=''; document.getElementById('msus-monto').value=''; document.getElementById('msus-inicio').value=''; document.getElementById('msus-prox').value=''; 
+            }
             document.getElementById('modal-suscripcion').classList.replace('hidden', 'flex');
         }
+
         function cargarPlanesAlModal() {
             let selSis = document.getElementById('msus-sistema').value; let selPlan = document.getElementById('msus-plan'); selPlan.innerHTML = '<option value="">Seleccione Plan...</option>';
             let prod = bdCatProductos.find(x => x.titulo === selSis);
-            if(prod && prod.planes) { try { let arr = JSON.parse(prod.planes); arr.forEach(pl => selPlan.innerHTML += `<option value="${pl.nombre}" data-precio="${pl.pMes}">${pl.nombre} - S/ ${pl.pMes}</option>`); } catch(e){} }
+            if(prod && prod.planes) { try { let arr = typeof prod.planes === 'string' ? JSON.parse(prod.planes) : prod.planes; arr.forEach(pl => selPlan.innerHTML += `<option value="${pl.nombre}" data-precio="${pl.pMes}">${pl.nombre} - S/ ${pl.pMes}</option>`); } catch(e){} }
         }
+
         function autoCompletarPrecio() {
             let selPlan = document.getElementById('msus-plan');
             if(selPlan.selectedIndex > 0) { document.getElementById('msus-monto').value = selPlan.options[selPlan.selectedIndex].getAttribute('data-precio'); }
         }
+
         function guardarSuscripcion() {
             const payload = { usuario: currentSession.user.usuario, token: currentSession.token, suscripcion: { id: document.getElementById('msus-id').value, idCliente: document.getElementById('msus-cliente').value, sistema: document.getElementById('msus-sistema').value, plan: document.getElementById('msus-plan').value, monto: document.getElementById('msus-monto').value, fechaInicio: document.getElementById('msus-inicio').value, proximoPago: document.getElementById('msus-prox').value } };
             if(!payload.suscripcion.idCliente || !payload.suscripcion.sistema) return toast("Cliente y Sistema requeridos", true);
             toggleLoader(true); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'guardarSuscripcion', payload: payload }) }).then(r=>r.json()).then(res => { if(res.success){ cerrarModal('modal-suscripcion'); cargarDataGlobal(); } else { toggleLoader(false); toast(res.message, true); }});
         }
+
         function eliminarSuscripcion(id) {
-            if(!confirm("¿Borrar suscripción?")) return; toggleLoader(true); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'eliminarSuscripcion', payload: { usuario: currentSession.user.usuario, token: currentSession.token, id: id } }) }).then(r=>r.json()).then(res => { if(res.success) cargarDataGlobal(); else { toggleLoader(false); toast(res.message, true); }});
+            showConfirm("¿Estás seguro de borrar esta suscripción?", () => {
+                toggleLoader(true); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'eliminarSuscripcion', payload: { usuario: currentSession.user.usuario, token: currentSession.token, id: id } }) }).then(r=>r.json()).then(res => { if(res.success) cargarDataGlobal(); else { toggleLoader(false); toast(res.message, true); }});
+            });
         }
 
         // --- CAJA FINANCIERA ---
         function setTxTipo(tipo) {
             document.getElementById('tx-tipo').value = tipo; const bIng = document.getElementById('btn-tx-ing'); const bEgr = document.getElementById('btn-tx-egr'); const dSus = document.getElementById('div-tx-sus');
-            if(tipo === 'Ingreso') { bIng.className = "flex-1 py-2 text-xs font-black uppercase rounded-lg bg-white shadow-sm text-green-600"; bEgr.className = "flex-1 py-2 text-xs font-black uppercase rounded-lg text-slate-500 hover:text-slate-800"; dSus.style.display = 'block'; } 
-            else { bEgr.className = "flex-1 py-2 text-xs font-black uppercase rounded-lg bg-white shadow-sm text-rose-600"; bIng.className = "flex-1 py-2 text-xs font-black uppercase rounded-lg text-slate-500 hover:text-slate-800"; dSus.style.display = 'none'; document.getElementById('tx-sus-id').value=''; }
+            if(tipo === 'Ingreso') { bIng.className = "flex-1 py-2 text-xs font-black uppercase tracking-widest rounded-lg bg-white shadow-sm text-green-600 transition-all"; bEgr.className = "flex-1 py-2 text-xs font-black uppercase tracking-widest rounded-lg text-slate-500 hover:text-slate-800 transition-all"; dSus.style.display = 'block'; } 
+            else { bEgr.className = "flex-1 py-2 text-xs font-black uppercase tracking-widest rounded-lg bg-white shadow-sm text-rose-600 transition-all"; bIng.className = "flex-1 py-2 text-xs font-black uppercase tracking-widest rounded-lg text-slate-500 hover:text-slate-800 transition-all"; dSus.style.display = 'none'; document.getElementById('tx-sus-id').value=''; }
             actualizarCategoriasTx();
         }
+
         function llenarSuscripcionesCaja() {
             let sel = document.getElementById('tx-sus-id'); sel.innerHTML = '<option value="">(Ingreso Libre - Sin Vincular)</option>';
             globalSubs.forEach(s => { 
-                let crmClient = globalCRM.find(x => x.id === s.idCliente); let nEmp = crmClient ? crmClient.empresa : s.idCliente;
+                let crmClient = globalCRM.find(x => String(x.id) === String(s.idCliente)); let nEmp = crmClient ? crmClient.empresa : s.idCliente;
                 sel.innerHTML += `<option value="${s.id}" data-precio="${s.monto}">Pago SaaS: ${nEmp} - ${s.sistema}</option>`; 
             });
             sel.addEventListener('change', (e) => { if(sel.selectedIndex > 0) document.getElementById('tx-monto').value = sel.options[sel.selectedIndex].getAttribute('data-precio'); });
         }
+
         function actualizarCategoriasTx() {
             const tipo = document.getElementById('tx-tipo').value; const select = document.getElementById('tx-cat'); select.innerHTML = '';
             if(tipo === 'Ingreso') {
@@ -683,16 +1016,25 @@
                 select.innerHTML += `<option value="Pago Planilla / Sueldos">Pago Planilla / Sueldos</option><option value="Retiro Socios (Ganancia)">Retiro Socios (Ganancia)</option><option value="Publicidad / Marketing">Publicidad / Marketing</option><option value="Gastos Generales">Gastos Generales</option>`;
             }
         }
+        
         function renderFiltroVendedores() {
             if(!isAdminGbl) return;
-            let sel = document.getElementById('dash-filtro-vendedor'); sel.innerHTML = '<option value="ALL">Todos los Vendedores</option>';
+            let sel = document.getElementById('dash-filtro-vendedor'); 
+            sel.innerHTML = '<option value="ALL">Ventas Unificadas (Consolidado)</option>';
+            sel.innerHTML += `<option value="${currentSession.user.usuario}">Mis Ventas (Admin)</option>`;
             let vendedores = [...new Set(globalFinanzas.map(item => item.registradoPor))];
-            vendedores.forEach(v => { if(v) sel.innerHTML += `<option value="${v}">${v}</option>`; });
+            vendedores.forEach(v => { 
+                if(v && v !== currentSession.user.usuario) {
+                    sel.innerHTML += `<option value="${v}">Ventas de: ${v}</option>`; 
+                }
+            });
             document.getElementById('filtro-vendedor-container').classList.remove('hidden');
         }
+
         function renderFinanzasList() {
             let filtro = isAdminGbl ? document.getElementById('dash-filtro-vendedor').value : "ALL";
-            let fList = globalFinanzas; if(filtro !== "ALL") fList = globalFinanzas.filter(x => x.registradoPor === filtro);
+            let fList = globalFinanzas; 
+            if(filtro !== "ALL") { fList = globalFinanzas.filter(x => x.registradoPor === filtro); }
             
             let tIng = 0; let tEgr = 0;
             fList.forEach(t => { if(t.tipo==='Ingreso') tIng+=t.monto; else tEgr+=t.monto; });
@@ -704,12 +1046,14 @@
             else { bEl.classList.replace('text-rose-400','text-white'); bBadge.innerText = 'Rentable'; bBadge.className = 'px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-white/10 mb-2 border border-white/20 text-green-300'; }
             
             const tb = document.getElementById('finanzas-body'); tb.innerHTML = '';
+            if(fList.length === 0) { tb.innerHTML = '<tr><td colspan="4" class="p-6 text-center text-slate-500">No hay movimientos en esta vista.</td></tr>'; return; }
+
             fList.forEach(t => {
-                let isIng = t.tipo === 'Ingreso'; let regInfo = isAdminGbl ? `<br><span class="text-[9px] text-slate-400 uppercase tracking-widest">Por: ${t.registradoPor}</span>` : ``;
-                tb.innerHTML += `<tr class="hover:bg-slate-50/50"><td class="px-6 py-4 text-[11px] font-bold text-slate-400">${t.fecha}</td><td class="px-6 py-4"><p class="text-sm font-black text-slate-900">${t.detalle}</p><p class="text-[10px] font-bold uppercase mt-1 ${isIng?'text-brand-blue':'text-rose-500'}">${t.categoria}</p>${regInfo}</td><td class="px-6 py-4 text-right font-black text-lg ${isIng?'text-green-600':'text-rose-600'}">${isIng?'+':'-'} S/ ${t.monto.toFixed(2)}</td><td class="px-6 py-4 text-center"><button onclick="eliminarTransaccion('${t.id}')" class="text-slate-300 hover:text-rose-500 p-2 border rounded-lg">X</button></td></tr>`;
+                let isIng = t.tipo === 'Ingreso'; 
+                let regInfo = isAdminGbl && filtro === "ALL" ? `<span class="bg-slate-100 text-slate-500 text-[9px] px-2 py-0.5 rounded uppercase font-bold mt-1 inline-block">Por: ${t.registradoPor}</span>` : ``;
+                tb.innerHTML += `<tr class="hover:bg-slate-50/50"><td class="px-4 md:px-6 py-4 text-[10px] md:text-[11px] font-bold text-slate-400">${t.fecha}</td><td class="px-4 md:px-6 py-4"><p class="text-xs md:text-sm font-black text-slate-900">${t.detalle}</p><p class="text-[9px] md:text-[10px] font-bold uppercase mt-1 ${isIng?'text-brand-blue':'text-rose-500'}">${t.categoria}</p>${regInfo}</td><td class="px-4 md:px-6 py-4 text-right font-black text-base md:text-lg ${isIng?'text-green-600':'text-rose-600'}">${isIng?'+':'-'} S/ ${t.monto.toFixed(2)}</td><td class="px-4 md:px-6 py-4 text-center"><button onclick="eliminarTransaccion('${t.id}')" title="Borrar" class="text-slate-400 hover:text-rose-500 p-2 border border-slate-200 hover:border-rose-200 rounded-lg transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button></td></tr>`;
             });
         }
-        function renderFinanzas(f) { renderFinanzasList(); }
         function guardarTransaccion() {
             const m = parseFloat(document.getElementById('tx-monto').value); const d = document.getElementById('tx-detalle').value.trim(); const idSus = document.getElementById('tx-sus-id').value;
             if(!m || m <= 0 || !d) return toast("Monto y detalle requeridos.", true);
@@ -717,13 +1061,29 @@
             toggleLoader(true); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'registrarTransaccion', payload: payload }) }).then(r=>r.json()).then(res => { if(res.success) { document.getElementById('tx-monto').value=""; document.getElementById('tx-detalle').value=""; cargarDataGlobal(); toast(res.message); } else { toggleLoader(false); toast(res.message, true); }});
         }
         function eliminarTransaccion(id) {
-            if(!confirm("¿Borrar movimiento?")) return; toggleLoader(true); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'eliminarTransaccion', payload: { usuario: currentSession.user.usuario, token: currentSession.token, idTx: id } }) }).then(r=>r.json()).then(res => { if(res.success) cargarDataGlobal(); else { toggleLoader(false); toast(res.message, true); }});
+            showConfirm("¿Borrar movimiento financiero?", () => {
+                toggleLoader(true); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'eliminarTransaccion', payload: { usuario: currentSession.user.usuario, token: currentSession.token, idTx: id } }) }).then(r=>r.json()).then(res => { if(res.success) cargarDataGlobal(); else { toggleLoader(false); toast(res.message, true); }});
+            });
         }
 
         // --- CATALOGO CMS (SOLO SUPER ADMIN) ---
         function renderCatProductos() {
             const grid = document.getElementById('prod-grid'); grid.innerHTML = '';
-            bdCatProductos.forEach(p => { grid.innerHTML += `<div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm"><div class="flex justify-between items-start mb-4"><div class="w-12 h-12 rounded-xl bg-slate-50 border flex items-center justify-center text-xl uppercase font-bold text-slate-700">${p.icono.charAt(0)}</div><div class="flex gap-1"><button onclick="abrirModalProducto('${p.id}')" class="text-blue-500 bg-blue-50 p-2 rounded border border-blue-100"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg></button><button onclick="eliminarProducto('${p.id}')" class="text-rose-500 bg-rose-50 p-2 rounded border border-rose-100"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button></div></div><span class="text-[9px] font-black uppercase tracking-[0.2em] mb-1 block" style="color: ${p.temaColor || '#666'}">${p.tag || 'SISTEMA'}</span><h3 class="font-black text-slate-900 text-lg mb-2">${p.titulo}</h3></div>`; });
+            bdCatProductos.forEach(p => { 
+                grid.innerHTML += `
+                <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition-all">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-slate-50 border flex items-center justify-center text-xl uppercase font-bold text-slate-700">⚙️</div>
+                        <div class="flex gap-1 shrink-0">
+                            <button onclick="abrirModalProducto('${p.id}')" title="Editar Producto" class="text-blue-500 bg-blue-50 p-2 rounded-lg border border-blue-100 hover:bg-blue-100 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg></button>
+                            <button onclick="eliminarProducto('${p.id}')" title="Borrar Producto" class="text-rose-500 bg-rose-50 p-2 rounded-lg border border-rose-100 hover:bg-rose-100 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
+                        </div>
+                    </div>
+                    <span class="text-[9px] font-black uppercase tracking-[0.2em] mb-2 inline-block px-2 py-1 rounded bg-slate-50 border" style="color: ${p.temaColor || '#666'}">${p.tag || 'SISTEMA'}</span>
+                    <h3 class="font-black text-slate-900 text-lg mb-2 leading-tight">${p.titulo}</h3>
+                    <p class="text-xs text-slate-500 line-clamp-2">${p.descripcion}</p>
+                </div>`; 
+            });
         }
         function abrirModalProducto(id) { 
             if(id) {
@@ -732,6 +1092,7 @@
                 document.getElementById('mp-color').value = p.temaColor; document.getElementById('mp-colorbot').value = p.colorBot; document.getElementById('mp-tag').value = p.tag; document.getElementById('mp-s1').value = p.sloganTop; document.getElementById('mp-s2').value = p.sloganMid; document.getElementById('mp-s3').value = p.sloganBot;
             } else {
                 document.getElementById('mp-id').value = "prod_"+new Date().getTime(); document.getElementById('mp-titulo').value = ""; document.getElementById('mp-icono').value = ""; document.getElementById('mp-desc').value = "";
+                document.getElementById('mp-color').value = ""; document.getElementById('mp-colorbot').value = ""; document.getElementById('mp-tag').value = ""; document.getElementById('mp-s1').value = ""; document.getElementById('mp-s2').value = ""; document.getElementById('mp-s3').value = "";
             }
             document.getElementById('modal-producto').classList.replace('hidden', 'flex'); 
         }
@@ -739,11 +1100,28 @@
             let p = { id: document.getElementById('mp-id').value, titulo: document.getElementById('mp-titulo').value, icono: document.getElementById('mp-icono').value, descripcion: document.getElementById('mp-desc').value, temaColor: document.getElementById('mp-color').value, tag: document.getElementById('mp-tag').value, sloganTop: document.getElementById('mp-s1').value, sloganMid: document.getElementById('mp-s2').value, sloganBot: document.getElementById('mp-s3').value, colorBot: document.getElementById('mp-colorbot').value, ventajas: "[]", planes: "[]" };
             toggleLoader(true); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'guardarProducto', payload: { usuario: currentSession.user.usuario, token: currentSession.token, producto: p } }) }).then(r=>r.json()).then(res => { if(res.success){ cerrarModal('modal-producto'); cargarDataGlobal(); } else { toggleLoader(false); toast(res.message, true); }});
         }
-        function eliminarProducto(id) { if(!confirm("Borrar?")) return; toggleLoader(true); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'eliminarProducto', payload: { usuario: currentSession.user.usuario, token: currentSession.token, idProd: id } }) }).then(r=>r.json()).then(res => { if(res.success) cargarDataGlobal(); }); }
+        function eliminarProducto(id) { 
+            showConfirm("¿Borrar producto del catálogo web?", () => {
+                toggleLoader(true); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'eliminarProducto', payload: { usuario: currentSession.user.usuario, token: currentSession.token, idProd: id } }) }).then(r=>r.json()).then(res => { if(res.success) cargarDataGlobal(); else {toggleLoader(false); toast(res.message, true);} }); 
+            });
+        }
 
         function renderCatServicios() {
             const grid = document.getElementById('serv-grid'); grid.innerHTML = '';
-            bdCatServicios.forEach(s => { grid.innerHTML += `<div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm"><div class="flex justify-between items-start mb-4"><div class="w-12 h-12 rounded-xl bg-pink-50 border border-pink-100 flex items-center justify-center text-xl uppercase font-bold text-pink-700">${s.icono.charAt(0)}</div><div class="flex gap-1"><button onclick="abrirModalServicio('${s.id}')" class="text-blue-500 bg-blue-50 p-2 rounded border border-blue-100"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg></button><button onclick="eliminarServicio('${s.id}')" class="text-rose-500 bg-rose-50 p-2 rounded border border-rose-100"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button></div></div><h3 class="font-black text-slate-900 text-lg mb-2">${s.titulo}</h3></div>`; });
+            bdCatServicios.forEach(s => { 
+                grid.innerHTML += `
+                <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition-all">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-pink-50 border border-pink-100 flex items-center justify-center text-xl uppercase font-bold text-pink-700">🎨</div>
+                        <div class="flex gap-1 shrink-0">
+                            <button onclick="abrirModalServicio('${s.id}')" class="text-blue-500 bg-blue-50 p-2 rounded-lg border border-blue-100 hover:bg-blue-100 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg></button>
+                            <button onclick="eliminarServicio('${s.id}')" class="text-rose-500 bg-rose-50 p-2 rounded-lg border border-rose-100 hover:bg-rose-100 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
+                        </div>
+                    </div>
+                    <h3 class="font-black text-slate-900 text-lg mb-2 leading-tight">${s.titulo}</h3>
+                    <p class="text-xs text-slate-500 line-clamp-3">${s.descripcion}</p>
+                </div>`; 
+            });
         }
         function abrirModalServicio(id) {
             if(id) { let s = bdCatServicios.find(x => x.id === id); document.getElementById('ms-id').value = s.id; document.getElementById('ms-titulo').value = s.titulo; document.getElementById('ms-icono').value = s.icono; document.getElementById('ms-desc').value = s.descripcion; } 
@@ -752,40 +1130,109 @@
         }
         function guardarServicio() {
             let s = { id: document.getElementById('ms-id').value, titulo: document.getElementById('ms-titulo').value, icono: document.getElementById('ms-icono').value, descripcion: document.getElementById('ms-desc').value };
-            toggleLoader(true); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'guardarServicio', payload: { usuario: currentSession.user.usuario, token: currentSession.token, servicio: s } }) }).then(r=>r.json()).then(res => { if(res.success){ cerrarModal('modal-servicio'); cargarDataGlobal(); } });
+            toggleLoader(true); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'guardarServicio', payload: { usuario: currentSession.user.usuario, token: currentSession.token, servicio: s } }) }).then(r=>r.json()).then(res => { if(res.success){ cerrarModal('modal-servicio'); cargarDataGlobal(); } else { toggleLoader(false); toast(res.message, true); }});
         }
-        function eliminarServicio(id) { if(!confirm("Borrar?")) return; toggleLoader(true); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'eliminarServicio', payload: { usuario: currentSession.user.usuario, token: currentSession.token, idServ: id } }) }).then(r=>r.json()).then(res => { if(res.success) cargarDataGlobal(); }); }
+        function eliminarServicio(id) { 
+            showConfirm("¿Borrar servicio de la web?", () => {
+                toggleLoader(true); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'eliminarServicio', payload: { usuario: currentSession.user.usuario, token: currentSession.token, idServ: id } }) }).then(r=>r.json()).then(res => { if(res.success) cargarDataGlobal(); else {toggleLoader(false); toast(res.message, true);} }); 
+            });
+        }
 
-        function renderPromo(p) { document.getElementById('promo-activa').checked = (p.activa === true || p.activa === 'true'); document.getElementById('promo-nombre').value = p.nombre; document.getElementById('promo-descuento').value = p.descuento; document.getElementById('promo-wsp').value = p.wsp; document.getElementById('promo-email').value = p.email; document.getElementById('promo-fb').value = p.fb; document.getElementById('promo-ig').value = p.ig; }
-        function guardarPromo() { toggleLoader(true); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'guardarPromo', payload: { usuario: currentSession.user.usuario, token: currentSession.token, activa: document.getElementById('promo-activa').checked, nombre: document.getElementById('promo-nombre').value, descuento: parseInt(document.getElementById('promo-descuento').value) || 0, wsp: document.getElementById('promo-wsp').value, email: document.getElementById('promo-email').value, fb: document.getElementById('promo-fb').value, ig: document.getElementById('promo-ig').value } }) }).then(r=>r.json()).then(res => { toggleLoader(false); toast("Guardado"); }); }
+        function renderPromoConfig(p) { 
+            document.getElementById('promo-activa').checked = p.activa; 
+            document.getElementById('promo-nombre').value = p.nombre || ''; 
+            document.getElementById('promo-descuento').value = p.descuento || ''; 
+            document.getElementById('promo-wsp').value = p.wsp || '';
+            document.getElementById('promo-email').value = p.email || '';
+            document.getElementById('promo-fb').value = p.fb || '';
+            document.getElementById('promo-ig').value = p.ig || '';
+        }
+        
+        function guardarPromo() {
+            const p = { activa: document.getElementById('promo-activa').checked, nombre: document.getElementById('promo-nombre').value, descuento: document.getElementById('promo-descuento').value, wsp: document.getElementById('promo-wsp').value, email: document.getElementById('promo-email').value, fb: document.getElementById('promo-fb').value, ig: document.getElementById('promo-ig').value };
+            toggleLoader(true, "Guardando configuración web..."); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'guardarPromo', payload: { usuario: currentSession.user.usuario, token: currentSession.token, activa: p.activa, nombre: p.nombre, descuento: p.descuento, wsp: p.wsp, email: p.email, fb: p.fb, ig: p.ig } }) }).then(r=>r.json()).then(res => { toggleLoader(false); if(res.success) toast("Configuración web guardada"); else toast(res.message, true); });
+        }
 
         // --- COTIZADOR PDF ---
         function llenarSelectsCotizador() {
-            const sProd = document.getElementById('pdf-producto'); sProd.innerHTML = '<option value="">Elegir del Catálogo...</option>';
-            if(bdCatProductos) bdCatProductos.forEach(p => { sProd.innerHTML += `<option value="${p.id}">${p.titulo} (SaaS)</option>`; });
-            if(bdCatServicios) bdCatServicios.forEach(s => { sProd.innerHTML += `<option value="${s.id}">${s.titulo} (Servicio)</option>`; });
+            let selCli = document.getElementById('pdf-cliente'); selCli.innerHTML = '<option value="">Seleccione Cliente (CRM)</option>';
+            globalCRM.forEach(c => selCli.innerHTML += `<option value="${c.id}">${c.empresa} (${c.responsable})</option>`);
             
-            const sCli = document.getElementById('pdf-cliente'); sCli.innerHTML = '<option value="">Elegir de mi CRM...</option>';
-            if(globalCRM) globalCRM.forEach(c => { sCli.innerHTML += `<option value="${c.id}">${c.empresa}</option>`; });
+            let selProd = document.getElementById('pdf-producto'); selProd.innerHTML = '<option value="">Seleccione Producto SaaS</option>';
+            bdCatProductos.forEach(p => { if(p.planes && p.planes !== "[]") selProd.innerHTML += `<option value="${p.id}">${p.titulo}</option>`; });
         }
+
         function generarPDFCotizacion() {
-            const idCli = document.getElementById('pdf-cliente').value; const idProd = document.getElementById('pdf-producto').value; const notas = document.getElementById('pdf-notas').value.trim();
-            if(!idCli) return toast("Selecciona un cliente.", true);
-            if(!idProd) return toast("Selecciona un producto.", true);
+            const idCli = document.getElementById('pdf-cliente').value;
+            const idProd = document.getElementById('pdf-producto').value;
+            if(!idCli || !idProd) return toast("Selecciona un cliente y un producto", true);
             
-            let cliente = globalCRM.find(x => x.id === idCli);
-            document.getElementById('pdf-fecha-hoy').innerText = "Fecha: " + new Date().toLocaleDateString('es-ES'); document.getElementById('pdf-client-name').innerText = cliente.empresa;
-            let prod = bdCatProductos.find(x => x.id === idProd) || bdCatServicios.find(x => x.id === idProd);
+            const cliente = globalCRM.find(c => c.id === idCli);
+            const producto = bdCatProductos.find(p => p.id === idProd);
             
-            document.getElementById('pdf-item-title').innerText = prod.titulo; document.getElementById('pdf-item-desc').innerText = prod.descripcion;
-            const planesCont = document.getElementById('pdf-item-planes'); planesCont.innerHTML = '';
-            if(prod.planes) {
-                try { let planes = JSON.parse(prod.planes); planes.forEach(pl => { planesCont.innerHTML += `<div class="bg-white p-4 rounded-xl border border-slate-100 flex justify-between items-center"><div><p class="font-bold text-slate-800">${pl.nombre}</p><p class="text-xs text-slate-500">${pl.desc}</p></div><div class="text-right"><p class="text-[10px] text-slate-400 uppercase">Mensual</p><p class="font-black text-brand-blue text-lg">S/ ${pl.pMes}</p></div></div>`; }); } catch(e){}
-            } else { planesCont.innerHTML = `<div class="bg-white p-4 rounded-xl border border-slate-100"><p class="text-sm text-slate-500 italic">Cotización a medida según requerimientos específicos.</p></div>`; }
-            document.getElementById('pdf-item-notas').innerText = notas || "Precios incluyen IGV. Sujeto a contrato de servicio.";
+            document.getElementById('pdf-contact-email').innerText = dataPromo.email || "hola@masdigital.pe";
+            document.getElementById('pdf-contact-phone').innerText = "+" + (dataPromo.wsp || "51929389268");
+
+            document.getElementById('pdf-fecha-hoy').innerText = "Fecha: " + new Date().toLocaleDateString('es-ES');
+            document.getElementById('pdf-client-name').innerText = cliente.empresa + " (Atn: " + cliente.responsable + ")";
+            document.getElementById('pdf-item-title').innerText = producto.titulo;
+            document.getElementById('pdf-item-desc').innerText = producto.descripcion;
             
+            document.getElementById('pdf-item-tag').innerText = producto.tag || 'SISTEMA';
+            document.getElementById('pdf-item-s1').innerText = producto.sloganTop || '';
+            document.getElementById('pdf-item-s2').innerText = producto.sloganMid || '';
+            
+            let botText = producto.sloganBot || '';
+            let botColor = producto.colorBot || '#2563EB';
+            if(botText) {
+                document.getElementById('pdf-item-s3').innerText = botText;
+                document.getElementById('pdf-item-s3').style.backgroundColor = botColor;
+                document.getElementById('pdf-item-s3').style.display = 'inline-block';
+            } else {
+                document.getElementById('pdf-item-s3').style.display = 'none';
+            }
+            
+            const notas = document.getElementById('pdf-notas').value.trim();
+            if(notas) { document.getElementById('pdf-item-notas').innerText = "Nota importante: " + notas; document.getElementById('pdf-item-notas').parentNode.style.display = 'block'; } 
+            else { document.getElementById('pdf-item-notas').parentNode.style.display = 'none'; }
+            
+            let planesHTML = "";
+            try {
+                let arr = typeof producto.planes === 'string' ? JSON.parse(producto.planes) : producto.planes;
+                arr.forEach(pl => {
+                    let descObj = pl.desc ? `<p class="text-[10px] text-slate-500 mb-2">${pl.desc}</p>` : '';
+                    let feats = "";
+                    if(pl.features && Array.isArray(pl.features)) {
+                        feats = pl.features.map(f => `<li>✓ ${f}</li>`).join('');
+                    }
+                    planesHTML += `
+                    <div class="border border-slate-200 rounded-xl p-4 bg-white">
+                        <div class="flex justify-between items-start mb-2">
+                            <div><h4 class="font-black text-slate-800">${pl.nombre}</h4>${descObj}</div>
+                            <div class="text-right">
+                                <p class="text-xs text-slate-400">Mensual: <span class="font-bold text-slate-800">S/ ${pl.pMes}</span></p>
+                                <p class="text-xs text-slate-400">Anual: <span class="font-bold text-slate-800">S/ ${pl.pAnual}</span></p>
+                            </div>
+                        </div>
+                        <ul class="text-[10px] text-slate-500 font-medium grid grid-cols-2 gap-1">${feats}</ul>
+                    </div>`;
+                });
+            } catch(e) { console.error("Error parseando planes para PDF", e); }
+            
+            document.getElementById('pdf-item-planes').innerHTML = planesHTML;
+            
+            toggleLoader(true, "Generando PDF...");
             const element = document.getElementById('pdf-template-content');
-            html2pdf().set({ margin: 0, filename: `Cotizacion_${cliente.empresa}.pdf`, image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2 }, jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } }).from(element).save().then(() => toast("¡PDF Descargado!"));
+            const opt = { margin: 0, filename: `Cotizacion_${cliente.empresa.replace(/[^a-z0-9]/gi, '_')}.pdf`, image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2, useCORS: true }, jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } };
+            
+            document.getElementById('pdf-template-wrapper').style.left = '0';
+            document.getElementById('pdf-template-wrapper').style.zIndex = '9999';
+            
+            html2pdf().set(opt).from(element).save().then(() => {
+                document.getElementById('pdf-template-wrapper').style.left = '-9999px';
+                document.getElementById('pdf-template-wrapper').style.zIndex = '-9999';
+                toggleLoader(false);
+            });
         }
     </script>
 </body>
