@@ -25,8 +25,8 @@
         @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; visibility: hidden; } }
         
         .modern-table-container { @apply w-full overflow-x-auto bg-white rounded-2xl border border-slate-200 shadow-sm; }
-        .modern-table { @apply w-full text-left text-sm border-collapse; min-width: 600px; }
-        .modern-table thead { @apply bg-slate-50 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-200; }
+        .modern-table { @apply w-full text-left text-sm border-collapse; min-width: 800px; }
+        .modern-table thead { @apply bg-slate-50 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-200 sticky top-0 z-10; }
         .modern-table th { @apply px-6 py-4; }
         .modern-table tbody { @apply divide-y divide-slate-100; }
         .modern-table tr { @apply hover:bg-slate-50 transition-colors duration-150; }
@@ -39,7 +39,7 @@
 
     <script>
         // 🛑 PEGA AQUÍ TU URL DEL BACKEND DE GOOGLE APPS SCRIPT 🛑
-        const URL_BACKEND = "https://script.google.com/macros/s/AKfycbxeIjyDa5tYgK2W2fF529RfwuOewxsjcl2zcX7NzOYEH_YZyvuNU8adZpf4mJK9AOSKZw/exec"; 
+        const URL_BACKEND = "https://script.google.com/macros/s/AKfycbyCkWzwR35Q9EhUO3CYXzaIVnpMkncRlsKGaHETfQc8qVD2xhX8NAG9xzMLimxkSVpFAg/exec"; 
     </script>
 
     <div id="loader" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[9999] hidden items-center justify-center">
@@ -189,10 +189,10 @@
                         <table class="modern-table">
                             <thead>
                                 <tr>
-                                    <th class="w-1/3">Empresa</th>
-                                    <th class="w-1/4">Contacto</th>
-                                    <th class="w-1/4">Email / Teléfono</th>
-                                    <th class="text-center w-auto">Acciones</th>
+                                    <th class="w-[25%] min-w-[200px]">Empresa</th>
+                                    <th class="w-[25%] min-w-[200px]">Contacto</th>
+                                    <th class="w-[30%] min-w-[250px]">Email / Teléfono</th>
+                                    <th class="text-center w-[20%] min-w-[150px]">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody id="crm-table-body">
@@ -210,11 +210,22 @@
 
                 <!-- VISTA 1: LEADS -->
                 <div id="view-leads" class="hidden">
-                    <p class="text-slate-500 mb-6 text-sm font-medium">Prospectos recibidos desde el Carrito de Compras o Chatbot.</p>
+                    <div class="flex flex-col sm:flex-row justify-between sm:items-end mb-6 gap-4">
+                        <p class="text-slate-500 text-sm font-medium">Prospectos recibidos desde el Carrito de Compras o Chatbot.</p>
+                        <button onclick="cargarDataGlobal()" class="bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-4 py-2.5 rounded-xl font-bold text-sm transition-all shadow-sm flex items-center justify-center gap-2 shrink-0">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg> 
+                            Actualizar Bandeja
+                        </button>
+                    </div>
                     <div class="modern-table-container">
                         <table class="modern-table">
                             <thead>
-                                <tr><th>Fecha</th><th>Cliente / Contacto</th><th>Requerimiento / Interés</th><th>Estado</th></tr>
+                                <tr>
+                                    <th class="w-[15%] min-w-[120px]">Fecha</th>
+                                    <th class="w-[25%] min-w-[200px]">Cliente / Contacto</th>
+                                    <th class="w-[45%] min-w-[300px]">Requerimiento / Interés</th>
+                                    <th class="w-[15%] min-w-[120px]">Estado</th>
+                                </tr>
                             </thead>
                             <tbody id="leads-body"></tbody>
                         </table>
@@ -348,7 +359,7 @@
                                 <div class="flex-1 overflow-y-auto">
                                     <table class="modern-table">
                                         <thead>
-                                            <tr><th class="w-1/4">Fecha</th><th class="w-1/2">Concepto & Categoría</th><th class="text-right w-1/4">Importe</th><th class="text-center w-auto">Acción</th></tr>
+                                            <tr><th class="w-[20%]">Fecha</th><th class="w-[45%]">Concepto & Categoría</th><th class="text-right w-[20%]">Importe</th><th class="text-center w-[15%]">Acción</th></tr>
                                         </thead>
                                         <tbody id="finanzas-body"></tbody>
                                     </table>
@@ -432,9 +443,10 @@
             <div id="crm-quick-actions" class="hidden mb-6 pt-4 border-t border-slate-100">
                 <p class="text-[10px] font-bold text-slate-500 uppercase mb-3">Mensajes Rápidos (WhatsApp)</p>
                 <div class="flex flex-wrap gap-2">
-                    <button onclick="enviarWspCRM('contacto')" class="text-xs bg-[#25D366]/10 text-[#25D366] hover:bg-[#25D366]/20 font-bold px-3 py-2 rounded-lg transition-colors border border-[#25D366]/30 flex items-center gap-1"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Nuevo Contacto</button>
-                    <button onclick="enviarWspCRM('cotizacion')" class="text-xs bg-blue-50 text-blue-600 hover:bg-blue-100 font-bold px-3 py-2 rounded-lg transition-colors border border-blue-200">Envió Cotización</button>
-                    <button onclick="enviarWspCRM('seguimiento')" class="text-xs bg-amber-50 text-amber-600 hover:bg-amber-100 font-bold px-3 py-2 rounded-lg transition-colors border border-amber-200">Seguimiento</button>
+                    <button onclick="enviarWspCRM('bienvenida')" class="text-xs bg-purple-50 text-purple-600 hover:bg-purple-100 font-bold px-3 py-2 rounded-lg transition-colors border border-purple-200 flex items-center gap-1">🎉 Dar Bienvenida</button>
+                    <button onclick="enviarWspCRM('contacto')" class="text-xs bg-[#25D366]/10 text-[#25D366] hover:bg-[#25D366]/20 font-bold px-3 py-2 rounded-lg transition-colors border border-[#25D366]/30 flex items-center gap-1"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Contacto</button>
+                    <button onclick="enviarWspCRM('cotizacion')" class="text-xs bg-blue-50 text-blue-600 hover:bg-blue-100 font-bold px-3 py-2 rounded-lg transition-colors border border-blue-200">📄 Envió Cotización</button>
+                    <button onclick="enviarWspCRM('seguimiento')" class="text-xs bg-amber-50 text-amber-600 hover:bg-amber-100 font-bold px-3 py-2 rounded-lg transition-colors border border-amber-200">🔍 Seguimiento</button>
                 </div>
             </div>
 
@@ -709,7 +721,7 @@
             cargarDataGlobal();
             
             const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('header-date').innerText = new Date().toLocaleDateString('es-ES', options);
+            document.getElementById('header-date').innerText = new Date().toLocaleDateString('es-ES', options).toUpperCase();
         }
 
         function cargarDataGlobal() {
@@ -725,7 +737,7 @@
                     bdCatServicios = (typeof res.catalogo.servicios === 'string') ? JSON.parse(res.catalogo.servicios) : res.catalogo.servicios; 
                     
                     globalSubs = res.suscripciones; globalCRM = res.crm || []; dataPromo = res.promo;
-                    globalContenido = res.contenido || []; // New array for content
+                    globalContenido = res.contenido || [];
                     
                     renderCRM(); renderLeads(res.leads); renderSuscripciones(res.suscripciones); renderContenidoList();
                     if(res.finanzas) { globalFinanzas = res.finanzas.transacciones; renderFiltroVendedores(); renderFinanzasList(); }
@@ -769,16 +781,16 @@
             pageData.forEach(c => {
                 tbody.innerHTML += `
                     <tr>
-                        <td>
+                        <td class="whitespace-normal">
                             <div class="flex items-center gap-3">
                                 <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 text-white flex items-center justify-center font-black shadow-sm shrink-0">${c.empresa.charAt(0)}</div>
                                 <div><p class="font-bold text-slate-900">${c.empresa}</p><p class="text-[10px] text-slate-500 max-w-[150px] md:max-w-[200px] truncate" title="${c.direccion}">${c.direccion || 'Sin dirección'}</p></div>
                             </div>
                         </td>
-                        <td><p class="font-bold text-slate-700 text-[11px] md:text-xs uppercase">${c.responsable}</p></td>
+                        <td class="whitespace-normal"><p class="font-bold text-slate-700 text-[11px] md:text-xs uppercase">${c.responsable}</p></td>
                         <td>
-                            <p class="text-xs md:text-sm font-medium text-slate-600 flex items-center gap-2"><svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg> ${c.celular}</p>
-                            <p class="text-[10px] md:text-xs text-slate-500 flex items-center gap-2 truncate max-w-[150px] mt-1" title="${c.email}"><svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg> ${c.email || 'N/A'}</p>
+                            <p class="text-xs md:text-sm font-medium text-slate-600 flex items-center gap-2"><svg class="w-3.5 h-3.5 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg> ${c.celular}</p>
+                            <p class="text-[10px] md:text-xs text-slate-500 flex items-center gap-2 truncate max-w-[150px] mt-1" title="${c.email}"><svg class="w-3.5 h-3.5 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg> ${c.email || 'N/A'}</p>
                         </td>
                         <td class="text-center">
                             <div class="flex justify-center gap-2">
@@ -792,8 +804,6 @@
             document.getElementById('crm-pagination-info').innerText = `Mostrando ${startIndex + 1} - ${endIndex} de ${filteredCrmData.length}`;
             document.getElementById('crm-btn-prev').disabled = currentCrmPage === 1; document.getElementById('crm-btn-next').disabled = currentCrmPage === totalPages;
         }
-
-        function changeCrmPage(dir) { currentCrmPage += dir; updateCrmTable(); }
 
         function abrirModalCRM(id) {
             let containerActions = document.getElementById('crm-quick-actions');
@@ -815,9 +825,10 @@
             if(!celRaw || celRaw.length < 9) return toast("El cliente no tiene un celular válido", true);
             let celLimpio = celRaw.replace(/\D/g, '');
             let msgs = {
-                'contacto': `¡Hola ${res}! 👋\nTe saludamos del equipo de MAS Digital. Nos ponemos en contacto contigo para conversar sobre las soluciones tecnológicas para *${emp}*.\n¿En qué horario te viene bien una breve llamada?`,
-                'cotizacion': `¡Hola ${res}! 🚀\nDesde MAS Digital te compartimos que hemos preparado la cotización solicitada para *${emp}*.\nCualquier duda técnica o de implementación, estamos para ayudarte.`,
-                'seguimiento': `¡Hola ${res}! 😊\nEsperamos que estés teniendo una excelente semana.\nTe escribimos de MAS Digital para saber si lograste revisar la propuesta enviada para *${emp}* y si tienes alguna consulta adicional.`
+                'contacto': `¡Hola ${res}! 👋\nTe saludamos del equipo de *MAS Digital* 🚀.\nNos ponemos en contacto contigo para conversar sobre las soluciones tecnológicas para *${emp}* 💻.\n¿En qué horario te viene bien una breve llamada para asesorarte? 📞`,
+                'cotizacion': `¡Hola ${res}! 📄✨\nDesde *MAS Digital* te compartimos que hemos preparado la cotización solicitada para *${emp}* 🎯.\nCualquier duda técnica o de implementación, estamos para ayudarte. ¡Quedamos atentos! 🤝`,
+                'seguimiento': `¡Hola ${res}! 😊\nEsperamos que estés teniendo una excelente semana 🌟.\nTe escribimos de *MAS Digital* para saber si lograste revisar la propuesta enviada para *${emp}* 📊 y si tienes alguna consulta adicional. ¡Estamos a tu disposición! 💬`,
+                'bienvenida': `¡Hola ${res}! 🎉\nBienvenido a la familia de *MAS Digital* 🚀. Es un placer para nosotros empezar a trabajar con *${emp}* 🏢.\nEstamos listos para llevar tu negocio al siguiente nivel. ¡Hagamos cosas increíbles juntos! 💡💪`
             };
             let texto = encodeURIComponent(msgs[tipo] || "Hola, te saludamos de MAS Digital.");
             window.open(`https://wa.me/${celLimpio}?text=${texto}`, '_blank');
@@ -839,7 +850,12 @@
             if(leads.length === 0) { tb.innerHTML = '<tr><td colspan="4" class="p-6 text-center text-slate-400">No hay prospectos.</td></tr>'; return; }
             leads.forEach(l => {
                 let badge = {'Nuevo':'bg-blue-100 text-blue-700', 'Contactado':'bg-amber-100 text-amber-700', 'Cerrado':'bg-emerald-100 text-emerald-700', 'Perdido':'bg-slate-100 text-slate-500'}[l.estado] || 'bg-slate-100 text-slate-700';
-                tb.innerHTML += `<tr class="hover:bg-slate-50/50"><td class="px-4 md:px-6 py-4 text-[10px] md:text-xs text-slate-400">${l.fecha}</td><td class="px-4 md:px-6 py-4"><p class="text-sm font-bold text-slate-900">${l.nombre}</p><p class="text-[10px] md:text-xs text-slate-500 mt-1">📱 ${l.celular}</p></td><td class="px-4 md:px-6 py-4 text-xs md:text-sm font-medium text-slate-700 truncate max-w-[150px] md:max-w-xs" title="${l.requerimiento}">${l.requerimiento}</td><td class="px-4 md:px-6 py-4"><select onchange="cambiarEstadoLead('${l.id}', this.value)" class="text-[10px] md:text-xs font-bold px-3 py-1.5 rounded-lg border-0 outline-none cursor-pointer ${badge}"><option value="Nuevo" ${l.estado==='Nuevo'?'selected':''}>Nuevo</option><option value="Contactado" ${l.estado==='Contactado'?'selected':''}>Contactado</option><option value="Cerrado" ${l.estado==='Cerrado'?'selected':''}>Cerrado</option><option value="Perdido" ${l.estado==='Perdido'?'selected':''}>Perdido</option></select></td></tr>`;
+                tb.innerHTML += `<tr class="hover:bg-slate-50/50">
+                    <td class="px-4 md:px-6 py-4 text-[10px] md:text-xs text-slate-400">${l.fecha}</td>
+                    <td class="px-4 md:px-6 py-4 whitespace-normal min-w-[200px]"><p class="text-sm font-bold text-slate-900">${l.nombre}</p><p class="text-[10px] md:text-xs text-slate-500 mt-1">📱 ${l.celular}</p></td>
+                    <td class="px-4 md:px-6 py-4 text-xs md:text-sm font-medium text-slate-700 whitespace-normal min-w-[300px] leading-relaxed">${l.requerimiento}</td>
+                    <td class="px-4 md:px-6 py-4"><select onchange="cambiarEstadoLead('${l.id}', this.value)" class="text-[10px] md:text-xs font-bold px-3 py-1.5 rounded-lg border-0 outline-none cursor-pointer shadow-sm ${badge}"><option value="Nuevo" ${l.estado==='Nuevo'?'selected':''}>Nuevo</option><option value="Contactado" ${l.estado==='Contactado'?'selected':''}>Contactado</option><option value="Cerrado" ${l.estado==='Cerrado'?'selected':''}>Cerrado</option><option value="Perdido" ${l.estado==='Perdido'?'selected':''}>Perdido</option></select></td>
+                </tr>`;
             });
         }
         function cambiarEstadoLead(id, estado) {
@@ -879,14 +895,14 @@
                 let isVencido = false;
                 try {
                     let pPago = s.proximoPago ? String(s.proximoPago).split('T')[0] : "";
-                    let parts = pPago.split('-');
-                    if(parts.length === 3) {
-                        let dPago = new Date(parts[0], parts[1]-1, parts[2]);
-                        let diffTime = dPago.getTime() - hoy.getTime();
-                        diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                    } else {
-                        diffDays = NaN;
-                    }
+                    if(pPago) {
+                        let parts = pPago.split('-');
+                        if(parts.length === 3) {
+                            let dPago = new Date(parts[0], parts[1]-1, parts[2]);
+                            let diffTime = dPago.getTime() - hoy.getTime();
+                            diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                        } else { diffDays = NaN; }
+                    } else { diffDays = NaN; }
                 } catch(e) { diffDays = NaN; }
 
                 let txtDias = isNaN(diffDays) ? "Sin Fecha" : `Faltan ${diffDays} días`;
