@@ -39,7 +39,7 @@
 
     <script>
         // 🛑 PEGA AQUÍ TU URL DEL BACKEND DE GOOGLE APPS SCRIPT 🛑
-        const URL_BACKEND = "https://script.google.com/macros/s/AKfycbyCkWzwR35Q9EhUO3CYXzaIVnpMkncRlsKGaHETfQc8qVD2xhX8NAG9xzMLimxkSVpFAg/exec"; 
+        const URL_BACKEND = "https://script.google.com/macros/s/AKfycbzToPOajHWC6Y-1P7iwQZR4RYaO3Pz5IYrFlnt19q-Sf2LnrewwY32aRzQtmLGN86961w/exec"; 
     </script>
 
     <div id="loader" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[9999] hidden items-center justify-center">
@@ -825,12 +825,12 @@
             if(!celRaw || celRaw.length < 9) return toast("El cliente no tiene un celular válido", true);
             let celLimpio = celRaw.replace(/\D/g, '');
             let msgs = {
-                'contacto': `¡Hola ${res}! 👋\nTe saludamos del equipo de *MAS Digital* 🚀.\nNos ponemos en contacto contigo para conversar sobre las soluciones tecnológicas para *${emp}* 💻.\n¿En qué horario te viene bien una breve llamada para asesorarte? 📞`,
-                'cotizacion': `¡Hola ${res}! 📄✨\nDesde *MAS Digital* te compartimos que hemos preparado la cotización solicitada para *${emp}* 🎯.\nCualquier duda técnica o de implementación, estamos para ayudarte. ¡Quedamos atentos! 🤝`,
-                'seguimiento': `¡Hola ${res}! 😊\nEsperamos que estés teniendo una excelente semana 🌟.\nTe escribimos de *MAS Digital* para saber si lograste revisar la propuesta enviada para *${emp}* 📊 y si tienes alguna consulta adicional. ¡Estamos a tu disposición! 💬`,
-                'bienvenida': `¡Hola ${res}! 🎉\nBienvenido a la familia de *MAS Digital* 🚀. Es un placer para nosotros empezar a trabajar con *${emp}* 🏢.\nEstamos listos para llevar tu negocio al siguiente nivel. ¡Hagamos cosas increíbles juntos! 💡💪`
+                'contacto': `¡Hola ${res}! 👋 Qué gusto saludarte. Somos del equipo de MAS Digital 🚀.\nTe escribimos para conversar un ratito sobre cómo podemos impulsar a *${emp}* con nuestras herramientas 💻.\n¿A qué hora te viene bien una llamadita súper rápida? 😊`,
+                'cotizacion': `¡Hola ${res}! 👋✨\nTenemos buenas noticias: ya armamos la propuesta que nos pediste para *${emp}* 🎯.\nÉchale un ojo y cualquier duda, por más pequeña que sea, nos avisas. ¡Estamos aquí para ayudarte a crecer! 🚀🤝`,
+                'seguimiento': `¡Hola ${res}! 😊👋\nEsperamos que estés teniendo una súper semana 🌟.\nTe escribíamos de MAS Digital para saber si pudiste darle una mirada a la propuesta para *${emp}* 📊.\nSi tienes alguna idea nueva o consulta, ¡cuéntanos! Estamos a tu disposición 💬💡`,
+                'bienvenida': `¡Hola ${res}! 🎉👋\n¡Qué emoción darte la bienvenida a la familia de MAS Digital! 🚀 Nos encanta empezar a trabajar con el equipazo de *${emp}* 🏢.\nVamos a hacer cosas increíbles juntos. ¡A darle con todo! 💪✨`
             };
-            let texto = encodeURIComponent(msgs[tipo] || "Hola, te saludamos de MAS Digital.");
+            let texto = encodeURIComponent(msgs[tipo] || "¡Hola! Te saludamos de MAS Digital 👋😊");
             window.open(`https://wa.me/${celLimpio}?text=${texto}`, '_blank');
         }
 
