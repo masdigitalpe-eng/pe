@@ -7,9 +7,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    
+
     <script>
-        tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'], display: ['Montserrat', 'sans-serif'] }, colors: { brand: { dark: '#0B1120', blue: '#2563EB', purple: '#8B5CF6' } } } } }
+        tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'], display: ['Montserrat', 'sans-serif'] }, colors: { brand: { dark: '#0B1120', blue: '#2563EB', purple: '#8B5CF6', pink: '#EC4899', orange: '#F97316' } } } } }
     </script>
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #0f172a; overflow: hidden; }
@@ -17,20 +17,59 @@
         .glass-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.5); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05); }
         .modal-enter { animation: zoomIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes zoomIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        
+
         #toast-container { position: fixed; top: 20px; right: 20px; z-index: 99999; display: flex; flex-direction: column; gap: 10px; }
         .toast { background: #1e293b; color: white; border-left: 4px solid #3b82f6; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2); padding: 16px 20px; border-radius: 8px; font-weight: 600; font-size: 13px; animation: slideInRight 0.4s ease forwards, fadeOut 0.4s ease 3s forwards;}
         .toast-error { border-left-color: #ef4444; }
         @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
         @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; visibility: hidden; } }
-        
-        .modern-table-container { @apply w-full overflow-x-auto pb-4 px-1; }
-        .modern-table { @apply w-full text-left text-sm border-separate; border-spacing: 0 12px; min-width: 900px; }
-        .modern-table thead th { @apply px-6 py-2 bg-transparent text-[11px] font-black text-slate-400 uppercase tracking-widest border-none; }
-        .modern-table tbody tr { @apply bg-white hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 relative; box-shadow: 0 4px 15px -3px rgba(0,0,0,0.03); }
-        .modern-table tbody td { @apply px-6 py-4 border-y border-slate-100 bg-white align-middle; }
-        .modern-table tbody td:first-child { @apply border-l rounded-l-2xl border-slate-100; }
-        .modern-table tbody td:last-child { @apply border-r rounded-r-2xl border-slate-100; }
+
+        .grad-mas { background: linear-gradient(135deg, #2563EB 0%, #8B5CF6 45%, #EC4899 80%, #F97316 100%); }
+
+        /* FIX IMPORTANTE: CSS puro en lugar de @apply (Tailwind CDN ignora @apply en etiquetas <style> normales, por eso tus tablas se veían apachurradas) */
+        .modern-table-container {
+            width: 100%;
+            overflow-x: auto;
+            background: #ffffff;
+            border-radius: 1.5rem;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.04);
+        }
+        .modern-table {
+            width: 100%;
+            text-align: left;
+            font-size: 0.875rem;
+            border-collapse: collapse;
+            min-width: 880px;
+        }
+        .modern-table thead tr {
+            background-color: #f8fafc;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        .modern-table thead th {
+            padding: 16px 24px;
+            font-size: 11px;
+            font-weight: 900;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            white-space: nowrap;
+        }
+        .modern-table tbody tr {
+            background-color: #ffffff;
+            border-bottom: 1px solid #f1f5f9;
+            transition: all 0.2s ease;
+        }
+        .modern-table tbody tr:last-child {
+            border-bottom: none;
+        }
+        .modern-table tbody tr:hover {
+            background-color: #f8fafc;
+        }
+        .modern-table tbody td {
+            padding: 18px 24px;
+            vertical-align: middle;
+        }
 
         /* Forzar impresión de colores en PDF */
         @media print {
@@ -70,8 +109,9 @@
     </div>
 
     <!-- PANTALLA DE AUTENTICACIÓN -->
-    <div id="auth-box" class="bg-white p-8 md:p-10 rounded-[2.5rem] shadow-2xl w-[90%] max-w-md border border-slate-100 relative z-10">
-        <div class="flex items-center justify-center gap-3 mb-8">
+    <div id="auth-box" class="bg-white p-8 md:p-10 rounded-[2.5rem] shadow-2xl w-[90%] max-w-md border border-slate-100 relative z-10 overflow-hidden">
+        <div class="h-1.5 w-full grad-mas absolute top-0 left-0"></div>
+        <div class="flex items-center justify-center gap-3 mb-8 mt-2">
             <svg viewBox="0 0 280 150" class="h-10 w-auto shrink-0" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <linearGradient id="g1-log" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#2563EB"/><stop offset="100%" stop-color="#8B5CF6"/></linearGradient>
@@ -116,11 +156,12 @@
 
     <!-- PANEL ADMINISTRADOR PRINCIPAL -->
     <div id="dashboard" class="hidden w-full h-screen bg-slate-50 flex overflow-hidden">
-        
+
         <!-- Overlay Móvil para Sidebar -->
         <div id="sidebar-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[40] hidden md:hidden" onclick="toggleSidebar()"></div>
 
         <aside id="admin-sidebar" class="fixed md:relative inset-y-0 left-0 w-72 bg-brand-dark text-slate-400 flex flex-col shrink-0 transition-transform duration-300 transform -translate-x-full md:translate-x-0 border-r border-slate-800 z-[50]">
+            <div class="h-1 w-full grad-mas shrink-0"></div>
             <div class="h-16 md:h-20 flex items-center gap-3 px-6 border-b border-slate-800 bg-slate-900/50 shrink-0">
                 <svg viewBox="0 0 280 150" class="h-8 w-auto shrink-0" xmlns="http://www.w3.org/2000/svg">
                     <defs>
@@ -165,7 +206,7 @@
         </aside>
 
         <main class="flex-1 flex flex-col h-screen overflow-hidden bg-slate-50/50 relative">
-            
+
             <header class="h-16 md:h-20 bg-white border-b border-slate-200 flex items-center px-4 md:px-10 shrink-0 z-30 shadow-sm justify-between w-full">
                 <div class="flex items-center gap-3">
                     <button class="md:hidden text-slate-600 hover:text-brand-blue p-2 bg-slate-100 rounded-lg" onclick="toggleSidebar()">
@@ -177,39 +218,39 @@
             </header>
 
             <div class="flex-1 overflow-y-auto p-4 md:p-8 relative z-0 w-full" id="main-content">
-                
+
                 <!-- VISTA 0: CRM -->
                 <div id="view-crm" class="">
                     <div class="flex flex-col md:flex-row justify-between md:items-end mb-6 gap-4">
                         <div class="w-full md:w-auto">
                             <p class="text-slate-500 text-xs md:text-sm font-medium mb-3">Base de datos centralizada de tus clientes corporativos.</p>
                             <div class="relative w-full md:w-96">
-                                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></span>
-                                <input type="text" id="crm-search" onkeyup="buscarCRM()" placeholder="Buscar cliente por nombre o responsable..." class="w-full bg-white border border-slate-200 rounded-xl pl-10 pr-4 py-2.5 text-sm outline-none focus:border-brand-blue shadow-sm transition-colors">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></span>
+                                <input type="text" id="crm-search" onkeyup="buscarCRM()" placeholder="Buscar por empresa, responsable o celular..." class="w-full bg-white border border-slate-200 rounded-xl pl-11 pr-4 py-3 text-sm outline-none focus:border-brand-blue shadow-sm transition-colors">
                             </div>
                         </div>
-                        <button onclick="abrirModalCRM()" class="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-bold text-sm transition-all shadow-lg flex items-center justify-center gap-2 shrink-0"><svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M12 4v16m8-8H4"></path></svg> Nuevo Cliente</button>
+                        <button onclick="abrirModalCRM()" class="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white px-6 py-3.5 rounded-xl font-bold text-sm transition-all shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2 shrink-0"><svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path d="M12 4v16m8-8H4"></path></svg> Nuevo Cliente</button>
                     </div>
 
                     <div class="modern-table-container">
                         <table class="modern-table">
                             <thead>
                                 <tr>
-                                    <th class="w-[30%] min-w-[220px]">Empresa</th>
-                                    <th class="w-[25%] min-w-[180px]">Contacto</th>
-                                    <th class="w-[25%] min-w-[200px]">Email / Teléfono</th>
-                                    <th class="text-center w-[20%] min-w-[150px]">Acciones</th>
+                                    <th class="w-[34%]">Empresa & Dirección</th>
+                                    <th class="w-[24%]">Representante / Contacto</th>
+                                    <th class="w-[27%]">Teléfono & Correo</th>
+                                    <th class="text-center w-[15%]">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody id="crm-table-body">
                             </tbody>
                         </table>
-                    </div>
-                    <div class="px-4 md:px-6 py-4 mt-2 flex items-center justify-between">
-                        <span class="text-[10px] md:text-xs font-bold text-slate-500 bg-white px-3 py-1.5 rounded-lg border border-slate-200" id="crm-pagination-info">Mostrando 0 - 0 de 0</span>
-                        <div class="flex items-center gap-2">
-                            <button onclick="changeCrmPage(-1)" class="p-2 rounded-lg bg-white border border-slate-200 text-slate-500 hover:bg-slate-50 disabled:opacity-50 transition-colors shadow-sm" id="crm-btn-prev"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
-                            <button onclick="changeCrmPage(1)" class="p-2 rounded-lg bg-white border border-slate-200 text-slate-500 hover:bg-slate-50 disabled:opacity-50 transition-colors shadow-sm" id="crm-btn-next"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></button>
+                        <div class="px-6 py-4 bg-slate-50 border-t border-slate-200/80 flex items-center justify-between">
+                            <span class="text-xs font-bold text-slate-500 bg-white px-3.5 py-1.5 rounded-lg border border-slate-200 shadow-sm" id="crm-pagination-info">Mostrando 0 - 0 de 0</span>
+                            <div class="flex items-center gap-2">
+                                <button onclick="changeCrmPage(-1)" class="p-2 rounded-lg bg-white border border-slate-200 text-slate-600 hover:bg-slate-100 disabled:opacity-40 transition-colors shadow-sm" id="crm-btn-prev"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg></button>
+                                <button onclick="changeCrmPage(1)" class="p-2 rounded-lg bg-white border border-slate-200 text-slate-600 hover:bg-slate-100 disabled:opacity-40 transition-colors shadow-sm" id="crm-btn-next"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg></button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -217,9 +258,11 @@
                 <!-- VISTA 1: LEADS -->
                 <div id="view-leads" class="hidden">
                     <div class="flex flex-col sm:flex-row justify-between sm:items-end mb-6 gap-4">
-                        <p class="text-slate-500 text-sm font-medium">Prospectos recibidos desde el Carrito de Compras o Chatbot.</p>
-                        <button onclick="cargarDataGlobal()" class="bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-4 py-2.5 rounded-xl font-bold text-sm transition-all shadow-sm flex items-center justify-center gap-2 shrink-0">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg> 
+                        <div>
+                            <p class="text-slate-500 text-sm font-medium">Prospectos recibidos en tiempo real desde el Carrito de Compras o Chatbot de la web.</p>
+                        </div>
+                        <button onclick="cargarDataGlobal()" class="bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-5 py-2.5 rounded-xl font-bold text-sm transition-all shadow-sm flex items-center justify-center gap-2 shrink-0">
+                            <svg class="w-4 h-4 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg> 
                             Actualizar Bandeja
                         </button>
                     </div>
@@ -227,10 +270,10 @@
                         <table class="modern-table">
                             <thead>
                                 <tr>
-                                    <th class="w-[15%] min-w-[120px]">Fecha</th>
-                                    <th class="w-[25%] min-w-[200px]">Cliente / Contacto</th>
-                                    <th class="w-[45%] min-w-[300px]">Requerimiento / Interés</th>
-                                    <th class="w-[15%] min-w-[120px] text-center">Estado</th>
+                                    <th class="w-[16%]">Fecha Registro</th>
+                                    <th class="w-[26%]">Prospecto / Contacto</th>
+                                    <th class="w-[40%]">Servicios / Sistemas Solicitados</th>
+                                    <th class="w-[18%] text-center">Estado / Gestión</th>
                                 </tr>
                             </thead>
                             <tbody id="leads-body"></tbody>
@@ -270,26 +313,27 @@
 
                 <!-- VISTA 3: GENERADOR PDF -->
                 <div id="view-cotizador" class="hidden max-w-4xl mx-auto w-full">
-                    <div class="bg-white border border-slate-200 p-6 md:p-8 rounded-[2rem] shadow-sm mb-8">
-                        <h3 class="font-black text-xl mb-6 text-slate-900 flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                    <div class="bg-white border border-slate-200 p-6 md:p-8 rounded-[2rem] shadow-sm mb-8 relative overflow-hidden">
+                        <div class="h-1.5 w-full grad-mas absolute top-0 left-0"></div>
+                        <h3 class="font-black text-xl mb-6 text-slate-900 flex items-center gap-3 mt-1">
+                            <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 border border-blue-100">
                                 <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
                             </div>
-                            Generar Cotización (PDF)
+                            Generar Proforma / Cotización Oficial (PDF)
                         </h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                             <div>
-                                <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Cliente / Empresa</label>
+                                <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Cliente / Empresa (CRM)</label>
                                 <select id="pdf-cliente" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold outline-none focus:border-brand-blue"></select>
                             </div>
                             <div>
-                                <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Producto del Catálogo</label>
+                                <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Producto o Servicio del Catálogo</label>
                                 <select id="pdf-producto" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-brand-blue font-bold"></select>
                             </div>
-                            <div class="md:col-span-2"><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Notas adicionales</label><input type="text" id="pdf-notas" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-brand-blue" placeholder="Ej. Incluye dominio y hosting anual."></div>
+                            <div class="md:col-span-2"><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Notas o Condiciones Comerciales</label><input type="text" id="pdf-notas" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-brand-blue" placeholder="Ej. Incluye capacitación al personal, soporte técnico 24/7 y servidores en la nube."></div>
                         </div>
                         <button onclick="generarPDFCotizacion()" class="w-full bg-slate-900 hover:bg-brand-blue text-white font-black py-4 rounded-xl shadow-lg transition-all text-sm uppercase tracking-widest flex items-center justify-center gap-2">
-                            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4-4m0 0l-4-4m4 4V4"></path></svg> Generar Cotización PDF
+                            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4-4m0 0l-4-4m4 4V4"></path></svg> Descargar Cotización PDF con Logo
                         </button>
                     </div>
                 </div>
@@ -338,7 +382,7 @@
                                         <button onclick="setTxTipo('Egreso')" id="btn-tx-egr" class="flex-1 py-2 text-xs font-black uppercase tracking-widest rounded-lg text-slate-500 hover:text-slate-800 transition-all">Egreso (-)</button>
                                     </div>
                                     <input type="hidden" id="tx-tipo" value="Ingreso">
-                                    
+
                                     <div id="div-tx-sus"><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5 ml-1 text-blue-600">¿Asignar a Suscripción/Proyecto?</label>
                                         <select id="tx-sus-id" class="w-full bg-blue-50 border border-blue-200 rounded-xl px-4 py-3 text-sm font-bold outline-none text-blue-700"></select>
                                     </div>
@@ -375,28 +419,31 @@
                     </div>
                 </div>
 
+                <!-- VISTA 5: PRODUCTOS SAAS CMS -->
                 <div id="view-productos" class="hidden">
                     <div class="flex flex-col sm:flex-row justify-between sm:items-end mb-8 gap-4">
-                        <div><p class="text-slate-500 mb-1 text-sm font-medium">Gestiona los sistemas y aplicaciones de tu Landing Page.</p></div>
+                        <div><p class="text-slate-500 mb-1 text-sm font-medium">Gestiona los sistemas, ventajas, planes y precios de Setup de tu Landing Page.</p></div>
                         <button onclick="abrirModalProducto()" class="w-full sm:w-auto bg-slate-900 hover:bg-brand-blue text-white px-6 py-3.5 rounded-xl font-bold text-sm transition-all shadow-lg flex items-center justify-center gap-2 shrink-0"><svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M12 4v16m8-8H4"></path></svg> Nuevo Sistema</button>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="prod-grid"></div>
                 </div>
 
+                <!-- VISTA 6: CONTENT STUDIO CMS -->
                 <div id="view-servicios" class="hidden">
                     <div class="flex flex-col sm:flex-row justify-between sm:items-end mb-8 gap-4">
-                        <div><p class="text-slate-500 mb-1 text-sm font-medium">Gestiona los servicios de agencia creativa (Content Studio).</p></div>
-                        <button onclick="abrirModalServicio()" class="w-full sm:w-auto bg-pink-600 hover:bg-pink-700 text-white px-6 py-3.5 rounded-xl font-bold text-sm transition-all shadow-lg shadow-pink-500/30 flex items-center justify-center gap-2 shrink-0"><svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M12 4v16m8-8H4"></path></svg> Nuevo Servicio</button>
+                        <div><p class="text-slate-500 mb-1 text-sm font-medium">Gestiona los servicios de agencia creativa (Branding, Redes Sociales, Audiovisual).</p></div>
+                        <button onclick="abrirModalServicio()" class="w-full sm:w-auto bg-pink-600 hover:bg-pink-700 text-white px-6 py-3.5 rounded-xl font-bold text-sm transition-all shadow-lg shadow-pink-500/30 flex items-center justify-center gap-2 shrink-0"><svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M12 4v16m8-8H4"></path></svg> Nuevo Servicio Studio</button>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="serv-grid"></div>
                 </div>
 
+                <!-- VISTA 7: PROMO GLOBAL -->
                 <div id="view-promo" class="hidden">
                     <div class="bg-white border border-slate-200 p-6 md:p-8 rounded-[2.5rem] shadow-sm">
                         <h3 class="text-xl font-black text-slate-900 mb-6">Configuración Global Web</h3>
                         <div class="space-y-4 max-w-lg">
                             <div class="flex items-center justify-between p-4 border border-slate-200 rounded-2xl bg-slate-50">
-                                <div><p class="font-bold text-slate-900">Activar Banner Promocional</p><p class="text-[10px] text-slate-500">Muestra banner de oferta en la web</p></div>
+                                <div><p class="font-bold text-slate-900">Activar Banner Promocional</p><p class="text-[10px] text-slate-500">Muestra banner de oferta en la web y aplica descuentos automáticos</p></div>
                                 <label class="relative inline-flex items-center cursor-pointer">
                                     <input type="checkbox" id="promo-activa" class="sr-only peer">
                                     <div class="w-12 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-rose-500"></div>
@@ -404,7 +451,7 @@
                             </div>
                             <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Nombre Oferta</label><input type="text" id="promo-nombre" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand-blue outline-none" placeholder="BLACK FRIDAY"></div>
                             <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">% Descuento</label><input type="number" id="promo-descuento" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand-blue outline-none" placeholder="20"></div>
-                            
+
                             <h4 class="text-xs font-black uppercase tracking-widest text-slate-400 mt-6 pt-4 border-t border-slate-100 mb-4">Redes Sociales / Contacto</h4>
                             <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">WhatsApp (Ventas)</label><input type="text" id="promo-wsp" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand-blue outline-none" placeholder="51999888777"></div>
                             <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Correo</label><input type="email" id="promo-email" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand-blue outline-none"></div>
@@ -429,7 +476,7 @@
                 </div>
                 <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-xl font-black shrink-0" id="crm-modal-avatar">?</div>
             </div>
-            
+
             <input type="hidden" id="mcrm-id">
             <div class="space-y-4 mb-8">
                 <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Nombre de la Empresa</label>
@@ -445,7 +492,7 @@
                 <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Dirección Exacta</label>
                 <input type="text" id="mcrm-direccion" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-blue-500" placeholder="Calle, Av., Distrito, Ciudad"></div>
             </div>
-            
+
             <div id="crm-quick-actions" class="hidden mb-6 pt-4 border-t border-slate-100">
                 <p class="text-[10px] font-bold text-slate-500 uppercase mb-3">Mensajes Rápidos (WhatsApp)</p>
                 <div class="flex flex-wrap gap-2">
@@ -505,7 +552,7 @@
         <div class="bg-white p-6 md:p-8 rounded-[2rem] w-full max-w-md shadow-2xl modal-enter border border-slate-100 relative max-h-[90vh] overflow-y-auto">
             <h3 class="font-black text-xl mb-1 text-slate-900">Administrar Licencia</h3>
             <p class="text-xs text-slate-500 mb-6 pb-4 border-b border-slate-100">Controla el acceso al sistema del cliente y envía mensajes.</p>
-            
+
             <input type="hidden" id="mlic-id">
             <div class="space-y-4 mb-6">
                 <div>
@@ -576,116 +623,227 @@
         </div>
     </div>
 
-    <!-- MODAL PRODUCTO (SISTEMAS SaaS) -->
+    <!-- MODAL PRODUCTO (SISTEMAS SaaS - AHORA CON SETUP MENSUAL, SETUP ANUAL, DESTACADO, PREMIUM Y VENTAJAS) -->
     <div id="modal-producto" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-[300] hidden items-start justify-center p-4 overflow-y-auto">
-        <div class="bg-white rounded-[2rem] w-full max-w-4xl shadow-2xl modal-enter border border-slate-200 my-4 md:my-10 flex flex-col max-h-[95vh] md:max-h-[90vh]">
+        <div class="bg-white rounded-[2rem] w-full max-w-5xl shadow-2xl modal-enter border border-slate-200 my-4 md:my-8 flex flex-col max-h-[95vh] md:max-h-[92vh]">
             <div class="p-4 md:p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50 rounded-t-[2rem] shrink-0">
-                <h3 class="font-black text-lg md:text-xl text-slate-900">Catálogo: Sistema SaaS</h3><button onclick="cerrarModal('modal-producto')" class="text-slate-400 hover:text-rose-500 font-bold bg-white rounded-full p-2 border border-slate-200 shrink-0 transition-colors"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+                <div>
+                    <h3 class="font-black text-lg md:text-xl text-slate-900">Catálogo: Sistema SaaS</h3>
+                    <p class="text-xs text-slate-500">Configura todo lo que se muestra en la Landing Page y en el Cotizador PDF.</p>
+                </div>
+                <button onclick="cerrarModal('modal-producto')" class="text-slate-400 hover:text-rose-500 font-bold bg-white rounded-full p-2.5 border border-slate-200 shrink-0 transition-colors"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
             </div>
             <div class="flex-1 overflow-y-auto p-4 md:p-8 bg-white">
                 <input type="hidden" id="mp-id">
-                
+
                 <h4 class="text-xs font-black uppercase mb-4 border-b border-slate-100 pb-2 text-brand-blue">1. Información Básica</h4>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Título del Sistema</label><input type="text" id="mp-titulo" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold outline-none focus:border-blue-500"></div>
-                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Ícono</label><input type="text" id="mp-icono" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-blue-500" placeholder="ventas, citas, etc"></div>
-                    <div class="md:col-span-2"><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Descripción</label><textarea id="mp-desc" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-blue-500 h-20"></textarea></div>
+                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Título del Sistema</label><input type="text" id="mp-titulo" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold outline-none focus:border-blue-500" placeholder="Ej. Control de Asistencia Biométrico"></div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Ícono Visual</label>
+                        <select id="mp-icono" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold outline-none focus:border-blue-500 cursor-pointer">
+                            <option value="ventas">🏪 Ventas / Punto de Venta</option>
+                            <option value="asistencia">👥 Control de Asistencia RRHH</option>
+                            <option value="citas">📅 Agenda / Citas</option>
+                            <option value="compras">📦 Pedidos / Compras / Delivery</option>
+                            <option value="qr">📱 Catálogo / Menú QR</option>
+                            <option value="inventario">🖥️ Inventario / Almacén</option>
+                            <option value="medida">✨ Sistema a Medida</option>
+                        </select>
+                    </div>
+                    <div class="md:col-span-2"><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Descripción Comercial</label><textarea id="mp-desc" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-blue-500 h-20" placeholder="Explica brevemente cómo ayuda este sistema al cliente..."></textarea></div>
                 </div>
-                
-                <h4 class="text-xs font-black uppercase mb-4 border-b border-slate-100 pb-2 text-brand-purple">2. Diseño Landing Page</h4>
+
+                <h4 class="text-xs font-black uppercase mb-4 border-b border-slate-100 pb-2 text-brand-purple">2. Diseño de Cabecera (Modal Web & Cotización PDF)</h4>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Color Tema (Hex)</label><input type="text" id="mp-color" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-blue-500 outline-none" placeholder="#2563EB"></div>
-                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Color Fondo Slogan 3</label><input type="text" id="mp-colorbot" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-blue-500 outline-none" placeholder="#0f172a"></div>
-                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Etiqueta Tag</label><input type="text" id="mp-tag" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-blue-500 outline-none" placeholder="Ej. RESTAURANTES"></div>
-                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Slogan 1</label><input type="text" id="mp-s1" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold focus:border-blue-500 outline-none" placeholder="Ej. Digitaliza tu local"></div>
-                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Slogan 2</label><input type="text" id="mp-s2" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-blue-500 outline-none" placeholder="Ej. Aumenta tus ventas"></div>
-                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Slogan 3 (Resaltado)</label><input type="text" id="mp-s3" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold focus:border-blue-500 outline-none" placeholder="Ej. SIN COMISIONES"></div>
+                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Color Tema (Hex)</label><input type="text" id="mp-color" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-blue-500 outline-none font-mono" placeholder="#2563EB"></div>
+                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Color Fondo Slogan 3 (Hex)</label><input type="text" id="mp-colorbot" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-blue-500 outline-none font-mono" placeholder="#EC4899"></div>
+                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Etiqueta Tag</label><input type="text" id="mp-tag" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-blue-500 outline-none font-bold" placeholder="Ej. RRHH & PLANILLAS"></div>
+                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Slogan Línea 1</label><input type="text" id="mp-s1" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold focus:border-blue-500 outline-none" placeholder="Ej. Vende,"></div>
+                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Slogan Línea 2</label><input type="text" id="mp-s2" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-blue-500 outline-none" placeholder="Ej. despacha"></div>
+                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Slogan 3 ( Botón Resaltado )</label><input type="text" id="mp-s3" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold focus:border-blue-500 outline-none" placeholder="Ej. Y CRECE."></div>
                 </div>
 
-                <!-- NUEVA SECCIÓN DE PLANES Y PRECIOS -->
-                <h4 class="text-xs font-black uppercase mb-4 border-b border-slate-100 pb-2 text-emerald-600">3. Planes, Precios y Entregables</h4>
-                <p class="text-[10px] text-slate-500 mb-4">Añade los planes que se mostrarán en la web y en la cotización PDF.</p>
-                <div id="mp-planes-list" class="space-y-4 mb-4"></div>
-                <button type="button" onclick="agregarPlanUI()" class="w-full py-3 border-2 border-dashed border-slate-300 text-slate-500 font-bold rounded-xl hover:border-brand-blue hover:text-brand-blue hover:bg-blue-50 transition-colors text-sm flex items-center justify-center gap-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg> Agregar Nuevo Plan</button>
+                <!-- SECCIÓN DE VENTAJAS DEL SISTEMA -->
+                <h4 class="text-xs font-black uppercase mb-2 border-b border-slate-100 pb-2 text-amber-600">3. Ventajas Competitivas del Sistema (Opcional)</h4>
+                <p class="text-[11px] text-slate-500 mb-4">Se muestran como tarjetas de beneficios antes de los planes en la web.</p>
+                <div id="mp-ventajas-list" class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4"></div>
+                <button type="button" onclick="agregarVentajaUI()" class="mb-8 px-4 py-2.5 border border-dashed border-amber-400 text-amber-700 bg-amber-50/50 font-bold rounded-xl hover:bg-amber-100 transition-colors text-xs flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg> Añadir Beneficio / Ventaja</button>
+
+                <!-- SECCIÓN DE PLANES, PRECIOS Y SETUP -->
+                <h4 class="text-xs font-black uppercase mb-2 border-b border-slate-100 pb-2 text-emerald-600">4. Planes, Precios, Costo de Setup y Entregables</h4>
+                <p class="text-[11px] text-slate-500 mb-4">Configura el precio mensual, anual y el <strong>costo de Setup (Implementación inicial)</strong> tal como aparece en la web y en el PDF.</p>
+                <div id="mp-planes-list" class="space-y-5 mb-4"></div>
+                <button type="button" onclick="agregarPlanUI()" class="w-full py-3.5 border-2 border-dashed border-slate-300 text-slate-600 font-bold rounded-xl hover:border-brand-blue hover:text-brand-blue hover:bg-blue-50 transition-colors text-sm flex items-center justify-center gap-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg> Agregar Nuevo Plan al Sistema</button>
             </div>
-            <div class="p-4 md:p-6 border-t border-slate-200 bg-slate-50 flex justify-end shrink-0 rounded-b-[2rem]">
-                <button onclick="guardarProducto()" class="w-full md:w-auto px-8 py-4 md:py-3 bg-brand-blue hover:bg-blue-600 transition-colors text-white font-black uppercase rounded-xl shadow-md">Guardar Sistema Completo</button>
+            <div class="p-4 md:p-6 border-t border-slate-200 bg-slate-50 flex justify-end gap-3 shrink-0 rounded-b-[2rem]">
+                <button onclick="cerrarModal('modal-producto')" class="px-6 py-3.5 bg-white border border-slate-200 hover:bg-slate-100 text-slate-600 font-bold rounded-xl text-sm">Cancelar</button>
+                <button onclick="guardarProducto()" class="w-full md:w-auto px-8 py-3.5 bg-brand-blue hover:bg-blue-600 transition-colors text-white font-black uppercase rounded-xl shadow-md text-sm">Guardar Sistema Completo</button>
             </div>
         </div>
     </div>
 
-    <!-- MODAL SERVICIO (Estudios) -->
+    <!-- MODAL SERVICIO (Content Studio Mejorado) -->
     <div id="modal-servicio" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-[300] hidden items-center justify-center p-4">
-        <div class="bg-white p-6 md:p-8 rounded-[2rem] w-full max-w-md shadow-2xl modal-enter relative">
-            <button onclick="cerrarModal('modal-servicio')" class="absolute top-6 right-6 text-slate-400 hover:text-rose-500 bg-slate-100 rounded-full p-2 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L6 6M6 6l12 12"></path></svg></button>
-            <h3 class="font-black text-xl mb-6 text-slate-900">Servicio Studio</h3>
+        <div class="bg-white p-6 md:p-8 rounded-[2rem] w-full max-w-lg shadow-2xl modal-enter relative">
+            <button onclick="cerrarModal('modal-servicio')" class="absolute top-6 right-6 text-slate-400 hover:text-rose-500 bg-slate-100 rounded-full p-2 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+            <h3 class="font-black text-xl mb-1 text-slate-900">Servicio Content Studio</h3>
+            <p class="text-xs text-slate-500 mb-6 pb-4 border-b border-slate-100">Configura el servicio de Branding, Redes Sociales o Producción Audiovisual.</p>
             <input type="hidden" id="ms-id">
-            <input type="text" id="ms-titulo" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold mb-4 focus:border-pink-500 outline-none" placeholder="Título">
-            <input type="text" id="ms-icono" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm mb-4 focus:border-pink-500 outline-none" placeholder="Ícono">
-            <textarea id="ms-desc" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm mb-6 focus:border-pink-500 outline-none" placeholder="Descripción"></textarea>
-            <div class="flex gap-3"><button onclick="guardarServicio()" class="flex-1 py-3 bg-pink-600 hover:bg-pink-700 transition-colors text-white font-black uppercase rounded-xl text-sm shadow-md">Guardar Servicio</button></div>
+            <div class="space-y-4 mb-6">
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Título del Servicio</label>
+                    <input type="text" id="ms-titulo" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold focus:border-pink-500 outline-none" placeholder="Ej. Gestión de Redes Sociales">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Categoría / Ícono Visual</label>
+                    <select id="ms-icono" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold focus:border-pink-500 outline-none cursor-pointer">
+                        <option value="branding">🎨 Branding e Identidad Visual (branding)</option>
+                        <option value="rrss">📱 Gestión de Redes Sociales (rrss)</option>
+                        <option value="audiovisual">🎬 Producción Audiovisual & Reels (audiovisual)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1.5">Descripción y Entregables</label>
+                    <textarea id="ms-desc" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-pink-500 outline-none h-28" placeholder="Describe qué incluye este servicio para la web y las cotizaciones PDF..."></textarea>
+                </div>
+            </div>
+            <div class="flex gap-3">
+                <button onclick="cerrarModal('modal-servicio')" class="flex-1 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold rounded-xl text-sm">Cancelar</button>
+                <button onclick="guardarServicio()" class="flex-1 py-3.5 bg-pink-600 hover:bg-pink-700 transition-colors text-white font-black uppercase rounded-xl text-sm shadow-md">Guardar Servicio</button>
+            </div>
         </div>
     </div>
 
-    <!-- PDF TEMPLATE (COMPACTADO PARA EVITAR DOBLE HOJA Y CON LOGO FIJO BASE64) -->
-    <div id="pdf-template-wrapper" class="absolute top-0 left-0 w-[800px] bg-white text-slate-900 font-sans p-6 z-[-9999]" style="left: -9999px;">
-        <div id="pdf-template-content" class="w-full h-full p-6 border-t-[12px] border-blue-600 bg-white relative">
-            
-            <div class="flex justify-between items-start border-b-2 border-slate-100 pb-4 mb-6">
-                <div>
-                    <div class="flex items-center gap-2 mb-2">
-                        <!-- IMAGEN BASE64 (Asegura renderizado perfecto en PDF) -->
-                        <img src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjgwIDE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGZpbGw9Im5vbmUiPjxwYXRoIGQ9Ik0gMzIgMTEwIEwgMzIgNjUgQSAzNCAzNCAwIDAgMSAxMDAgNjUgTCAxMDAgMTEwIiBzdHJva2U9IiMyNTYzRUIiIHN0cm9rZS13aWR0aD0iMzIiIC8+PHBhdGggZD0iTSAxMDAgMTEwIEwgMTAwIDY1IEEgMzQgMzQgMCAwIDEgMTY4IDY1IEwgMTY4IDExMCIgc3Ryb2tlPSIjOEI1Q0Y2IiBzdHJva2Utd2lkdGg9IjMyIiAvPjxwYXRoIGQ9Ik0gMjI5IDEzLjIgTCAyMjkgNTMuMiBNIDIwOSAzMy4yIEwgMjQ5IDMzLjIiIHN0cm9rZT0iI0Y5NzMxNiIgc3Ryb2tlLXdpZHRoPSIyNCIgLz48L2c+PC9zdmc+" width="120" height="65" alt="Logo">
-                        <div class="flex items-baseline leading-none mt-2">
-                            <span class="font-[900] text-2xl tracking-tighter" style="font-family: 'Montserrat', sans-serif; color: #0f172a;">MAS</span>
-                            <span class="font-[700] text-2xl tracking-tighter ml-1" style="font-family: 'Montserrat', sans-serif; color: #0f172a;">Digital</span>
+    <!-- PDF TEMPLATE (CON LOGO CANVAS PNG OFICIAL QUE NUNCA FALLA AL EXPORTAR Y COSTOS DE SETUP) -->
+    <div id="pdf-template-wrapper" class="fixed top-0 left-0 w-[800px] bg-white text-slate-900 font-sans z-[-9999] opacity-0 pointer-events-none">
+        <div id="pdf-template-content" class="w-[800px] min-h-[1080px] p-8 bg-white relative flex flex-col justify-between" style="box-sizing: border-box;">
+            <!-- Barra superior degradada corporativa -->
+            <div class="w-full h-3 rounded-t-xl mb-6" style="background: linear-gradient(90deg, #2563EB 0%, #8B5CF6 50%, #EC4899 80%, #F97316 100%);"></div>
+
+            <div class="flex-1">
+                <!-- Cabecera con Logo Oficial renderizado en PNG de alta definición -->
+                <div class="flex justify-between items-center border-b-2 border-slate-100 pb-5 mb-6">
+                    <div class="flex items-center gap-3">
+                        <img id="pdf-logo-img" src="" width="85" height="46" alt="MAS Digital Logo" style="display: block; width: 85px; height: 46px; object-fit: contain;">
+                        <div>
+                            <div class="flex items-baseline leading-none">
+                                <span style="font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 26px; color: #0f172a; letter-spacing: -1px;">MAS</span>
+                                <span style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 26px; color: #0f172a; letter-spacing: -1px; margin-left: 4px;">Digital</span>
+                                <span style="display: inline-block; width: 7px; height: 7px; background-color: #F97316; border-radius: 50%; margin-left: 3px;"></span>
+                            </div>
+                            <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">MAS DIGITAL PERU S.A.C. | Software & Agencia</p>
                         </div>
                     </div>
-                    <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">Sistemas SaaS & Agencia Digital</p>
-                </div>
-                <div class="text-right">
-                    <h1 class="text-2xl font-black text-slate-200 uppercase tracking-widest mb-1">Cotización</h1>
-                    <p class="text-xs font-bold text-slate-500" id="pdf-fecha-hoy">Fecha: 01/01/2026</p>
-                </div>
-            </div>
-            
-            <div class="mb-4">
-                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Preparado para:</p>
-                <h2 class="text-xl font-black text-slate-800" id="pdf-client-name">Empresa</h2>
-            </div>
-            
-            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 mb-5">
-                
-                <div id="pdf-item-header" class="mb-4 p-4 rounded-xl bg-white border border-slate-100 shadow-sm text-center">
-                    <span id="pdf-item-tag" class="text-[9px] font-black uppercase tracking-widest px-3 py-1 bg-slate-100 rounded-full mb-2 inline-block">SISTEMA</span>
-                    <h2 id="pdf-item-s1" class="text-2xl font-black text-slate-900 leading-tight"></h2>
-                    <h3 id="pdf-item-s2" class="text-lg font-bold text-slate-600 mt-1"></h3>
-                    <div id="pdf-item-s3" class="mt-3 px-4 py-1.5 inline-block rounded-full text-white font-black text-base transform -rotate-2" style="-webkit-print-color-adjust: exact; print-color-adjust: exact;"></div>
+                    <div class="text-right">
+                        <span class="bg-blue-50 text-blue-600 border border-blue-200 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest inline-block mb-1">Proforma Oficial</span>
+                        <p class="text-xs font-bold text-slate-600" id="pdf-fecha-hoy">Fecha: 01/01/2026</p>
+                    </div>
                 </div>
 
-                <h3 class="text-lg font-black text-blue-600 mb-1" id="pdf-item-title">Sistema</h3>
-                <p class="text-xs text-slate-600 leading-relaxed mb-4" id="pdf-item-desc">Descripción</p>
-                
-                <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Planes e Inversión</h4>
-                <div id="pdf-item-planes" class="space-y-3"></div>
+                <!-- Datos del Cliente -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 mb-5 flex justify-between items-center">
+                    <div>
+                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-0.5">Preparado exclusivamente para:</p>
+                        <h2 class="text-lg font-black text-slate-900" id="pdf-client-name">Empresa</h2>
+                        <p class="text-xs text-slate-500 font-medium" id="pdf-client-contact"></p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-0.5">Validez de Oferta</p>
+                        <p class="text-xs font-bold text-slate-700">15 Días Calendario</p>
+                    </div>
+                </div>
+
+                <!-- Cuerpo de la Propuesta -->
+                <div class="bg-white border-2 border-slate-100 rounded-2xl p-5 mb-5 shadow-sm">
+                    <div id="pdf-item-header" class="mb-4 p-5 rounded-2xl bg-slate-900 text-white text-center relative overflow-hidden">
+                        <span id="pdf-item-tag" class="text-[9px] font-black uppercase tracking-widest px-3 py-1 bg-white text-slate-900 rounded-full mb-2 inline-block">SISTEMA</span>
+                        <h2 id="pdf-item-s1" class="text-2xl font-black text-white leading-tight"></h2>
+                        <h3 id="pdf-item-s2" class="text-base font-semibold text-slate-300 mt-0.5"></h3>
+                        <div id="pdf-item-s3" class="mt-2.5 px-5 py-1 inline-block rounded-full text-white font-black text-sm"></div>
+                    </div>
+
+                    <h3 class="text-lg font-black text-blue-600 mb-1" id="pdf-item-title">Sistema</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed mb-5" id="pdf-item-desc">Descripción</p>
+
+                    <h4 id="pdf-planes-subtitle" class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 border-b border-slate-100 pb-1.5">Planes, Costos de Implementación (Setup) e Inversión</h4>
+                    <div id="pdf-item-planes" class="space-y-3"></div>
+                </div>
+
+                <!-- Notas -->
+                <div id="pdf-notas-box" class="border-l-4 border-amber-400 bg-amber-50 p-3.5 rounded-r-xl mb-4">
+                    <p class="text-[11px] text-amber-900 font-semibold" id="pdf-item-notas">Notas</p>
+                </div>
             </div>
-            
-            <div class="border-l-4 border-amber-400 bg-amber-50 p-3 rounded-r-lg mb-6">
-                <p class="text-[11px] text-amber-800 font-medium" id="pdf-item-notas">Notas</p>
-            </div>
-            
-            <div class="absolute bottom-6 left-6 right-6 border-t border-slate-200 pt-3 flex justify-between items-center text-[10px] text-slate-500 font-bold">
+
+            <!-- Pie de página del PDF -->
+            <div class="border-t-2 border-slate-100 pt-3 flex justify-between items-center text-[10px] text-slate-500 font-bold mt-4">
+                <span>MAS DIGITAL PERU S.A.C. - Huancayo, Perú</span>
                 <span id="pdf-contact-email">hola@masdigital.pe</span>
-                <span id="pdf-contact-phone">+51 900 000 000</span>
+                <span id="pdf-contact-phone">+51 929 389 268</span>
             </div>
         </div>
     </div>
 
     <script>
+        // Pre-genera el logo de MAS Digital en un PNG Base64 nativo mediante HTML5 Canvas para que html2pdf NUNCA falle ni lo omita
+        function inicializarLogoPNGParaPDF() {
+            try {
+                const canvas = document.createElement('canvas');
+                canvas.width = 280;
+                canvas.height = 150;
+                const ctx = canvas.getContext('2d');
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+
+                // Arco 1: Azul a Morado
+                const g1 = ctx.createLinearGradient(32, 31, 100, 110);
+                g1.addColorStop(0, '#2563EB');
+                g1.addColorStop(1, '#8B5CF6');
+                ctx.strokeStyle = g1;
+                ctx.lineWidth = 32;
+                ctx.beginPath();
+                ctx.moveTo(32, 110);
+                ctx.lineTo(32, 65);
+                ctx.arc(66, 65, 34, Math.PI, 0, false);
+                ctx.lineTo(100, 110);
+                ctx.stroke();
+
+                // Arco 2: Morado a Rosa
+                const g2 = ctx.createLinearGradient(100, 31, 168, 110);
+                g2.addColorStop(0, '#8B5CF6');
+                g2.addColorStop(1, '#EC4899');
+                ctx.strokeStyle = g2;
+                ctx.lineWidth = 32;
+                ctx.beginPath();
+                ctx.moveTo(100, 110);
+                ctx.lineTo(100, 65);
+                ctx.arc(134, 65, 34, Math.PI, 0, false);
+                ctx.lineTo(168, 110);
+                ctx.stroke();
+
+                // Símbolo Más (+): Rosa a Naranja
+                const g3 = ctx.createLinearGradient(209, 13, 249, 53);
+                g3.addColorStop(0, '#EC4899');
+                g3.addColorStop(1, '#F97316');
+                ctx.strokeStyle = g3;
+                ctx.lineWidth = 24;
+                ctx.beginPath();
+                ctx.moveTo(229, 13.2);
+                ctx.lineTo(229, 53.2);
+                ctx.moveTo(209, 33.2);
+                ctx.lineTo(249, 33.2);
+                ctx.stroke();
+
+                const imgEl = document.getElementById('pdf-logo-img');
+                if (imgEl) imgEl.src = canvas.toDataURL('image/png');
+            } catch (e) { console.error(e); }
+        }
+
         function toast(msg, err=false) { const container = document.getElementById('toast-container'); const t = document.createElement('div'); t.className = `toast ${err ? 'toast-error' : ''}`; t.innerText = msg; container.appendChild(t); setTimeout(() => t.remove(), 3500); }
         function toggleLoader(show, text="Procesando...") { const l = document.getElementById('loader'); if(show) { document.getElementById('loader-txt').innerText=text; l.classList.replace('hidden', 'flex'); } else l.classList.replace('flex', 'hidden'); }
         function cerrarModal(id) { document.getElementById(id).classList.replace('flex', 'hidden'); }
-        
+
         function showConfirm(msg, onConfirm) {
             document.getElementById('confirm-msg').innerText = msg;
             const modal = document.getElementById('confirm-modal');
@@ -703,7 +861,10 @@
 
         let currentSession = null; let isAdminGbl = false;
         try { currentSession = JSON.parse(sessionStorage.getItem('mas_admin_cms')); } catch(e){}
-        window.onload = () => { if(currentSession && currentSession.token) showDashboard(); }
+        window.onload = () => { 
+            inicializarLogoPNGParaPDF();
+            if(currentSession && currentSession.token) showDashboard(); 
+        };
 
         function toggleAuth(mode) { document.getElementById('form-login').classList.add('hidden'); document.getElementById('form-register').classList.add('hidden'); document.getElementById('form-' + mode).classList.remove('hidden'); }
 
@@ -747,7 +908,7 @@
             document.getElementById(vistas[viewKey].el).classList.remove('hidden');
             document.getElementById(vistas[viewKey].nav).className = "w-full text-left px-4 py-3 rounded-xl font-bold text-sm bg-brand-blue text-white flex items-center gap-3 transition-colors shadow-lg shadow-blue-500/20";
             document.getElementById('header-title').innerText = vistas[viewKey].titulo;
-            
+
             if(window.innerWidth < 768) {
                 document.getElementById('admin-sidebar').classList.add('-translate-x-full');
                 document.getElementById('sidebar-overlay').classList.add('hidden');
@@ -763,7 +924,7 @@
             document.getElementById('user-name-display').innerText = currentSession.user.nombres; document.getElementById('user-avatar').innerText = currentSession.user.nombres.charAt(0).toUpperCase();
             document.getElementById('user-role-display').innerText = currentSession.user.rol || 'Operador';
             cargarDataGlobal();
-            
+
             const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
             document.getElementById('header-date').innerText = new Date().toLocaleDateString('es-ES', options).toUpperCase();
         }
@@ -776,17 +937,17 @@
                 if(res.success) { 
                     isAdminGbl = (res.rol === 'SuperAdmin');
                     if(!isAdminGbl) { document.getElementById('menu-superadmin').style.display = 'none'; document.getElementById('dash-bal-title').innerText = 'Tu Utilidad (Ventas Propias)'; }
-                    
+
                     bdCatProductos = (typeof res.catalogo.productos === 'string') ? JSON.parse(res.catalogo.productos) : res.catalogo.productos; 
                     bdCatServicios = (typeof res.catalogo.servicios === 'string') ? JSON.parse(res.catalogo.servicios) : res.catalogo.servicios; 
-                    
+
                     globalSubs = res.suscripciones; globalCRM = res.crm || []; dataPromo = res.promo;
                     globalContenido = res.contenido || [];
-                    
+
                     renderCRM(); renderLeads(res.leads); renderSuscripciones(res.suscripciones); renderContenidoList();
                     if(res.finanzas) { globalFinanzas = res.finanzas.transacciones; renderFiltroVendedores(); renderFinanzasList(); }
                     if(isAdminGbl) { renderCatProductos(); renderCatServicios(); renderPromoConfig(res.promo); }
-                    
+
                     llenarSuscripcionesCaja(); actualizarCategoriasTx(); 
                     if(!document.getElementById('view-crm').classList.contains('hidden')) switchView('crm');
                 } else { toast(res.message, true); logout(); }
@@ -796,15 +957,15 @@
         let currentCrmPage = 1; const crmItemsPerPage = 10; let filteredCrmData = [];
 
         function renderCRM() { buscarCRM(); }
-        
+
         function buscarCRM() {
             let term = (document.getElementById('crm-search') ? document.getElementById('crm-search').value.toLowerCase() : "");
             if(globalCRM.length === 0) { 
-                document.getElementById('crm-table-body').innerHTML = '<tr><td colspan="4" class="p-8 text-center text-slate-500">No hay clientes en el directorio.</td></tr>'; 
+                document.getElementById('crm-table-body').innerHTML = '<tr><td colspan="4" class="p-10 text-center text-slate-400 font-semibold">No hay clientes registrados en el directorio CRM.</td></tr>'; 
                 document.getElementById('crm-pagination-info').innerText = "Mostrando 0 de 0";
                 return; 
             }
-            filteredCrmData = globalCRM.filter(c => c.empresa.toLowerCase().includes(term) || c.responsable.toLowerCase().includes(term) || c.celular.includes(term));
+            filteredCrmData = globalCRM.filter(c => String(c.empresa).toLowerCase().includes(term) || String(c.responsable).toLowerCase().includes(term) || String(c.celular).includes(term));
             currentCrmPage = 1; 
             updateCrmTable();
         }
@@ -812,7 +973,7 @@
         function updateCrmTable() {
             const tbody = document.getElementById('crm-table-body'); tbody.innerHTML = '';
             if(filteredCrmData.length === 0) {
-                 tbody.innerHTML = '<tr><td colspan="4" class="p-8 text-center text-slate-500">No se encontraron resultados.</td></tr>';
+                 tbody.innerHTML = '<tr><td colspan="4" class="p-10 text-center text-slate-400 font-semibold">No se encontraron resultados para tu búsqueda.</td></tr>';
                  document.getElementById('crm-pagination-info').innerText = "Mostrando 0 de 0";
                  document.getElementById('crm-btn-prev').disabled = true; document.getElementById('crm-btn-next').disabled = true;
                  return;
@@ -822,34 +983,41 @@
             const pageData = filteredCrmData.slice(startIndex, endIndex);
 
             pageData.forEach(c => {
+                let celClean = String(c.celular || '').replace(/\D/g, '');
                 tbody.innerHTML += `
-                    <tr>
-                        <td class="whitespace-nowrap align-middle">
+                    <tr class="group cursor-pointer" onclick="abrirModalCRM('${c.id}')">
+                        <td>
                             <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 rounded-[1rem] bg-gradient-to-br from-blue-500 to-purple-600 text-white flex items-center justify-center font-black shadow-md shrink-0">${c.empresa.charAt(0)}</div>
-                                <div class="flex flex-col">
-                                    <p class="font-bold text-slate-900 text-[14px] leading-tight">${c.empresa}</p>
-                                    <p class="text-[11px] text-slate-500 mt-1 leading-snug"><span class="font-semibold text-slate-400">Dir:</span> ${c.direccion || 'Sin dirección'}</p>
+                                <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 text-white flex items-center justify-center font-black text-base shadow-sm shrink-0">${String(c.empresa || '?').charAt(0).toUpperCase()}</div>
+                                <div>
+                                    <p class="font-black text-slate-900 text-sm group-hover:text-brand-blue transition-colors">${c.empresa}</p>
+                                    <p class="text-xs text-slate-400 mt-0.5 flex items-center gap-1"><svg class="w-3.5 h-3.5 text-slate-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg> ${c.direccion || 'Sin dirección registrada'}</p>
                                 </div>
                             </div>
                         </td>
-                        <td class="whitespace-nowrap align-middle">
-                            <p class="font-bold text-slate-700 text-xs uppercase leading-tight bg-slate-50 px-3 py-1.5 rounded-lg inline-block border border-slate-100">${c.responsable}</p>
+                        <td>
+                            <div class="inline-flex items-center gap-2 bg-slate-100/80 border border-slate-200/80 px-3 py-1.5 rounded-xl">
+                                <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+                                <span class="font-bold text-slate-700 text-xs uppercase tracking-wide">${c.responsable || 'Sin asignar'}</span>
+                            </div>
                         </td>
-                        <td class="whitespace-nowrap align-middle">
-                            <p class="text-xs font-bold text-slate-700 flex items-center gap-2 mb-1.5"><svg class="w-4 h-4 text-brand-blue shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg> ${c.celular}</p>
-                            <p class="text-[11px] text-slate-500 flex items-center gap-2 break-all"><svg class="w-4 h-4 text-brand-purple shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg> ${c.email || 'N/A'}</p>
+                        <td>
+                            <div class="space-y-1">
+                                <p class="text-xs font-bold text-slate-800 flex items-center gap-2"><svg class="w-4 h-4 text-brand-blue shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg> ${c.celular || '—'}</p>
+                                <p class="text-xs text-slate-500 flex items-center gap-2"><svg class="w-4 h-4 text-brand-purple shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg> ${c.email || 'Sin correo'}</p>
+                            </div>
                         </td>
-                        <td class="text-center align-middle">
-                            <div class="flex justify-center gap-2">
-                                <button onclick="abrirModalCRM('${c.id}')" title="Editar Cliente" class="text-blue-600 bg-blue-50 p-2.5 rounded-xl border border-blue-100 hover:bg-blue-600 hover:text-white transition-colors shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg></button>
+                        <td class="text-center" onclick="event.stopPropagation()">
+                            <div class="flex justify-center items-center gap-2">
+                                ${celClean ? `<a href="https://wa.me/${celClean}" target="_blank" title="Hablar por WhatsApp" class="text-[#25D366] bg-[#25D366]/10 p-2.5 rounded-xl border border-[#25D366]/20 hover:bg-[#25D366] hover:text-white transition-colors shadow-sm"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>` : ''}
+                                <button onclick="abrirModalCRM('${c.id}')" title="Editar Ficha" class="text-blue-600 bg-blue-50 p-2.5 rounded-xl border border-blue-100 hover:bg-blue-600 hover:text-white transition-colors shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg></button>
                                 <button onclick="eliminarCRM('${c.id}')" title="Eliminar Cliente" class="text-rose-600 bg-rose-50 p-2.5 rounded-xl border border-rose-100 hover:bg-rose-600 hover:text-white transition-colors shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
                             </div>
                         </td>
                     </tr>`;
             });
 
-            document.getElementById('crm-pagination-info').innerText = `Mostrando ${startIndex + 1} - ${endIndex} de ${filteredCrmData.length}`;
+            document.getElementById('crm-pagination-info').innerText = `Mostrando ${startIndex + 1} - ${endIndex} de ${filteredCrmData.length} clientes`;
             document.getElementById('crm-btn-prev').disabled = currentCrmPage === 1; document.getElementById('crm-btn-next').disabled = currentCrmPage === totalPages;
         }
 
@@ -895,27 +1063,55 @@
             });
         }
 
+        // --- BANDEJA LEADS ORDENADA Y MODERNA ---
         function renderLeads(leads) {
             const tb = document.getElementById('leads-body'); tb.innerHTML = '';
-            if(leads.length === 0) { tb.innerHTML = '<tr><td colspan="4" class="p-6 text-center text-slate-400">No hay prospectos.</td></tr>'; return; }
+            if(!leads || leads.length === 0) { tb.innerHTML = '<tr><td colspan="4" class="p-10 text-center text-slate-400 font-semibold">No hay prospectos registrados aún.</td></tr>'; return; }
             leads.forEach(l => {
-                let badge = {'Nuevo':'bg-blue-100 text-blue-700', 'Contactado':'bg-amber-100 text-amber-700', 'Cerrado':'bg-emerald-100 text-emerald-700', 'Perdido':'bg-slate-100 text-slate-500'}[l.estado] || 'bg-slate-100 text-slate-700';
+                let badge = {
+                    'Nuevo':'bg-blue-50 text-blue-700 border-blue-200',
+                    'Contactado':'bg-amber-50 text-amber-700 border-amber-200',
+                    'Cerrado':'bg-emerald-50 text-emerald-700 border-emerald-200',
+                    'Perdido':'bg-slate-100 text-slate-500 border-slate-200'
+                }[l.estado] || 'bg-slate-100 text-slate-700 border-slate-200';
+
+                // Separar múltiples requerimientos por "|" en etiquetas limpias
+                let reqItems = String(l.requerimiento || '').split('|').map(x => x.trim()).filter(Boolean);
+                let reqHtml = reqItems.length > 0 
+                    ? `<div class="flex flex-wrap gap-1.5">${reqItems.map(item => `<span class="bg-slate-100 text-slate-800 border border-slate-200/80 text-xs font-bold px-3 py-1.5 rounded-xl inline-flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-brand-blue"></span>${item}</span>`).join('')}</div>`
+                    : `<span class="text-xs text-slate-400">Sin especificar</span>`;
+
+                let celClean = String(l.celular || '').replace(/\D/g, '');
+
                 tb.innerHTML += `
                 <tr>
-                    <td class="whitespace-nowrap align-middle text-[10px] md:text-xs text-slate-500 font-bold">${l.fecha}</td>
-                    <td class="whitespace-nowrap align-middle">
-                        <p class="text-[14px] font-black text-slate-900 leading-tight">${l.nombre}</p>
-                        <p class="text-[11px] text-slate-500 mt-1 flex items-center gap-1 font-medium"><svg class="w-3.5 h-3.5 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>${l.celular}</p>
+                    <td>
+                        <div class="inline-flex items-center gap-2 text-xs text-slate-500 font-bold bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-100">
+                            <svg class="w-3.5 h-3.5 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            ${l.fecha}
+                        </div>
                     </td>
-                    <td class="whitespace-nowrap align-middle">
-                        <p class="text-[13px] text-slate-700 leading-relaxed font-bold bg-slate-50 px-3 py-2 rounded-xl border border-slate-100 inline-block">${l.requerimiento}</p>
+                    <td>
+                        <div class="flex items-center justify-between gap-2">
+                            <div>
+                                <p class="text-sm font-black text-slate-900">${l.nombre}</p>
+                                <p class="text-xs text-slate-500 mt-0.5 flex items-center gap-1.5 font-semibold">
+                                    <svg class="w-3.5 h-3.5 text-brand-blue shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                                    ${l.celular}
+                                </p>
+                            </div>
+                            ${celClean ? `<a href="https://wa.me/${celClean}" target="_blank" title="Contactar por WhatsApp" class="p-2 rounded-xl bg-[#25D366]/10 text-[#25D366] hover:bg-[#25D366] hover:text-white transition-colors shrink-0"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>` : ''}
+                        </div>
                     </td>
-                    <td class="align-middle text-center">
-                        <select onchange="cambiarEstadoLead('${l.id}', this.value)" class="text-[10px] md:text-xs font-black uppercase tracking-widest px-4 py-2.5 rounded-xl border-0 outline-none cursor-pointer shadow-sm ${badge} w-full text-center">
-                            <option value="Nuevo" ${l.estado==='Nuevo'?'selected':''}>Nuevo</option>
-                            <option value="Contactado" ${l.estado==='Contactado'?'selected':''}>Contactado</option>
-                            <option value="Cerrado" ${l.estado==='Cerrado'?'selected':''}>Cerrado</option>
-                            <option value="Perdido" ${l.estado==='Perdido'?'selected':''}>Perdido</option>
+                    <td>
+                        ${reqHtml}
+                    </td>
+                    <td class="text-center">
+                        <select onchange="cambiarEstadoLead('${l.id}', this.value)" class="text-xs font-black uppercase tracking-wider px-3.5 py-2.5 rounded-xl border outline-none cursor-pointer shadow-sm ${badge} w-full text-center transition-colors">
+                            <option value="Nuevo" ${l.estado==='Nuevo'?'selected':''}>🔵 Nuevo</option>
+                            <option value="Contactado" ${l.estado==='Contactado'?'selected':''}>🟡 Contactado</option>
+                            <option value="Cerrado" ${l.estado==='Cerrado'?'selected':''}>🟢 Cerrado</option>
+                            <option value="Perdido" ${l.estado==='Perdido'?'selected':''}>⚪ Perdido</option>
                         </select>
                     </td>
                 </tr>`;
@@ -928,11 +1124,11 @@
         // --- SUSCRIPCIONES Y LICENCIAS ---
         function renderSuscripciones(subs) {
             const grid = document.getElementById('suscripciones-grid'); grid.innerHTML = '';
-            
+
             if(isAdminGbl) {
                 let filterContainer = document.getElementById('filtro-sus-vendedor-container');
                 let selSus = document.getElementById('dash-filtro-sus-vendedor');
-                
+
                 if (selSus.options.length === 1) { 
                     let vendedores = [...new Set(subs.map(item => item.vendedor))];
                     vendedores.forEach(v => { 
@@ -943,7 +1139,7 @@
                     selSus.innerHTML += `<option value="${currentSession.user.usuario}">Mis Ventas</option>`;
                 }
                 filterContainer.classList.remove('hidden');
-                
+
                 let valFiltro = selSus.value;
                 if(valFiltro !== 'ALL') subs = subs.filter(x => x.vendedor === valFiltro);
             }
@@ -952,7 +1148,7 @@
 
             if(subs.length === 0) { grid.innerHTML = '<div class="col-span-full p-10 text-center text-slate-500">No hay suscripciones en esta vista.</div>'; return; }
             const hoy = new Date(); hoy.setHours(0,0,0,0);
-            
+
             subs.forEach(s => {
                 let diffDays = 0;
                 let isVencido = false;
@@ -998,14 +1194,14 @@
                 let crmClient = globalCRM.find(x => String(x.id) === String(s.idCliente));
                 let nombreEmpresa = crmClient ? crmClient.empresa : (s.idCliente || "Desconocido");
                 let celularClient = crmClient ? String(crmClient.celular).replace(/\D/g, '') : "";
-                
+
                 let montoFormateado = "0.00";
                 if(!isNaN(parseFloat(s.monto))) montoFormateado = parseFloat(s.monto).toFixed(2);
 
                 let textWsp = `Hola equipo de *${nombreEmpresa}* 👋\nLes recordamos cordialmente que su próximo pago de suscripción (*${s.sistema}*) por S/ ${montoFormateado} vence en ${diffDays} días.\n¡Gracias por confiar en nosotros! 🚀`;
                 if(diffDays === 0) { textWsp = `Hola equipo de *${nombreEmpresa}* ⚠️\nLes informamos que su pago de suscripción vence HOY. Por favor regularizar a la brevedad para mantener los servicios activos.`; }
                 if(diffDays < 0) { textWsp = `Hola equipo de *${nombreEmpresa}* ⛔\nLes informamos que su suscripción se encuentra VENCIDA hace ${Math.abs(diffDays)} días. Por favor, regularice su pago de S/ ${montoFormateado} para evitar la interrupción del servicio.`; }
-                
+
                 let vendedorInfo = isAdminGbl ? `<p class="text-[9px] font-bold text-slate-400 mt-2">Vendedor: ${s.vendedor}</p>` : ``;
 
                 let bgCard = s.estado === 'SUSPENDIDO' ? 'bg-slate-50 border-slate-200' : 'bg-white border-slate-200';
@@ -1084,7 +1280,7 @@
             let inicio = document.getElementById('msus-inicio').value;
             let ciclo = parseInt(document.getElementById('msus-ciclo').value);
             if(inicio && !isNaN(ciclo)) {
-                let date = new Date(inicio + 'T00:00:00'); // Evita saltos de zona horaria
+                let date = new Date(inicio + 'T00:00:00');
                 date.setMonth(date.getMonth() + ciclo);
                 document.getElementById('msus-prox').value = date.toISOString().split('T')[0];
             }
@@ -1093,7 +1289,7 @@
         function abrirModalSuscripcion(id) {
             let selSis = document.getElementById('msus-sistema'); selSis.innerHTML = '<option value="">Seleccione Sistema...</option>';
             bdCatProductos.forEach(p => selSis.innerHTML += `<option value="${p.titulo}">${p.titulo}</option>`);
-            
+
             let selCli = document.getElementById('msus-cliente'); selCli.innerHTML = '<option value="">Seleccione Cliente CRM...</option>';
             globalCRM.forEach(c => selCli.innerHTML += `<option value="${c.id}">${c.empresa} (${c.responsable})</option>`);
 
@@ -1104,8 +1300,6 @@
                 document.getElementById('msus-monto').value=s.monto; 
                 document.getElementById('msus-inicio').value=s.fechaInicio ? String(s.fechaInicio).split('T')[0] : ""; 
                 document.getElementById('msus-prox').value=s.proximoPago ? String(s.proximoPago).split('T')[0] : ""; 
-                
-                // Intento deducir el ciclo desde backend si no lo tenemos, temporalmente asumo mensual o lo q se guardo
                 document.getElementById('msus-ciclo').value = s.ciclo || "1";
             } 
             else { 
@@ -1138,7 +1332,7 @@
                     monto: document.getElementById('msus-monto').value, 
                     fechaInicio: document.getElementById('msus-inicio').value, 
                     proximoPago: document.getElementById('msus-prox').value,
-                    ciclo: document.getElementById('msus-ciclo').value // Nuevo campo
+                    ciclo: document.getElementById('msus-ciclo').value
                 } 
             };
             if(!payload.suscripcion.idCliente || !payload.suscripcion.sistema) return toast("Cliente y Sistema requeridos", true);
@@ -1156,7 +1350,7 @@
         function renderContenidoList() {
             const grid = document.getElementById('contenido-grid'); grid.innerHTML = '';
             if(!globalContenido || globalContenido.length === 0) { grid.innerHTML = '<div class="col-span-full p-10 text-center text-slate-500">No hay proyectos de contenido activos.</div>'; return; }
-            
+
             const hoy = new Date(); hoy.setHours(0,0,0,0);
 
             globalContenido.forEach(c => {
@@ -1239,7 +1433,7 @@
         function abrirModalContenido(id) {
             let selServ = document.getElementById('mcon-servicio'); selServ.innerHTML = '<option value="">Seleccione Servicio...</option>';
             bdCatServicios.forEach(s => selServ.innerHTML += `<option value="${s.titulo}">${s.titulo}</option>`);
-            
+
             let selCli = document.getElementById('mcon-cliente'); selCli.innerHTML = '<option value="">Seleccione Cliente CRM...</option>';
             globalCRM.forEach(c => selCli.innerHTML += `<option value="${c.id}">${c.empresa} (${c.responsable})</option>`);
 
@@ -1297,13 +1491,13 @@
             if(tipo === 'Ingreso') {
                 if(bdCatProductos) bdCatProductos.forEach(p => select.innerHTML += `<option value="Suscripción SaaS: ${p.titulo}">SaaS: ${p.titulo}</option>`);
                 if(bdCatServicios) bdCatServicios.forEach(s => select.innerHTML += `<option value="Servicio: ${s.titulo}">Servicio: ${s.titulo}</option>`);
-                select.innerHTML += `<option value="Otros Ingresos">Otros Ingresos</option>`;
+                select.innerHTML += `<option value="Implementación / Setup Inicial">Implementación / Setup Inicial</option><option value="Otros Ingresos">Otros Ingresos</option>`;
             } else {
                 if(bdCatProductos) bdCatProductos.forEach(p => select.innerHTML += `<option value="Servidores/API: ${p.titulo}">Servidores/API: ${p.titulo}</option>`);
                 select.innerHTML += `<option value="Pago Planilla / Sueldos">Pago Planilla / Sueldos</option><option value="Retiro Socios (Ganancia)">Retiro Socios (Ganancia)</option><option value="Publicidad / Marketing">Publicidad / Marketing</option><option value="Gastos Generales">Gastos Generales</option>`;
             }
         }
-        
+
         function renderFiltroVendedores() {
             if(!isAdminGbl) return;
             let sel = document.getElementById('dash-filtro-vendedor'); 
@@ -1322,16 +1516,16 @@
             let filtro = isAdminGbl ? document.getElementById('dash-filtro-vendedor').value : "ALL";
             let fList = globalFinanzas; 
             if(filtro !== "ALL") { fList = globalFinanzas.filter(x => x.registradoPor === filtro); }
-            
+
             let tIng = 0; let tEgr = 0;
             fList.forEach(t => { if(t.tipo==='Ingreso') tIng+=t.monto; else tEgr+=t.monto; });
-            
+
             document.getElementById('dash-ingresos').innerText = "S/ " + tIng.toFixed(2); document.getElementById('dash-egresos').innerText = "S/ " + tEgr.toFixed(2);
             let b = tIng - tEgr; let bEl = document.getElementById('dash-balance'); let bBadge = document.getElementById('dash-badge');
             bEl.innerText = "S/ " + b.toFixed(2);
             if(b < 0) { bEl.classList.replace('text-white','text-rose-400'); bBadge.innerText = 'Pérdida'; bBadge.className = 'px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-rose-500/20 mb-2 border border-rose-500/30 text-rose-300'; } 
             else { bEl.classList.replace('text-rose-400','text-white'); bBadge.innerText = 'Rentable'; bBadge.className = 'px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-white/10 mb-2 border border-white/20 text-green-300'; }
-            
+
             const tb = document.getElementById('finanzas-body'); tb.innerHTML = '';
             if(fList.length === 0) { tb.innerHTML = '<tr><td colspan="4" class="p-6 text-center text-slate-500">No hay movimientos en esta vista.</td></tr>'; return; }
 
@@ -1357,6 +1551,8 @@
         function renderCatProductos() {
             const grid = document.getElementById('prod-grid'); grid.innerHTML = '';
             bdCatProductos.forEach(p => { 
+                let planesCount = 0;
+                try { planesCount = (p.planes && p.planes !== '[]') ? JSON.parse(p.planes).length : 0; } catch(e){}
                 grid.innerHTML += `
                 <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition-all flex flex-col">
                     <div class="flex justify-between items-start mb-4">
@@ -1369,44 +1565,104 @@
                     <span class="text-[9px] font-black uppercase tracking-[0.2em] mb-2 inline-block px-2 py-1 rounded bg-slate-50 border w-max" style="color: ${p.temaColor || '#666'}">${p.tag || 'SISTEMA'}</span>
                     <h3 class="font-black text-slate-900 text-lg mb-2 leading-tight">${p.titulo}</h3>
                     <p class="text-xs text-slate-500 line-clamp-2 mb-4">${p.descripcion}</p>
-                    <div class="mt-auto pt-4 border-t border-slate-100 text-xs text-slate-400 font-bold">
-                        📋 Tiene ${(p.planes && p.planes !== '[]') ? JSON.parse(p.planes).length : 0} planes config.
+                    <div class="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400 font-bold">
+                        <span>📋 ${planesCount} planes configurados</span>
+                        <span class="text-brand-blue cursor-pointer hover:underline" onclick="abrirModalProducto('${p.id}')">Configurar Setup →</span>
                     </div>
                 </div>`; 
             });
         }
+
         function abrirModalProducto(id) { 
             document.getElementById('mp-planes-list').innerHTML = '';
-            
+            document.getElementById('mp-ventajas-list').innerHTML = '';
+
             if(id) {
                 let p = bdCatProductos.find(x => x.id === id);
-                document.getElementById('mp-id').value = p.id; document.getElementById('mp-titulo').value = p.titulo; document.getElementById('mp-icono').value = p.icono; document.getElementById('mp-desc').value = p.descripcion;
-                document.getElementById('mp-color').value = p.temaColor; document.getElementById('mp-colorbot').value = p.colorBot; document.getElementById('mp-tag').value = p.tag; document.getElementById('mp-s1').value = p.sloganTop; document.getElementById('mp-s2').value = p.sloganMid; document.getElementById('mp-s3').value = p.sloganBot;
-                
+                document.getElementById('mp-id').value = p.id; 
+                document.getElementById('mp-titulo').value = p.titulo; 
+                document.getElementById('mp-icono').value = p.icono || 'ventas'; 
+                document.getElementById('mp-desc').value = p.descripcion;
+                document.getElementById('mp-color').value = p.temaColor || '#2563EB'; 
+                document.getElementById('mp-colorbot').value = p.colorBot || '#EC4899'; 
+                document.getElementById('mp-tag').value = p.tag || ''; 
+                document.getElementById('mp-s1').value = p.sloganTop || ''; 
+                document.getElementById('mp-s2').value = p.sloganMid || ''; 
+                document.getElementById('mp-s3').value = p.sloganBot || '';
+
+                // Cargar ventajas existentes sin perderlas
+                let ventajasArr = [];
+                try { ventajasArr = typeof p.ventajas === 'string' ? JSON.parse(p.ventajas || "[]") : (p.ventajas || []); } catch(e){}
+                ventajasArr.forEach(v => agregarVentajaUI(v));
+
+                // Cargar planes existentes con su Setup
                 let planesArr = [];
-                try { planesArr = JSON.parse(p.planes || "[]"); } catch(e){}
+                try { planesArr = typeof p.planes === 'string' ? JSON.parse(p.planes || "[]") : (p.planes || []); } catch(e){}
                 if(planesArr.length === 0) agregarPlanUI(); else planesArr.forEach(plan => agregarPlanUI(plan));
             } else {
-                document.getElementById('mp-id').value = "prod_"+new Date().getTime(); document.getElementById('mp-titulo').value = ""; document.getElementById('mp-icono').value = ""; document.getElementById('mp-desc').value = "";
-                document.getElementById('mp-color').value = ""; document.getElementById('mp-colorbot').value = ""; document.getElementById('mp-tag').value = ""; document.getElementById('mp-s1').value = ""; document.getElementById('mp-s2').value = ""; document.getElementById('mp-s3').value = "";
+                document.getElementById('mp-id').value = "prod_"+new Date().getTime(); 
+                document.getElementById('mp-titulo').value = ""; 
+                document.getElementById('mp-icono').value = "ventas"; 
+                document.getElementById('mp-desc').value = "";
+                document.getElementById('mp-color').value = "#2563EB"; 
+                document.getElementById('mp-colorbot').value = "#EC4899"; 
+                document.getElementById('mp-tag').value = ""; 
+                document.getElementById('mp-s1').value = ""; 
+                document.getElementById('mp-s2').value = ""; 
+                document.getElementById('mp-s3').value = "";
                 agregarPlanUI();
             }
             document.getElementById('modal-producto').classList.replace('hidden', 'flex'); 
         }
 
-        function agregarPlanUI(plan = {nombre: '', pMes: '', pAnual: '', desc: '', features: []}) {
+        function agregarVentajaUI(ventaja = {title: '', desc: ''}) {
+            const list = document.getElementById('mp-ventajas-list');
+            const div = document.createElement('div');
+            div.className = "p-3.5 bg-amber-50/40 border border-amber-200/80 rounded-xl relative ventaja-item group";
+            div.innerHTML = `
+                <button type="button" onclick="this.parentElement.remove()" title="Quitar ventaja" class="absolute top-2 right-2 text-slate-400 hover:text-rose-500 p-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+                <div class="mb-2 pr-5"><label class="block text-[9px] font-bold text-amber-800 uppercase mb-1">Título Ventaja</label><input type="text" class="v-title w-full bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs font-bold outline-none focus:border-amber-500" placeholder="Ej. Cero Comisiones" value="${ventaja.title || ''}"></div>
+                <div><label class="block text-[9px] font-bold text-amber-800 uppercase mb-1">Descripción</label><input type="text" class="v-desc w-full bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs outline-none focus:border-amber-500" placeholder="Ej. Todo el dinero va directo a tu cuenta." value="${ventaja.desc || ''}"></div>
+            `;
+            list.appendChild(div);
+        }
+
+        function obtenerVentajasDesdeUI() {
+            const ventajas = [];
+            document.querySelectorAll('.ventaja-item').forEach(item => {
+                const t = item.querySelector('.v-title').value.trim();
+                const d = item.querySelector('.v-desc').value.trim();
+                if(t || d) ventajas.push({ title: t, desc: d });
+            });
+            return JSON.stringify(ventajas);
+        }
+
+        // AHORA INCLUYE SETUP MENSUAL (setupM), SETUP ANUAL (setupA), DESTACADO Y PREMIUM
+        function agregarPlanUI(plan = {nombre: '', pMes: '', pAnual: '', setupM: '150', setupA: 'GRATIS', desc: '', destacado: false, premium: false, features: []}) {
             const list = document.getElementById('mp-planes-list');
             const div = document.createElement('div');
-            div.className = "p-4 bg-slate-50 border border-slate-200 rounded-xl relative plan-item group transition-all";
+            div.className = "p-5 bg-slate-50 border border-slate-200 rounded-2xl relative plan-item group transition-all shadow-sm";
             div.innerHTML = `
-                <button type="button" onclick="this.parentElement.remove()" title="Eliminar Plan" class="absolute top-2 right-2 bg-white text-slate-400 hover:text-rose-500 rounded p-1 shadow-sm border border-slate-200 hidden group-hover:block transition-colors z-10"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4 pr-6">
-                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Nombre del Plan</label><input type="text" class="p-nombre w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-bold outline-none focus:border-brand-blue" placeholder="Ej. Básico" value="${plan.nombre}"></div>
-                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Precio Mensual (S/)</label><input type="number" class="p-mes w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-brand-blue" placeholder="0.00" value="${plan.pMes}"></div>
-                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Precio Anual (S/)</label><input type="number" class="p-anual w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-brand-blue" placeholder="0.00" value="${plan.pAnual}"></div>
+                <button type="button" onclick="this.parentElement.remove()" title="Eliminar Plan" class="absolute top-3 right-3 bg-white text-slate-400 hover:text-rose-500 rounded-lg p-1.5 shadow-sm border border-slate-200 transition-colors z-10"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 mb-3 pr-8">
+                    <div class="md:col-span-1"><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Nombre del Plan</label><input type="text" class="p-nombre w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-black outline-none focus:border-brand-blue" placeholder="Ej. Plan Pro" value="${plan.nombre || ''}"></div>
+                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Mensual (S/)</label><input type="text" class="p-mes w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-bold outline-none focus:border-brand-blue" placeholder="99" value="${plan.pMes || ''}"></div>
+                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Anual (S/)</label><input type="text" class="p-anual w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-bold outline-none focus:border-brand-blue" placeholder="990" value="${plan.pAnual || ''}"></div>
+                    <div><label class="block text-[10px] font-bold text-emerald-700 uppercase mb-1">Setup Mensual (S/)</label><input type="text" class="p-setupm w-full bg-emerald-50/60 border border-emerald-200 rounded-lg px-3 py-2 text-sm font-bold text-emerald-900 outline-none focus:border-emerald-500" placeholder="Ej. 150 o 0" value="${plan.setupM !== undefined ? plan.setupM : '150'}"></div>
+                    <div><label class="block text-[10px] font-bold text-emerald-700 uppercase mb-1">Setup Anual</label><input type="text" class="p-setupa w-full bg-emerald-50/60 border border-emerald-200 rounded-lg px-3 py-2 text-sm font-bold text-emerald-900 outline-none focus:border-emerald-500" placeholder="Ej. GRATIS o S/ 0" value="${plan.setupA !== undefined ? plan.setupA : 'GRATIS'}"></div>
                 </div>
-                <div class="mb-4"><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Descripción Breve</label><input type="text" class="p-desc w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-brand-blue" placeholder="¿Para quién es este plan?" value="${plan.desc}"></div>
-                <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Entregables (Separar por comas)</label><textarea class="p-features w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-brand-blue h-16" placeholder="Ej. Dominio gratis, Hosting 5GB, Soporte 24/7">${Array.isArray(plan.features) ? plan.features.join(', ') : ''}</textarea></div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3 items-center">
+                    <div class="md:col-span-2"><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Descripción Breve</label><input type="text" class="p-desc w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs outline-none focus:border-brand-blue" placeholder="¿Para quién es ideal este plan?" value="${plan.desc || ''}"></div>
+                    <div class="flex items-center gap-4 pt-4">
+                        <label class="inline-flex items-center gap-1.5 cursor-pointer text-xs font-bold text-blue-700 bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-200">
+                            <input type="checkbox" class="p-destacado rounded text-blue-600" ${plan.destacado ? 'checked' : ''}> ⭐ Recomendado
+                        </label>
+                        <label class="inline-flex items-center gap-1.5 cursor-pointer text-xs font-bold text-amber-700 bg-amber-50 px-3 py-1.5 rounded-lg border border-amber-200">
+                            <input type="checkbox" class="p-premium rounded text-amber-600" ${plan.premium ? 'checked' : ''}> 👑 Plan Oscuro/VIP
+                        </label>
+                    </div>
+                </div>
+                <div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Entregables / Características (Separar por comas)</label><textarea class="p-features w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs outline-none focus:border-brand-blue h-16" placeholder="Ej. Usuarios ilimitados, Reportes en Excel, Soporte 24/7">${Array.isArray(plan.features) ? plan.features.join(', ') : ''}</textarea></div>
             `;
             list.appendChild(div);
         }
@@ -1417,10 +1673,14 @@
                 let featuresRaw = item.querySelector('.p-features').value;
                 let featuresArr = featuresRaw.split(',').map(s => s.trim()).filter(s => s.length > 0);
                 planes.push({
-                    nombre: item.querySelector('.p-nombre').value,
-                    pMes: item.querySelector('.p-mes').value,
-                    pAnual: item.querySelector('.p-anual').value,
-                    desc: item.querySelector('.p-desc').value,
+                    nombre: item.querySelector('.p-nombre').value.trim(),
+                    pMes: item.querySelector('.p-mes').value.trim(),
+                    pAnual: item.querySelector('.p-anual').value.trim(),
+                    setupM: item.querySelector('.p-setupm').value.trim(),
+                    setupA: item.querySelector('.p-setupa').value.trim(),
+                    desc: item.querySelector('.p-desc').value.trim(),
+                    destacado: item.querySelector('.p-destacado').checked,
+                    premium: item.querySelector('.p-premium').checked,
                     features: featuresArr
                 });
             });
@@ -1428,8 +1688,21 @@
         }
 
         function guardarProducto() {
-            let p = { id: document.getElementById('mp-id').value, titulo: document.getElementById('mp-titulo').value, icono: document.getElementById('mp-icono').value, descripcion: document.getElementById('mp-desc').value, temaColor: document.getElementById('mp-color').value, tag: document.getElementById('mp-tag').value, sloganTop: document.getElementById('mp-s1').value, sloganMid: document.getElementById('mp-s2').value, sloganBot: document.getElementById('mp-s3').value, colorBot: document.getElementById('mp-colorbot').value, ventajas: "[]", planes: obtenerPlanesDesdeUI() };
-            toggleLoader(true); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'guardarProducto', payload: { usuario: currentSession.user.usuario, token: currentSession.token, producto: p } }) }).then(r=>r.json()).then(res => { if(res.success){ cerrarModal('modal-producto'); cargarDataGlobal(); } else { toggleLoader(false); toast(res.message, true); }});
+            let p = { 
+                id: document.getElementById('mp-id').value, 
+                titulo: document.getElementById('mp-titulo').value, 
+                icono: document.getElementById('mp-icono').value, 
+                descripcion: document.getElementById('mp-desc').value, 
+                temaColor: document.getElementById('mp-color').value, 
+                tag: document.getElementById('mp-tag').value, 
+                sloganTop: document.getElementById('mp-s1').value, 
+                sloganMid: document.getElementById('mp-s2').value, 
+                sloganBot: document.getElementById('mp-s3').value, 
+                colorBot: document.getElementById('mp-colorbot').value, 
+                ventajas: obtenerVentajasDesdeUI(), 
+                planes: obtenerPlanesDesdeUI() 
+            };
+            toggleLoader(true, "Guardando Sistema y Setup..."); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'guardarProducto', payload: { usuario: currentSession.user.usuario, token: currentSession.token, producto: p } }) }).then(r=>r.json()).then(res => { if(res.success){ cerrarModal('modal-producto'); cargarDataGlobal(); toast("✅ Sistema y Setup actualizados"); } else { toggleLoader(false); toast(res.message, true); }});
         }
         function eliminarProducto(id) { 
             showConfirm("¿Borrar producto del catálogo web?", () => {
@@ -1440,8 +1713,9 @@
         function renderCatServicios() {
             const grid = document.getElementById('serv-grid'); grid.innerHTML = '';
             bdCatServicios.forEach(s => { 
+                let badgeIco = {'branding': '🎨 Branding & Diseño', 'rrss': '📱 Redes Sociales', 'audiovisual': '🎬 Audiovisual'}[s.icono] || '✨ Content Studio';
                 grid.innerHTML += `
-                <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition-all">
+                <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition-all flex flex-col">
                     <div class="flex justify-between items-start mb-4">
                         <div class="w-12 h-12 rounded-xl bg-pink-50 border border-pink-100 flex items-center justify-center text-xl uppercase font-bold text-pink-700"><svg class="w-6 h-6 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path></svg></div>
                         <div class="flex gap-1 shrink-0">
@@ -1449,14 +1723,15 @@
                             <button onclick="eliminarServicio('${s.id}')" class="text-rose-500 bg-rose-50 p-2 rounded-lg border border-rose-100 hover:bg-rose-100 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
                         </div>
                     </div>
+                    <span class="text-[9px] font-black uppercase tracking-widest text-pink-600 bg-pink-50 px-2.5 py-1 rounded w-max mb-2">${badgeIco}</span>
                     <h3 class="font-black text-slate-900 text-lg mb-2 leading-tight">${s.titulo}</h3>
                     <p class="text-xs text-slate-500 line-clamp-3">${s.descripcion}</p>
                 </div>`; 
             });
         }
         function abrirModalServicio(id) {
-            if(id) { let s = bdCatServicios.find(x => x.id === id); document.getElementById('ms-id').value = s.id; document.getElementById('ms-titulo').value = s.titulo; document.getElementById('ms-icono').value = s.icono; document.getElementById('ms-desc').value = s.descripcion; } 
-            else { document.getElementById('ms-id').value = "srv_"+new Date().getTime(); document.getElementById('ms-titulo').value = ""; document.getElementById('ms-icono').value = ""; document.getElementById('ms-desc').value = ""; }
+            if(id) { let s = bdCatServicios.find(x => x.id === id); document.getElementById('ms-id').value = s.id; document.getElementById('ms-titulo').value = s.titulo; document.getElementById('ms-icono').value = s.icono || 'branding'; document.getElementById('ms-desc').value = s.descripcion; } 
+            else { document.getElementById('ms-id').value = "srv_"+new Date().getTime(); document.getElementById('ms-titulo').value = ""; document.getElementById('ms-icono').value = "branding"; document.getElementById('ms-desc').value = ""; }
             document.getElementById('modal-servicio').classList.replace('hidden', 'flex');
         }
         function guardarServicio() {
@@ -1478,43 +1753,55 @@
             document.getElementById('promo-fb').value = p.fb || '';
             document.getElementById('promo-ig').value = p.ig || '';
         }
-        
+
         function guardarPromo() {
             const p = { activa: document.getElementById('promo-activa').checked, nombre: document.getElementById('promo-nombre').value, descuento: document.getElementById('promo-descuento').value, wsp: document.getElementById('promo-wsp').value, email: document.getElementById('promo-email').value, fb: document.getElementById('promo-fb').value, ig: document.getElementById('promo-ig').value };
             toggleLoader(true, "Guardando configuración web..."); fetch(URL_BACKEND, { method: 'POST', body: JSON.stringify({ accion: 'guardarPromo', payload: { usuario: currentSession.user.usuario, token: currentSession.token, activa: p.activa, nombre: p.nombre, descuento: p.descuento, wsp: p.wsp, email: p.email, fb: p.fb, ig: p.ig } }) }).then(r=>r.json()).then(res => { toggleLoader(false); if(res.success) toast("Configuración web guardada"); else toast(res.message, true); });
         }
 
-        // --- COTIZADOR PDF ---
+        // --- COTIZADOR PDF MEJORADO (SOPORTA TODOS LOS PRODUCTOS Y SERVICIOS Y EXPORTA SIEMPRE EL LOGO) ---
         function llenarSelectsCotizador() {
-            let selCli = document.getElementById('pdf-cliente'); selCli.innerHTML = '<option value="">Seleccione Cliente (CRM)</option>';
+            let selCli = document.getElementById('pdf-cliente'); selCli.innerHTML = '<option value="">Seleccione Cliente (CRM)...</option>';
             globalCRM.forEach(c => selCli.innerHTML += `<option value="${c.id}">${c.empresa} (${c.responsable})</option>`);
-            
-            let selProd = document.getElementById('pdf-producto'); selProd.innerHTML = '<option value="">Seleccione Producto SaaS</option>';
-            bdCatProductos.forEach(p => { if(p.planes && p.planes !== "[]") selProd.innerHTML += `<option value="${p.id}">${p.titulo}</option>`; });
+
+            let selProd = document.getElementById('pdf-producto'); selProd.innerHTML = '<option value="">Seleccione Sistema o Servicio...</option>';
+            // Incluye TODOS los sistemas SaaS y también los servicios de Content Studio
+            bdCatProductos.forEach(p => { selProd.innerHTML += `<option value="PROD_${p.id}">💻 Sistema: ${p.titulo}</option>`; });
+            bdCatServicios.forEach(s => { selProd.innerHTML += `<option value="SERV_${s.id}">🎨 Studio: ${s.titulo}</option>`; });
         }
 
-        function generarPDFCotizacion() {
+        async function generarPDFCotizacion() {
             const idCli = document.getElementById('pdf-cliente').value;
-            const idProd = document.getElementById('pdf-producto').value;
-            if(!idCli || !idProd) return toast("Selecciona un cliente y un producto", true);
-            
-            const cliente = globalCRM.find(c => c.id === idCli);
-            const producto = bdCatProductos.find(p => p.id === idProd);
-            
+            const rawProd = document.getElementById('pdf-producto').value;
+            if(!idCli || !rawProd) return toast("Selecciona un cliente y un producto/servicio", true);
+
+            // Asegura que el logo PNG esté listo antes de capturar
+            inicializarLogoPNGParaPDF();
+
+            const cliente = globalCRM.find(c => String(c.id) === String(idCli));
+            const isServ = rawProd.startsWith('SERV_');
+            const cleanId = rawProd.replace('PROD_', '').replace('SERV_', '');
+            const itemCat = isServ ? bdCatServicios.find(s => String(s.id) === String(cleanId)) : bdCatProductos.find(p => String(p.id) === String(cleanId));
+
+            if(!cliente || !itemCat) return toast("No se encontraron los datos para exportar", true);
+
             document.getElementById('pdf-contact-email').innerText = dataPromo.email || "hola@masdigital.pe";
             document.getElementById('pdf-contact-phone').innerText = "+" + (dataPromo.wsp || "51929389268");
 
             document.getElementById('pdf-fecha-hoy').innerText = "Fecha: " + new Date().toLocaleDateString('es-ES');
-            document.getElementById('pdf-client-name').innerText = cliente.empresa + " (Atn: " + cliente.responsable + ")";
-            document.getElementById('pdf-item-title').innerText = producto.titulo;
-            document.getElementById('pdf-item-desc').innerText = producto.descripcion;
-            
-            document.getElementById('pdf-item-tag').innerText = producto.tag || 'SISTEMA';
-            document.getElementById('pdf-item-s1').innerText = producto.sloganTop || '';
-            document.getElementById('pdf-item-s2').innerText = producto.sloganMid || '';
-            
-            let botText = producto.sloganBot || '';
-            let botColor = producto.colorBot || '#2563EB';
+            document.getElementById('pdf-client-name').innerText = cliente.empresa;
+            document.getElementById('pdf-client-contact').innerText = `Atención: ${cliente.responsable || 'Gerencia'} | Tel: ${cliente.celular || ''}`;
+            document.getElementById('pdf-item-title').innerText = itemCat.titulo;
+            document.getElementById('pdf-item-desc').innerText = itemCat.descripcion || '';
+
+            const headerBox = document.getElementById('pdf-item-header');
+            headerBox.style.backgroundColor = itemCat.temaColor || (isServ ? '#EC4899' : '#1E0A3C');
+            document.getElementById('pdf-item-tag').innerText = itemCat.tag || (isServ ? 'CONTENT STUDIO' : 'SISTEMA EMPRESARIAL');
+            document.getElementById('pdf-item-s1').innerText = itemCat.sloganTop || itemCat.titulo;
+            document.getElementById('pdf-item-s2').innerText = itemCat.sloganMid || (isServ ? 'Impulsa tu presencia digital' : 'Automatización y control total');
+
+            let botText = itemCat.sloganBot || '';
+            let botColor = itemCat.colorBot || '#F97316';
             if(botText) {
                 document.getElementById('pdf-item-s3').innerText = botText;
                 document.getElementById('pdf-item-s3').style.backgroundColor = botColor;
@@ -1522,54 +1809,87 @@
             } else {
                 document.getElementById('pdf-item-s3').style.display = 'none';
             }
-            
+
             const notas = document.getElementById('pdf-notas').value.trim();
-            if(notas) { document.getElementById('pdf-item-notas').innerText = "Nota importante: " + notas; document.getElementById('pdf-item-notas').parentNode.style.display = 'block'; } 
-            else { document.getElementById('pdf-item-notas').parentNode.style.display = 'none'; }
-            
+            if(notas) { 
+                document.getElementById('pdf-item-notas').innerText = "Condiciones / Notas: " + notas; 
+                document.getElementById('pdf-notas-box').style.display = 'block'; 
+            } else { 
+                document.getElementById('pdf-notas-box').style.display = 'none'; 
+            }
+
             let planesHTML = "";
             try {
-                let arr = typeof producto.planes === 'string' ? JSON.parse(producto.planes) : producto.planes;
-                arr.forEach(pl => {
-                    let descObj = pl.desc ? `<p class="text-[10px] text-slate-500 mb-2">${pl.desc}</p>` : '';
-                    let feats = "";
-                    if(pl.features && Array.isArray(pl.features)) {
-                        feats = pl.features.map(f => `<li class="flex items-start gap-1"><span class="text-brand-blue font-bold">✓</span> ${f}</li>`).join('');
-                    }
-                    planesHTML += `
-                    <div class="border border-slate-200 rounded-xl p-3 bg-white">
-                        <div class="flex justify-between items-start mb-2 border-b border-slate-100 pb-2">
-                            <div><h4 class="font-black text-slate-800">${pl.nombre}</h4>${descObj}</div>
-                            <div class="text-right shrink-0 ml-4">
-                                <p class="text-[10px] text-slate-400">Mensual: <span class="font-bold text-slate-800 text-sm">S/ ${pl.pMes}</span></p>
-                                <p class="text-[10px] text-slate-400">Anual: <span class="font-bold text-slate-800 text-sm">S/ ${pl.pAnual}</span></p>
+                let arr = [];
+                if (!isServ && itemCat.planes) {
+                    arr = typeof itemCat.planes === 'string' ? JSON.parse(itemCat.planes) : itemCat.planes;
+                }
+                if (Array.isArray(arr) && arr.length > 0) {
+                    document.getElementById('pdf-planes-subtitle').style.display = 'block';
+                    arr.forEach(pl => {
+                        let descObj = pl.desc ? `<p class="text-[10px] text-slate-500 mt-0.5">${pl.desc}</p>` : '';
+                        let setupInfo = (pl.setupM !== undefined || pl.setupA !== undefined) 
+                            ? `<div class="mt-1.5 inline-block bg-slate-100 text-slate-700 text-[9px] font-bold px-2.5 py-0.5 rounded border border-slate-200">Setup Mensual: S/ ${pl.setupM || '0'} | Setup Anual: ${pl.setupA || 'GRATIS'}</div>` 
+                            : '';
+                        let feats = "";
+                        if(pl.features && Array.isArray(pl.features)) {
+                            feats = pl.features.map(f => `<li class="flex items-start gap-1"><span class="text-blue-600 font-black">✓</span> <span>${f}</span></li>`).join('');
+                        }
+                        planesHTML += `
+                        <div class="border ${pl.destacado ? 'border-blue-500 bg-blue-50/20' : 'border-slate-200 bg-slate-50/50'} rounded-xl p-3.5">
+                            <div class="flex justify-between items-start mb-2 border-b border-slate-200/70 pb-2">
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <h4 class="font-black text-slate-900 text-sm">${pl.nombre}</h4>
+                                        ${pl.destacado ? '<span class="bg-blue-600 text-white text-[8px] font-black uppercase px-2 py-0.5 rounded-full">Recomendado</span>' : ''}
+                                    </div>
+                                    ${descObj}
+                                    ${setupInfo}
+                                </div>
+                                <div class="text-right shrink-0 ml-4">
+                                    <p class="text-[10px] text-slate-500">Mensual: <span class="font-black text-slate-900 text-sm">S/ ${pl.pMes}</span></p>
+                                    <p class="text-[10px] text-slate-500">Anual: <span class="font-black text-blue-600 text-sm">S/ ${pl.pAnual}</span></p>
+                                </div>
                             </div>
-                        </div>
-                        <ul class="text-[9px] text-slate-500 font-medium grid grid-cols-2 gap-1">${feats}</ul>
-                    </div>`;
-                });
+                            <ul class="text-[10px] text-slate-600 font-medium grid grid-cols-2 gap-1.5 mt-2">${feats}</ul>
+                        </div>`;
+                    });
+                } else {
+                    document.getElementById('pdf-planes-subtitle').style.display = 'none';
+                    planesHTML = `<div class="p-4 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 font-medium">Propuesta personalizada a medida según los requerimientos de <strong>${cliente.empresa}</strong>.</div>`;
+                }
             } catch(e) { console.error("Error parseando planes para PDF", e); }
-            
+
             document.getElementById('pdf-item-planes').innerHTML = planesHTML;
-            
-            toggleLoader(true, "Generando PDF...");
+
+            toggleLoader(true, "Generando PDF Oficial...");
+            const wrapper = document.getElementById('pdf-template-wrapper');
             const element = document.getElementById('pdf-template-content');
-            // Optimizado para no cortar colores ni SVG
+
+            // Hacer visible temporalmente en el DOM para que html2canvas capture el logo y todos los estilos al 100%
+            wrapper.style.zIndex = '9998';
+            wrapper.style.opacity = '1';
+
+            await new Promise(r => setTimeout(r, 250));
+
             const opt = { 
-                margin: [0.2, 0.2, 0.2, 0.2], 
-                filename: `Cotizacion_${cliente.empresa.replace(/[^a-z0-9]/gi, '_')}.pdf`, 
+                margin: [0, 0, 0, 0], 
+                filename: `Cotizacion_MAS_Digital_${cliente.empresa.replace(/[^a-z0-9]/gi, '_')}.pdf`, 
                 image: { type: 'jpeg', quality: 0.98 }, 
-                html2canvas: { scale: 2, useCORS: true, allowTaint: true }, 
-                jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' } 
+                html2canvas: { scale: 2, useCORS: true, logging: false, scrollY: 0 }, 
+                jsPDF: { unit: 'px', format: [800, 1130], orientation: 'portrait' } 
             };
-            
-            document.getElementById('pdf-template-wrapper').style.left = '0';
-            document.getElementById('pdf-template-wrapper').style.zIndex = '9999';
-            
+
             html2pdf().set(opt).from(element).save().then(() => {
-                document.getElementById('pdf-template-wrapper').style.left = '-9999px';
-                document.getElementById('pdf-template-wrapper').style.zIndex = '-9999';
+                wrapper.style.opacity = '0';
+                wrapper.style.zIndex = '-9999';
                 toggleLoader(false);
+                toast("📄 Cotización PDF descargada con éxito");
+            }).catch(err => {
+                wrapper.style.opacity = '0';
+                wrapper.style.zIndex = '-9999';
+                toggleLoader(false);
+                toast("Error al generar PDF", true);
             });
         }
     </script>
