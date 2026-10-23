@@ -844,6 +844,18 @@
         function toggleLoader(show, text="Procesando...") { const l = document.getElementById('loader'); if(show) { document.getElementById('loader-txt').innerText=text; l.classList.replace('hidden', 'flex'); } else l.classList.replace('flex', 'hidden'); }
         function cerrarModal(id) { document.getElementById(id).classList.replace('flex', 'hidden'); }
 
+        // FUNCIÓN UNIVERSAL PARA WHATSAPP SIN ERROR DE EMOJIS (ROMBOS)
+        function formatWspPhone(phone) {
+            let clean = String(phone || '').replace(/\D/g, '');
+            if (clean.length === 9) clean = '51' + clean;
+            return clean;
+        }
+        function buildWhatsAppUrl(phone, text) {
+            let cleanPhone = formatWspPhone(phone);
+            let safeText = String(text || '').normalize('NFC');
+            return `https://api.whatsapp.com/send?phone=${cleanPhone}&text=${encodeURIComponent(safeText)}`;
+        }
+
         function showConfirm(msg, onConfirm) {
             document.getElementById('confirm-msg').innerText = msg;
             const modal = document.getElementById('confirm-modal');
@@ -983,7 +995,9 @@
             const pageData = filteredCrmData.slice(startIndex, endIndex);
 
             pageData.forEach(c => {
-                let celClean = String(c.celular || '').replace(/\D/g, '');
+                let celClean = formatWspPhone(c.celular);
+                let msgDirecto = `\u{1F44B} \u{00A1}Hola *${c.responsable || c.empresa}*! Te saludamos del equipo de *MAS Digital* \u{1F680}.\n\nNos comunicamos contigo respecto a *${c.empresa}*. \u{00BF}C\u{00F3}mo va todo hoy? \u{1F60A}`;
+                let urlDirecto = buildWhatsAppUrl(c.celular, msgDirecto);
                 tbody.innerHTML += `
                     <tr class="group cursor-pointer" onclick="abrirModalCRM('${c.id}')">
                         <td>
@@ -1009,7 +1023,7 @@
                         </td>
                         <td class="text-center" onclick="event.stopPropagation()">
                             <div class="flex justify-center items-center gap-2">
-                                ${celClean ? `<a href="https://wa.me/${celClean}" target="_blank" title="Hablar por WhatsApp" class="text-[#25D366] bg-[#25D366]/10 p-2.5 rounded-xl border border-[#25D366]/20 hover:bg-[#25D366] hover:text-white transition-colors shadow-sm"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>` : ''}
+                                ${celClean ? `<a href="${urlDirecto}" target="_blank" title="Hablar por WhatsApp" class="text-[#25D366] bg-[#25D366]/10 p-2.5 rounded-xl border border-[#25D366]/20 hover:bg-[#25D366] hover:text-white transition-colors shadow-sm"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>` : ''}
                                 <button onclick="abrirModalCRM('${c.id}')" title="Editar Ficha" class="text-blue-600 bg-blue-50 p-2.5 rounded-xl border border-blue-100 hover:bg-blue-600 hover:text-white transition-colors shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg></button>
                                 <button onclick="eliminarCRM('${c.id}')" title="Eliminar Cliente" class="text-rose-600 bg-rose-50 p-2.5 rounded-xl border border-rose-100 hover:bg-rose-600 hover:text-white transition-colors shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
                             </div>
@@ -1039,17 +1053,16 @@
         }
 
         function enviarWspCRM(tipo) {
-            const celRaw = document.getElementById('mcrm-celular').value; const res = document.getElementById('mcrm-responsable').value; const emp = document.getElementById('mcrm-empresa').value;
-            if(!celRaw || celRaw.length < 9) return toast("El cliente no tiene un celular válido", true);
-            let celLimpio = celRaw.replace(/\D/g, '');
+            const celRaw = document.getElementById('mcrm-celular').value; const res = document.getElementById('mcrm-responsable').value || 'estimado(a)'; const emp = document.getElementById('mcrm-empresa').value;
+            if(!celRaw || celRaw.replace(/\D/g, '').length < 9) return toast("El cliente no tiene un celular válido", true);
             let msgs = {
-                'contacto': `¡Hola ${res}! 👋\nUn cordial saludo del equipo de MAS Digital.\nNos ponemos en contacto contigo para conversar sobre las soluciones tecnológicas para *${emp}* 💻.\n¿En qué horario te viene bien una breve llamada para asesorarte?`,
-                'cotizacion': `¡Hola ${res}! 👋\nDesde MAS Digital te compartimos que hemos preparado la cotización solicitada para *${emp}* 📄.\nCualquier duda técnica o de implementación, estamos a tu entera disposición.`,
-                'seguimiento': `¡Hola ${res}! 👋\nEsperamos que estés teniendo una excelente semana 🌟.\nTe escribimos de MAS Digital para consultar si lograste revisar la propuesta enviada para *${emp}* 📊 y si tienes alguna duda adicional.\n¡Quedamos atentos!`,
-                'bienvenida': `¡Hola ${res}! 🎉\nBienvenido a MAS Digital. Es un verdadero placer para nosotros comenzar a trabajar con *${emp}* 🚀.\nEstamos listos para llevar tu negocio al siguiente nivel.`
+                'contacto': `\u{1F44B} \u{00A1}Hola *${res}*! \u{00BF}Qu\u{00E9} tal? Te saludamos con mucho gusto del equipo de *MAS Digital* \u{1F680}.\n\nQueremos conversar contigo sobre las soluciones digitales y tecnol\u{00F3}gicas para potenciar a *${emp}* \u{1F4BB}\u{2728}.\n\n\u{00BF}En qu\u{00E9} horario te queda c\u{00F3}moda una breve llamada o reuni\u{00F3}n para asesorarte? \u{1F60A}`,
+                'cotizacion': `\u{1F44B} \u{00A1}Hola *${res}*! Espero que est\u{00E9}s teniendo un excelente d\u{00ED}a \u{2728}.\n\nDesde *MAS Digital* te compartimos con mucha emoci\u{00F3}n la propuesta comercial preparada especialmente para *${emp}* \u{1F4C4}\u{1F680}.\n\nCualquier consulta sobre los planes o la implementaci\u{00F3}n, estamos aqu\u{00ED} para ayudarte en todo momento. \u{00A1}Quedamos atentos! \u{1F91D}`,
+                'seguimiento': `\u{1F44B} \u{00A1}Hola *${res}*! Esperamos que tu semana vaya genial \u{1F31F}.\n\nTe escribimos del equipo de *MAS Digital* para saber si tuviste oportunidad de revisar la propuesta que preparamos para *${emp}* \u{1F4CA} y si podemos ayudarte a despejar alguna duda.\n\n\u{00A1}Estamos listos para empezar cuando nos indiques! \u{1F680}`,
+                'bienvenida': `\u{1F389} \u{00A1}Hola *${res}*! Te damos la m\u{00E1}s cordial bienvenida a la familia de *MAS Digital* \u{1F680}.\n\nPara todo nuestro equipo es un verdadero gusto comenzar a trabajar de la mano con *${emp}* \u{1F91D}\u{2728}.\n\n\u{00A1}Vamos con todo para llevar tu negocio al siguiente nivel! \u{1F4AA}\u{1F525}`
             };
-            let texto = encodeURIComponent(msgs[tipo] || "Hola, un saludo de MAS Digital.");
-            window.open(`https://wa.me/${celLimpio}?text=${texto}`, '_blank');
+            let texto = msgs[tipo] || "\u{1F44B} \u{00A1}Hola! Te saludamos del equipo de *MAS Digital* \u{1F680}.";
+            window.open(buildWhatsAppUrl(celRaw, texto), '_blank');
         }
 
         function guardarCRM() {
@@ -1081,7 +1094,9 @@
                     ? `<div class="flex flex-wrap gap-1.5">${reqItems.map(item => `<span class="bg-slate-100 text-slate-800 border border-slate-200/80 text-xs font-bold px-3 py-1.5 rounded-xl inline-flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-brand-blue"></span>${item}</span>`).join('')}</div>`
                     : `<span class="text-xs text-slate-400">Sin especificar</span>`;
 
-                let celClean = String(l.celular || '').replace(/\D/g, '');
+                let celClean = formatWspPhone(l.celular);
+                let msgLead = `\u{1F44B} \u{00A1}Hola *${l.nombre}*! \u{00BF}Qu\u{00E9} tal? Te saluda el equipo de *MAS Digital* \u{1F680}.\n\nRecibimos tu solicitud en nuestra web sobre: *${l.requerimiento}* \u{1F4BB}\u{2728}.\n\nMe encantar\u{00ED}a brindarte todos los detalles y asesorarte personalmente. \u{00BF}Tienes unos minutos para conversar por aqu\u{00ED}? \u{1F60A}`;
+                let urlLead = buildWhatsAppUrl(l.celular, msgLead);
 
                 tb.innerHTML += `
                 <tr>
@@ -1089,6 +1104,18 @@
                         <div class="inline-flex items-center gap-2 text-xs text-slate-500 font-bold bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-100">
                             <svg class="w-3.5 h-3.5 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                             ${l.fecha}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="flex items-center justify-between gap-2">
+                            <div>
+                                <p class="text-sm font-black text-slate-900">${l.nombre}</p>
+                                <p class="text-xs text-slate-500 mt-0.5 flex items-center gap-1.5 font-semibold">
+                                    <svg class="w-3.5 h-3.5 text-brand-blue shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                                    ${l.celular}
+                                </p>
+                            </div>
+                            ${celClean ? `<a href="${urlLead}" target="_blank" title="Contactar por WhatsApp" class="p-2 rounded-xl bg-[#25D366]/10 text-[#25D366] hover:bg-[#25D366] hover:text-white transition-colors shrink-0"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>` : ''}
                         </div>
                     </td>
                     <td>
@@ -1193,15 +1220,16 @@
 
                 let crmClient = globalCRM.find(x => String(x.id) === String(s.idCliente));
                 let nombreEmpresa = crmClient ? crmClient.empresa : (s.idCliente || "Desconocido");
-                let celularClient = crmClient ? String(crmClient.celular).replace(/\D/g, '') : "";
+                let celularClient = crmClient ? crmClient.celular : "";
 
                 let montoFormateado = "0.00";
                 if(!isNaN(parseFloat(s.monto))) montoFormateado = parseFloat(s.monto).toFixed(2);
 
-                let textWsp = `Hola equipo de *${nombreEmpresa}* 👋\nLes recordamos cordialmente que su próximo pago de suscripción (*${s.sistema}*) por S/ ${montoFormateado} vence en ${diffDays} días.\n¡Gracias por confiar en nosotros! 🚀`;
-                if(diffDays === 0) { textWsp = `Hola equipo de *${nombreEmpresa}* ⚠️\nLes informamos que su pago de suscripción vence HOY. Por favor regularizar a la brevedad para mantener los servicios activos.`; }
-                if(diffDays < 0) { textWsp = `Hola equipo de *${nombreEmpresa}* ⛔\nLes informamos que su suscripción se encuentra VENCIDA hace ${Math.abs(diffDays)} días. Por favor, regularice su pago de S/ ${montoFormateado} para evitar la interrupción del servicio.`; }
+                let textWsp = `\u{1F44B} \u{00A1}Hola equipo de *${nombreEmpresa}*! Esperamos que est\u{00E9}n teniendo una excelente semana \u{2728}.\n\nPaso por aqu\u{00ED} para recordarles con cari\u{00F1}o que la renovaci\u{00F3}n de su sistema *${s.sistema}* (${s.plan}) por *S/ ${montoFormateado}* vence en *${diffDays} d\u{00ED}as* \u{1F4C5}.\n\n\u{00A1}Muchas gracias por seguir creciendo junto a *MAS Digital*! \u{1F680}\u{1F91D}`;
+                if(diffDays === 0) { textWsp = `\u{1F44B} \u{00A1}Hola equipo de *${nombreEmpresa}*! Esperamos que su d\u{00ED}a vaya muy bien \u{2728}.\n\nLes escribimos de *MAS Digital* para comentarles que *HOY* es la fecha de renovaci\u{00F3}n de su sistema *${s.sistema}* por *S/ ${montoFormateado}* \u{1F4BB}.\n\nQuedamos atentos a su comprobante para mantener su plataforma operando al 100% sin interrupciones \u{1F680}\u{1F60A}.`; }
+                if(diffDays < 0) { textWsp = `\u{1F44B} \u{00A1}Hola equipo de *${nombreEmpresa}*! Te saludamos de *MAS Digital* \u{2728}.\n\nNotamos que la renovaci\u{00F3}n de su sistema *${s.sistema}* (*S/ ${montoFormateado}*) tiene *${Math.abs(diffDays)} d\u{00ED}as* de vencimiento \u{23F3}.\n\nPor favor, ay\u{00FA}dennos regularizando su cuota hoy mismo para evitar que el sistema se pause autom\u{00E1}ticamente \u{1F64F}\u{1F4BB}. \u{00A1}Quedamos atentos para ayudarlos!`; }
 
+                let wspUrlCobro = buildWhatsAppUrl(celularClient, textWsp);
                 let vendedorInfo = isAdminGbl ? `<p class="text-[9px] font-bold text-slate-400 mt-2">Vendedor: ${s.vendedor}</p>` : ``;
 
                 let bgCard = s.estado === 'SUSPENDIDO' ? 'bg-slate-50 border-slate-200' : 'bg-white border-slate-200';
@@ -1235,7 +1263,7 @@
                             ${vendedorInfo}
                         </div>
                         <div class="mt-auto flex gap-2">
-                            <a href="https://wa.me/${celularClient}?text=${encodeURIComponent(textWsp)}" target="_blank" class="flex-1 py-2 bg-[#25D366] hover:bg-[#20bd5a] transition-colors text-white font-bold rounded-lg text-center text-[10px] uppercase shadow-sm flex items-center justify-center gap-1">
+                            <a href="${wspUrlCobro}" target="_blank" class="flex-1 py-2 bg-[#25D366] hover:bg-[#20bd5a] transition-colors text-white font-bold rounded-lg text-center text-[10px] uppercase shadow-sm flex items-center justify-center gap-1">
                                 <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Cobrar
                             </a>
                         </div>
@@ -1392,15 +1420,17 @@
 
                 let crmClient = globalCRM.find(x => String(x.id) === String(c.idCliente));
                 let nombreEmpresa = crmClient ? crmClient.empresa : (c.idCliente || "Desconocido");
-                let celularClient = crmClient ? String(crmClient.celular).replace(/\D/g, '') : "";
+                let celularClient = crmClient ? crmClient.celular : "";
 
                 let bgCard = (c.estado === 'FINALIZADO' || c.estado === 'CANCELADO') ? 'bg-slate-50 border-slate-200' : 'bg-white border-slate-200';
                 let opacCard = (c.estado === 'FINALIZADO' || c.estado === 'CANCELADO') ? 'opacity-70 grayscale-[50%]' : '';
 
                 let montoFormateado = parseFloat(c.monto).toFixed(2);
                 let textWsp = isVencido 
-                  ? `Hola equipo de *${nombreEmpresa}* ⚠️\nLes recordamos que el pago por los servicios de Agencia/Marketing (*${c.servicio}*) por S/ ${montoFormateado} se encuentra vencido. Por favor, regularizar a la brevedad para continuar con el flujo de trabajo sin interrupciones.`
-                  : `Hola equipo de *${nombreEmpresa}* 👋\nLes recordamos cordialmente que su próximo pago de servicios de Agencia (*${c.servicio}*) por S/ ${montoFormateado} vence en ${diffDays} días.\n¡Seguimos trabajando en su marca! 🚀`;
+                  ? `\u{1F44B} \u{00A1}Hola equipo de *${nombreEmpresa}*! Te saludamos de *MAS Digital* \u{2728}.\n\nLes escribimos para recordarles que la cuota de su servicio creativo *${c.servicio}* (*S/ ${montoFormateado}*) se encuentra pendiente de regularizaci\u{00F3}n \u{1F3A8}\u{23F3}.\n\nAy\u{00FA}dennos con el abono para seguir impulsando su contenido y calendario de publicaciones sin pausas \u{1F680}\u{1F60A}.`
+                  : `\u{1F44B} \u{00A1}Hola equipo de *${nombreEmpresa}*! Esperamos que est\u{00E9}n teniendo una gran semana \u{2728}.\n\nLes recordamos con mucho gusto que en *${diffDays} d\u{00ED}as* se cumple la fecha de renovaci\u{00F3}n de su servicio *${c.servicio}* por *S/ ${montoFormateado}* \u{1F3A8}\u{1F4F8}.\n\n\u{00A1}Seguimos creando contenido incre\u{00ED}ble para su marca! \u{1F680}\u{1F525}`;
+
+                let wspUrlContenido = buildWhatsAppUrl(celularClient, textWsp);
 
                 grid.innerHTML += `
                     <div class="${bgCard} ${opacCard} rounded-3xl border border-slate-200 p-6 shadow-sm flex flex-col relative transition-all duration-300 hover:shadow-md">
@@ -1422,7 +1452,7 @@
                             </div>
                         </div>
                         <div class="mt-auto flex gap-2">
-                            <a href="https://wa.me/${celularClient}?text=${encodeURIComponent(textWsp)}" target="_blank" class="flex-1 py-2 bg-[#25D366] hover:bg-[#20bd5a] transition-colors text-white font-bold rounded-lg text-center text-[10px] uppercase shadow-sm flex items-center justify-center gap-1">
+                            <a href="${wspUrlContenido}" target="_blank" class="flex-1 py-2 bg-[#25D366] hover:bg-[#20bd5a] transition-colors text-white font-bold rounded-lg text-center text-[10px] uppercase shadow-sm flex items-center justify-center gap-1">
                                 <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Cobrar
                             </a>
                         </div>
