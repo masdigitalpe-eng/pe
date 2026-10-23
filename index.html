@@ -26,10 +26,14 @@
         /* Custom Styling for visual appeal and animations */
         body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #0f172a; overflow-x: hidden; }
         h1, h2, h3, h4, h5, h6, .font-display { font-family: 'Montserrat', sans-serif; }
-        .grad-vibrant { background: linear-gradient(135deg, #4338ca, #5c24ff); }
-        .grad-sunset { background: linear-gradient(90deg, #E11D48, #F97316, #FBBF24); }
-        .grad-text { background: linear-gradient(90deg, #60A5FA, #A78BFA, #F472B6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .grad-hero { background: linear-gradient(150deg, #1E0A3C 0%, #3B0764 50%, #290547 100%); }
+        
+        /* Identidad y Colores de MAS Digital */
+        .grad-vibrant { background: linear-gradient(135deg, #2563EB, #8B5CF6, #EC4899); }
+        .grad-sunset { background: linear-gradient(90deg, #EC4899, #F97316, #FBBF24); }
+        .grad-mas { background: linear-gradient(135deg, #2563EB 0%, #8B5CF6 45%, #EC4899 80%, #F97316 100%); }
+        .grad-text { background: linear-gradient(90deg, #60A5FA, #A78BFA, #F472B6, #FB923C); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .grad-hero { background: linear-gradient(150deg, #1E0A3C 0%, #3B0764 45%, #1e1b4b 100%); }
+        
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
         .chat-scroll::-webkit-scrollbar { width: 6px; }
@@ -56,7 +60,7 @@
         @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
         @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; visibility: hidden; } }
         .content-card-hover { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        .content-card-hover:hover { transform: translateY(-8px); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); }
+        .content-card-hover:hover { transform: translateY(-8px); box-shadow: 0 25px 50px -12px rgba(37, 99, 235, 0.15); }
         details > summary { list-style: none; }
         details > summary::-webkit-details-marker { display: none; }
     </style>
@@ -69,7 +73,9 @@
         <p id="promo-top-text" class="text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] relative z-10 flex items-center justify-center gap-3"></p>
     </div>
 
-    <header class="bg-white/95 backdrop-blur-lg border-b border-slate-200 sticky top-0 z-50 transition-all shadow-sm">
+    <header class="bg-white/95 backdrop-blur-lg border-b border-slate-200/80 sticky top-0 z-50 transition-all shadow-sm">
+        <!-- Barra superior con el gradiente del logo MAS Digital -->
+        <div class="h-1 w-full grad-mas"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <!-- Brand Logo -->
             <a href="#" class="flex items-center gap-3 shrink-0 group">
@@ -99,17 +105,17 @@
 
             <!-- Desktop Navigation -->
             <nav class="hidden md:flex items-center gap-8 font-semibold text-sm text-slate-600">
-                <a href="#nosotros" class="hover:text-blue-600 transition-colors">Nosotros</a>
-                <a href="#tech" class="hover:text-blue-600 transition-colors">Tech & Apps</a>
-                <a href="#studio" class="hover:text-rose-600 transition-colors">Content Studio</a>
-                <a href="#faq" class="hover:text-slate-900 transition-colors">FAQ</a>
+                <a href="#nosotros" class="hover:text-brand-blue transition-colors">Nosotros</a>
+                <a href="#tech" class="hover:text-brand-purple transition-colors">Tech & Apps</a>
+                <a href="#studio" class="hover:text-brand-pink transition-colors">Content Studio</a>
+                <a href="#faq" class="hover:text-brand-orange transition-colors">FAQ</a>
             </nav>
 
             <!-- Cart Button -->
-            <button onclick="toggleCart()" class="hidden md:flex relative bg-[#0f172a] hover:bg-blue-600 text-white p-3.5 rounded-2xl transition-all items-center justify-center shadow-md gap-2 group shrink-0">
+            <button onclick="toggleCart()" class="hidden md:flex relative bg-[#0f172a] hover:grad-mas text-white p-3.5 rounded-2xl transition-all items-center justify-center shadow-md gap-2 group shrink-0">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shrink-0"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
                 <span class="text-xs font-bold uppercase tracking-wider hidden lg:block shrink-0 whitespace-nowrap">Cotizar</span>
-                <span id="cart-count-desktop" class="absolute -top-2 -right-2 bg-rose-500 text-white text-[11px] font-black w-6 h-6 flex items-center justify-center rounded-full border-2 border-white shadow-sm transition-transform group-hover:scale-110 shrink-0">0</span>
+                <span id="cart-count-desktop" class="absolute -top-2 -right-2 grad-sunset text-white text-[11px] font-black w-6 h-6 flex items-center justify-center rounded-full border-2 border-white shadow-sm transition-transform group-hover:scale-110 shrink-0">0</span>
             </button>
         </div>
         
@@ -119,30 +125,31 @@
             <a href="#tech" class="block font-semibold text-slate-700" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Tech & Apps</a>
             <a href="#studio" class="block font-semibold text-slate-700" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Content Studio</a>
             <a href="#faq" class="block font-semibold text-slate-700" onclick="document.getElementById('mobile-menu').classList.add('hidden')">FAQ</a>
-            <button onclick="toggleCart(); document.getElementById('mobile-menu').classList.add('hidden')" class="flex items-center justify-between font-bold text-white bg-blue-600 p-3 rounded-xl w-full text-left mt-4 shrink-0">
-                <span>Ver mi Cotización</span> <span id="cart-count-mobile" class="bg-white text-blue-600 text-xs px-2.5 py-0.5 rounded-full font-black shrink-0">0</span>
+            <button onclick="toggleCart(); document.getElementById('mobile-menu').classList.add('hidden')" class="flex items-center justify-between font-bold text-white grad-mas p-3.5 rounded-xl w-full text-left mt-4 shrink-0 shadow-md">
+                <span>Ver mi Cotización</span> <span id="cart-count-mobile" class="bg-white text-brand-purple text-xs px-2.5 py-0.5 rounded-full font-black shrink-0">0</span>
             </button>
         </div>
     </header>
 
     <main class="overflow-hidden pb-10">
         <section class="relative grad-hero pt-12 md:pt-24 pb-20 md:pb-48 diagonal-cut overflow-hidden reveal active">
-            <!-- Decorative Elements -->
-            <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-[100px] pointer-events-none"></div>
-            <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-purple-500/20 rounded-full blur-[100px] pointer-events-none"></div>
+            <!-- Decorative Elements con Colores del Logo MAS Digital -->
+            <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-blue/25 rounded-full blur-[110px] pointer-events-none"></div>
+            <div class="absolute top-1/3 right-1/4 w-[350px] h-[350px] bg-brand-pink/20 rounded-full blur-[100px] pointer-events-none"></div>
+            <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-brand-purple/25 rounded-full blur-[100px] pointer-events-none"></div>
             <svg class="absolute w-full h-full opacity-[0.03] pointer-events-none z-0" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid-pattern" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(#grid-pattern)" /></svg>
 
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div class="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
                     <div class="text-center lg:text-left z-20">
                         <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 mb-6 backdrop-blur-sm shadow-xl">
-                            <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse shrink-0"></span>
+                            <span class="w-2 h-2 rounded-full bg-brand-orange animate-pulse shrink-0"></span>
                             <span class="text-[10px] md:text-xs font-bold text-white tracking-widest uppercase">Tecnología & Branding 360°</span>
                         </div>
-                        <h1 class="text-5xl md:text-6xl lg:text-[4.5rem] font-black text-white tracking-tighter leading-[1.05] mb-6 drop-shadow-lg">
+                        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-black text-white tracking-tighter leading-[1.05] mb-6 drop-shadow-lg">
                             Sistematiza tu empresa.<br><span class="grad-text drop-shadow-md">Multiplica</span> tus ventas.
                         </h1>
-                        <p class="text-lg md:text-xl text-white/80 font-medium mb-10 leading-relaxed max-w-xl mx-auto lg:mx-0">Desde aplicaciones a medida que automatizan tu operación, hasta contenido estratégico que posiciona tu marca en el mundo digital.</p>
+                        <p class="text-base sm:text-lg md:text-xl text-white/80 font-medium mb-10 leading-relaxed max-w-xl mx-auto lg:mx-0">Desde aplicaciones a medida que automatizan tu operación, hasta contenido estratégico que posiciona tu marca en el mundo digital.</p>
                         <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                             <button onclick="document.getElementById('tech').scrollIntoView({behavior:'smooth'})" class="px-8 py-4 rounded-full text-brand-dark font-black text-sm uppercase tracking-widest bg-white shadow-xl shadow-white/20 hover:scale-105 hover:shadow-white/30 transition-all flex items-center justify-center gap-3 shrink-0">Ver Soluciones</button>
                             <button onclick="document.getElementById('studio').scrollIntoView({behavior:'smooth'})" class="px-8 py-4 rounded-full text-white bg-transparent border-2 border-white/30 font-black text-sm uppercase tracking-widest hover:bg-white/10 transition-all flex items-center justify-center gap-3 shrink-0">Content Studio</button>
@@ -152,16 +159,16 @@
                     <div class="relative h-[250px] sm:h-[400px] lg:h-[500px] w-full z-10 flex items-center justify-center perspective-[1000px] mt-8 lg:mt-0">
                         <div class="absolute w-[90%] sm:w-[80%] lg:w-[90%] h-[200px] sm:h-[340px] bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl shadow-[0_30px_60px_rgba(0,0,0,0.5)] float-slow flex flex-col overflow-hidden transform rotate-y-[-10deg] rotate-x-[5deg] z-20">
                             <div class="h-8 sm:h-12 bg-white/10 border-b border-white/10 flex items-center px-4 gap-2">
-                                <div class="w-3 h-3 rounded-full bg-rose-500 shrink-0"></div><div class="w-3 h-3 rounded-full bg-amber-400 shrink-0"></div><div class="w-3 h-3 rounded-full bg-green-400 shrink-0"></div><div class="ml-4 w-32 h-3 bg-white/20 rounded-full hidden sm:block"></div>
+                                <div class="w-3 h-3 rounded-full bg-brand-pink shrink-0"></div><div class="w-3 h-3 rounded-full bg-brand-orange shrink-0"></div><div class="w-3 h-3 rounded-full bg-brand-blue shrink-0"></div><div class="ml-4 w-32 h-3 bg-white/20 rounded-full hidden sm:block"></div>
                             </div>
                             <div class="p-4 sm:p-6 flex gap-4 sm:gap-6 h-full">
                                 <div class="w-1/3 flex flex-col gap-2 sm:gap-4">
-                                    <div class="w-full h-12 sm:h-20 bg-gradient-to-br from-blue-500/40 to-purple-500/40 rounded-xl sm:rounded-2xl border border-white/10 p-2 sm:p-3"><div class="w-6 sm:w-8 h-2 bg-white/40 rounded-full mb-2"></div><div class="w-10 sm:w-16 h-3 sm:h-4 bg-white/80 rounded-full mb-2"></div><div class="w-full h-4 sm:h-6 bg-white/10 rounded-md mt-auto"></div></div>
+                                    <div class="w-full h-12 sm:h-20 bg-gradient-to-br from-brand-blue/40 to-brand-purple/40 rounded-xl sm:rounded-2xl border border-white/10 p-2 sm:p-3"><div class="w-6 sm:w-8 h-2 bg-white/40 rounded-full mb-2"></div><div class="w-10 sm:w-16 h-3 sm:h-4 bg-white/80 rounded-full mb-2"></div><div class="w-full h-4 sm:h-6 bg-white/10 rounded-md mt-auto"></div></div>
                                     <div class="w-full h-6 sm:h-8 bg-white/10 rounded-xl"></div><div class="w-full h-6 sm:h-8 bg-white/10 rounded-xl"></div>
                                 </div>
                                 <div class="w-2/3 flex flex-col gap-2 sm:gap-4">
                                     <div class="w-full h-6 sm:h-8 bg-white/20 rounded-xl mb-2"></div>
-                                    <div class="flex items-end gap-1 sm:gap-2 h-full pb-2 sm:pb-4"><div class="w-full bg-blue-400/60 rounded-t-lg" style="height: 40%"></div><div class="w-full bg-purple-400/60 rounded-t-lg" style="height: 70%"></div><div class="w-full bg-pink-400/60 rounded-t-lg" style="height: 50%"></div><div class="w-full bg-orange-400/60 rounded-t-lg" style="height: 90%"></div><div class="w-full bg-green-400/60 rounded-t-lg" style="height: 100%"></div></div>
+                                    <div class="flex items-end gap-1 sm:gap-2 h-full pb-2 sm:pb-4"><div class="w-full bg-brand-blue/70 rounded-t-lg" style="height: 40%"></div><div class="w-full bg-brand-purple/70 rounded-t-lg" style="height: 70%"></div><div class="w-full bg-brand-pink/70 rounded-t-lg" style="height: 50%"></div><div class="w-full bg-brand-orange/70 rounded-t-lg" style="height: 90%"></div><div class="w-full bg-emerald-400/70 rounded-t-lg" style="height: 100%"></div></div>
                                 </div>
                             </div>
                         </div>
@@ -174,53 +181,53 @@
             </div>
         </section>
 
-        <section id="nosotros" class="bg-white py-24 md:py-32 relative reveal -mt-20">
+        <section id="nosotros" class="bg-white py-20 md:py-32 relative reveal -mt-20">
             <div class="max-w-7xl mx-auto relative z-10">
                 <div class="text-center max-w-3xl mx-auto mb-16 px-4">
-                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100 mb-6 text-brand-blue font-bold text-xs uppercase tracking-widest shadow-sm">Nuestra Filosofía</div>
-                    <h2 class="text-3xl md:text-5xl font-black mb-6 leading-tight tracking-tight text-slate-900">Software que entiende tu negocio.<br><span class="text-transparent bg-clip-text grad-vibrant">Contenido que vende.</span></h2>
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-50 border border-purple-100 mb-6 text-brand-purple font-bold text-xs uppercase tracking-widest shadow-sm">Nuestra Filosofía</div>
+                    <h2 class="text-3xl md:text-5xl font-black mb-6 leading-tight tracking-tight text-slate-900">Software que entiende tu negocio.<br><span class="text-transparent bg-clip-text grad-mas">Contenido que vende.</span></h2>
                     <p class="text-slate-500 text-lg leading-relaxed font-medium">No somos una agencia genérica. En <strong>MAS Digital</strong> construimos tu ventaja competitiva: desde aplicaciones a medida que automatizan tu operación, hasta estrategias audiovisuales que posicionan tu marca en redes sociales.</p>
                 </div>
-                <div class="flex overflow-x-auto md:grid md:grid-cols-3 snap-x snap-mandatory gap-6 pb-8 hide-scrollbar max-w-5xl mx-auto px-4 md:px-0">
-                    <div class="w-[85vw] md:w-auto shrink-0 snap-center bg-white p-8 rounded-3xl border border-slate-200 hover:border-blue-300 transition-all group content-card-hover relative overflow-hidden">
+                <div class="flex overflow-x-auto md:grid md:grid-cols-3 snap-x snap-mandatory gap-6 pb-8 hide-scrollbar max-w-5xl mx-auto px-4 md:px-6">
+                    <div class="w-[85vw] md:w-auto shrink-0 snap-center bg-white p-8 rounded-3xl border border-slate-200 hover:border-brand-blue transition-all group content-card-hover relative overflow-hidden">
                         <div class="absolute top-0 right-0 w-24 h-24 bg-blue-50 rounded-bl-full -z-10 group-hover:scale-110 transition-transform"></div>
-                        <div class="w-14 h-14 bg-white rounded-2xl shadow-sm flex items-center justify-center text-blue-600 mb-6 border border-slate-100 shrink-0 group-hover:scale-110 transition-transform"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="shrink-0"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline></svg></div>
+                        <div class="w-14 h-14 bg-white rounded-2xl shadow-sm flex items-center justify-center text-brand-blue mb-6 border border-slate-100 shrink-0 group-hover:scale-110 transition-transform"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="shrink-0"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline></svg></div>
                         <h3 class="text-xl font-bold text-slate-900 mb-3">Siempre A Tu Medida</h3><p class="text-slate-500 text-sm leading-relaxed font-medium">No adaptes tu empresa a un software genérico. Nosotros creamos herramientas exactas para tus procesos.</p>
                     </div>
-                    <div class="w-[85vw] md:w-auto shrink-0 snap-center bg-white p-8 rounded-3xl border border-slate-200 hover:border-purple-300 transition-all group content-card-hover relative overflow-hidden">
+                    <div class="w-[85vw] md:w-auto shrink-0 snap-center bg-white p-8 rounded-3xl border border-slate-200 hover:border-brand-purple transition-all group content-card-hover relative overflow-hidden">
                         <div class="absolute top-0 right-0 w-24 h-24 bg-purple-50 rounded-bl-full -z-10 group-hover:scale-110 transition-transform"></div>
-                        <div class="w-14 h-14 bg-white rounded-2xl shadow-sm flex items-center justify-center text-purple-600 mb-6 border border-slate-100 shrink-0 group-hover:scale-110 transition-transform"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="shrink-0"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
+                        <div class="w-14 h-14 bg-white rounded-2xl shadow-sm flex items-center justify-center text-brand-purple mb-6 border border-slate-100 shrink-0 group-hover:scale-110 transition-transform"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="shrink-0"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
                         <h3 class="text-xl font-bold text-slate-900 mb-3">Suscripción Plana</h3><p class="text-slate-500 text-sm leading-relaxed font-medium">Te entregamos un ecosistema propio mediante una suscripción clara y accesible. Crecimiento sin sorpresas ni porcentajes.</p>
                     </div>
-                    <div class="w-[85vw] md:w-auto shrink-0 snap-center bg-white p-8 rounded-3xl border border-slate-200 hover:border-rose-300 transition-all group content-card-hover relative overflow-hidden">
-                        <div class="absolute top-0 right-0 w-24 h-24 bg-rose-50 rounded-bl-full -z-10 group-hover:scale-110 transition-transform"></div>
-                        <div class="w-14 h-14 bg-white rounded-2xl shadow-sm flex items-center justify-center text-rose-500 mb-6 border border-slate-100 shrink-0 group-hover:scale-110 transition-transform"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="shrink-0"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg></div>
+                    <div class="w-[85vw] md:w-auto shrink-0 snap-center bg-white p-8 rounded-3xl border border-slate-200 hover:border-brand-pink transition-all group content-card-hover relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-pink-50 rounded-bl-full -z-10 group-hover:scale-110 transition-transform"></div>
+                        <div class="w-14 h-14 bg-white rounded-2xl shadow-sm flex items-center justify-center text-brand-pink mb-6 border border-slate-100 shrink-0 group-hover:scale-110 transition-transform"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="shrink-0"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg></div>
                         <h3 class="text-xl font-bold text-slate-900 mb-3">Imagen de Marca</h3><p class="text-slate-500 text-sm leading-relaxed font-medium">Automatizamos tu trastienda y potenciamos tu escaparate con contenido audiovisual de alto impacto.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="tech" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 scroll-mt-24 reveal">
+        <section id="tech" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 scroll-mt-24 reveal">
             <div class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-200 pb-6">
                 <div>
                     <div class="flex items-center gap-3 mb-2">
-                        <div class="w-8 h-8 rounded-lg grad-vibrant flex items-center justify-center shadow-md shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="white" stroke-width="3" viewBox="0 0 24 24" class="shrink-0"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></div>
+                        <div class="w-9 h-9 rounded-xl grad-vibrant flex items-center justify-center shadow-md shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="white" stroke-width="3" viewBox="0 0 24 24" class="shrink-0"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></div>
                         <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">Tech & Apps</h2>
                     </div>
                     <p class="text-sm text-slate-500 font-medium">Sistematización de procesos con herramientas empresariales a tu medida.</p>
                 </div>
             </div>
             <!-- Dynamic Content Loading Placeholder -->
-            <div id="tech-loader" class="py-20 flex flex-col items-center justify-center"><svg class="animate-spin h-10 w-10 text-brand-blue mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg><p class="text-slate-500 font-bold text-sm tracking-widest uppercase">Descargando Catálogo de Sistemas...</p></div>
+            <div id="tech-loader" class="py-20 flex flex-col items-center justify-center"><svg class="animate-spin h-10 w-10 text-brand-purple mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg><p class="text-slate-500 font-bold text-sm tracking-widest uppercase">Descargando Catálogo de Sistemas...</p></div>
             <div id="tech-grid" class="hidden"></div>
         </section>
 
-        <section id="studio" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 scroll-mt-24 reveal">
+        <section id="studio" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 scroll-mt-24 reveal">
             <div class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-200 pb-6">
                 <div>
                     <div class="flex items-center gap-3 mb-2">
-                        <div class="w-8 h-8 rounded-lg grad-sunset flex items-center justify-center shadow-md shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="white" stroke-width="3" viewBox="0 0 24 24" class="shrink-0"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg></div>
+                        <div class="w-9 h-9 rounded-xl grad-sunset flex items-center justify-center shadow-md shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="white" stroke-width="3" viewBox="0 0 24 24" class="shrink-0"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg></div>
                         <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">Content Studio</h2>
                     </div>
                     <p class="text-sm text-slate-500 font-medium">Estrategias y producción audiovisual para redes sociales.</p>
@@ -229,7 +236,7 @@
             <div id="studio-grid" class="flex overflow-x-auto md:grid md:grid-cols-3 snap-x snap-mandatory gap-6 pb-8 hide-scrollbar items-stretch"></div>
         </section>
         
-        <section id="faq" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24 scroll-mt-24 reveal">
+        <section id="faq" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 scroll-mt-24 reveal">
             <div class="text-center mb-12"><h2 class="text-3xl md:text-5xl font-black text-slate-900 mb-4 tracking-tight">Preguntas Frecuentes</h2><p class="text-slate-500 font-medium text-lg">Todo lo que necesitas saber antes de trabajar con nosotros.</p></div>
             <div class="space-y-4">
                 <details class="group bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-all">
@@ -249,63 +256,67 @@
     </main>
 
     <!-- MODAL DINÁMICO UNIVERSAL PARA PRODUCTOS -->
-    <!-- FIX: Ensuring overflow-y-auto is correctly handled to prevent cutoff -->
+    <!-- Optimizado para exposiciones de ventas en celulares, iPads y PC -->
     <div id="product-modal" class="fixed inset-0 bg-slate-900/95 backdrop-blur-md z-[200] hidden opacity-0 transition-opacity duration-300 overflow-hidden flex flex-col">
         <div class="w-full flex-grow overflow-y-auto chat-scroll flex items-start justify-center md:p-4">
             <div class="relative w-full min-h-[100dvh] md:min-h-0 md:h-auto md:max-w-6xl md:rounded-[2.5rem] bg-white text-left shadow-2xl modal-enter border-0 md:border border-slate-200 flex flex-col overflow-hidden my-auto">
                 
-                <button onclick="closeProductModal()" class="absolute top-4 md:top-6 right-4 md:right-6 w-11 h-11 bg-black/30 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-rose-500 shadow-xl transition-all z-[300] border border-white/30 cursor-pointer shrink-0">
+                <button onclick="closeProductModal()" class="fixed md:absolute top-4 md:top-6 right-4 md:right-6 w-11 h-11 bg-black/40 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-rose-500 shadow-xl transition-all z-[300] border border-white/30 cursor-pointer shrink-0">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" class="shrink-0"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                 </button>
 
-                <!-- Cabecera del Modal (Ajustada z-index vital) -->
-                <div id="modal-header-section" class="px-6 md:px-16 pt-20 pb-16 relative overflow-hidden flex flex-col md:flex-row items-center justify-between text-white transition-colors duration-500 shrink-0">
-                    <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-white/10 rounded-full blur-[100px] pointer-events-none z-0"></div>
-                    <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-black/10 rounded-full blur-[80px] pointer-events-none z-0"></div>
+                <!-- Cabecera del Modal (Más compacta en móviles/tablets y sin el icono gigante hasta pantallas XL) -->
+                <div id="modal-header-section" class="px-6 sm:px-10 md:px-14 pt-14 pb-10 md:py-12 relative overflow-hidden flex flex-col xl:flex-row items-center justify-between text-white transition-colors duration-500 shrink-0">
+                    <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-white/10 rounded-full blur-[90px] pointer-events-none z-0"></div>
+                    <div class="absolute bottom-0 left-0 w-[350px] h-[350px] bg-black/15 rounded-full blur-[70px] pointer-events-none z-0"></div>
 
-                    <div class="z-[60] w-full md:w-[55%] flex flex-col items-center md:items-start text-center md:text-left relative">
-                        <div class="mb-6"><span id="modal-tag" class="px-5 py-2 rounded-full font-black text-[10px] sm:text-xs uppercase tracking-widest shadow-md inline-flex items-center gap-2 bg-white shrink-0 text-slate-900"></span></div>
+                    <!-- En móviles y iPads ocupa el 100% de forma limpia y compacta -->
+                    <div class="z-[60] w-full xl:w-[62%] flex flex-col items-center xl:items-start text-center xl:text-left relative">
+                        <div class="mb-4"><span id="modal-tag" class="px-4 py-1.5 rounded-full font-black text-[10px] sm:text-xs uppercase tracking-widest shadow-md inline-flex items-center gap-2 bg-white shrink-0 text-slate-900"></span></div>
                         
-                        <div class="bg-white rounded-[2rem] p-6 sm:p-8 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] inline-block w-full max-w-[420px] transform md:-rotate-2 transition-transform hover:rotate-0 relative z-[60]">
-                            <div id="modal-title-html" class="flex flex-col items-center md:items-start select-none w-full relative z-[70]"></div>
+                        <div class="bg-white rounded-[1.75rem] p-5 sm:p-6 md:p-7 shadow-[0_20px_40px_-12px_rgba(0,0,0,0.4)] inline-block w-full max-w-[400px] transform xl:-rotate-1 transition-transform hover:rotate-0 relative z-[60]">
+                            <div id="modal-title-html" class="flex flex-col items-center xl:items-start select-none w-full relative z-[70]"></div>
                         </div>
                         
-                        <p id="modal-desc" class="text-base md:text-lg text-white/95 max-w-lg font-medium mt-10 leading-relaxed drop-shadow-md px-2 md:px-0 relative z-[60]"></p>
+                        <p id="modal-desc" class="text-sm sm:text-base md:text-lg text-white/95 max-w-2xl font-medium mt-6 leading-relaxed drop-shadow-md px-2 xl:px-0 relative z-[60]"></p>
                     </div>
 
-                    <div class="z-[60] w-full md:w-[45%] flex justify-center mt-12 md:mt-0 relative">
+                    <!-- OCULTO EN CELULARES Y TABLETS (iPads): Solo aparece en pantallas grandes de escritorio (xl:flex) -->
+                    <div class="hidden xl:flex z-[60] xl:w-[38%] justify-center items-center relative">
                         <div id="modal-hero-icon" class="text-white drop-shadow-[0_20px_30px_rgba(0,0,0,0.3)] flex items-center justify-center transform hover:scale-105 transition-transform duration-500 shrink-0"></div>
                     </div>
                 </div>
 
-                <div id="modal-advantages" class="bg-slate-50 py-16 px-0 md:px-12 relative z-20 border-b border-slate-100 shrink-0" style="display: none;"></div>
+                <!-- Ventajas con espacio optimizado -->
+                <div id="modal-advantages" class="bg-slate-50 py-10 md:py-12 px-0 md:px-10 relative z-20 border-b border-slate-200/70 shrink-0" style="display: none;"></div>
 
-                <div class="py-16 px-0 md:px-10 bg-slate-50 flex-grow relative z-20">
-                    <div class="text-center mb-10 px-6">
-                        <h3 class="text-3xl font-black text-slate-900 mb-2">Elige el plan ideal para tu empresa</h3>
-                        <p class="text-slate-500 text-sm font-medium">Suscripción clara. Soporte y actualizaciones continuas incluidas.</p>
+                <!-- Sección de Planes -->
+                <div class="py-10 md:py-14 px-0 md:px-10 bg-slate-50 flex-grow relative z-20">
+                    <div class="text-center mb-6 px-6">
+                        <h3 class="text-2xl sm:text-3xl font-black text-slate-900 mb-2">Elige el plan ideal para tu empresa</h3>
+                        <p class="text-slate-500 text-xs sm:text-sm font-medium">Suscripción clara. Soporte y actualizaciones continuas incluidas.</p>
 
-                        <div class="flex justify-center mt-6">
-                            <div class="bg-slate-200 p-1.5 rounded-full inline-flex relative shadow-inner items-center">
-                                <button id="modal-btn-mensual" onclick="toggleModalPricing('mensual')" class="px-8 py-2.5 rounded-full text-sm font-black bg-white text-slate-900 shadow-sm transition-all duration-300 shrink-0">Mensual</button>
-                                <button id="modal-btn-anual" onclick="toggleModalPricing('anual')" class="px-6 md:px-8 py-2.5 rounded-full text-sm font-black text-slate-500 hover:text-slate-800 transition-all duration-300 flex items-center gap-2 shrink-0">
+                        <div class="flex justify-center mt-5">
+                            <div class="bg-slate-200/90 p-1.5 rounded-full inline-flex relative shadow-inner items-center">
+                                <button id="modal-btn-mensual" onclick="toggleModalPricing('mensual')" class="px-6 sm:px-8 py-2.5 rounded-full text-xs sm:text-sm font-black bg-white text-slate-900 shadow-sm transition-all duration-300 shrink-0">Mensual</button>
+                                <button id="modal-btn-anual" onclick="toggleModalPricing('anual')" class="px-5 sm:px-8 py-2.5 rounded-full text-xs sm:text-sm font-black text-slate-500 hover:text-slate-800 transition-all duration-300 flex items-center gap-2 shrink-0">
                                     Anual <span class="bg-green-100 text-green-700 text-[10px] uppercase font-black px-2 py-0.5 rounded-full border border-green-200 shrink-0 whitespace-nowrap">2 Meses Gratis</span>
                                 </button>
                             </div>
                         </div>
 
                         <!-- Indicador de Scroll en Móviles y Tablets -->
-                        <div class="flex justify-center mt-8 xl:hidden">
-                            <span class="bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full flex items-center gap-2 shadow-sm animate-pulse border border-blue-100 shrink-0">
+                        <div class="flex justify-center mt-6 xl:hidden">
+                            <span class="bg-blue-50 text-brand-blue text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full flex items-center gap-2 shadow-sm animate-pulse border border-blue-100 shrink-0">
                                 <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" class="shrink-0"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
-                                Desliza para ver más
+                                Desliza para ver los planes
                                 <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" class="shrink-0"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
                             </span>
                         </div>
                     </div>
 
-                    <!-- Grilla Convertida a Carrusel para Celulares y Tablets (iPads) (xl:flex-wrap) -->
-                    <div id="modal-pricing-grid" class="flex flex-nowrap overflow-x-auto xl:flex-wrap xl:justify-center snap-x snap-mandatory gap-6 pb-8 px-6 hide-scrollbar items-stretch w-full">
+                    <!-- Grilla de Planes: pt-8 agregado para que NUNCA se recorte el cartel superior "Recomendado para crecer" ni el globo de oferta -->
+                    <div id="modal-pricing-grid" class="flex flex-nowrap overflow-x-auto xl:flex-wrap xl:justify-center snap-x snap-mandatory gap-6 pt-8 pb-10 px-6 hide-scrollbar items-stretch w-full">
                     </div>
                 </div>
             </div>
@@ -316,8 +327,9 @@
     <div id="cart-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[99] hidden opacity-0 transition-opacity duration-300" onclick="toggleCart()"></div>
 
     <div id="cart-sidebar" class="fixed top-0 right-0 w-full md:w-[480px] h-full bg-slate-50 z-[100] transform translate-x-full transition-transform duration-300 flex flex-col shadow-2xl">
+        <div class="h-1.5 w-full grad-mas shrink-0"></div>
         <div class="p-6 border-b border-slate-200 bg-white flex justify-between items-center shadow-sm z-10 shrink-0">
-            <h2 class="text-2xl font-black text-slate-900 flex items-center gap-3">Tu Solicitud <span id="cart-header-count" class="bg-[#2563EB] text-white text-sm px-3 py-0.5 rounded-full shadow-sm shrink-0">0</span></h2>
+            <h2 class="text-2xl font-black text-slate-900 flex items-center gap-3">Tu Solicitud <span id="cart-header-count" class="grad-vibrant text-white text-sm px-3 py-0.5 rounded-full shadow-sm shrink-0">0</span></h2>
             <button onclick="toggleCart()" class="text-slate-400 hover:text-rose-500 bg-slate-100 rounded-full p-2.5 transition-all shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" class="shrink-0"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
         </div>
 
@@ -351,7 +363,7 @@
     <!-- CHATBOT INTELIGENTE -->
     <div id="chatbot-container" class="fixed bottom-6 right-6 z-[9999] flex flex-col items-end pointer-events-none">
         <div id="chat-teaser" class="bg-white px-4 py-3 rounded-2xl shadow-xl border border-slate-100 mb-4 animate-bounce cursor-pointer flex items-center gap-3 relative pointer-events-auto hover:-translate-y-1 transition-transform" onclick="window.toggleChat()">
-            <div class="w-2.5 h-2.5 bg-blue-500 rounded-full animate-pulse absolute -top-1 -right-1 border-2 border-white"></div>
+            <div class="w-2.5 h-2.5 bg-brand-pink rounded-full animate-pulse absolute -top-1 -right-1 border-2 border-white"></div>
             <p class="text-[13px] font-bold text-slate-800">¿Buscas orientación? 👋</p>
         </div>
 
@@ -395,7 +407,8 @@
         </div>
     </div>
 
-    <footer class="bg-slate-900 text-slate-300 py-16 border-t border-slate-800 mt-12">
+    <footer class="bg-slate-900 text-slate-300 py-16 border-t border-slate-800 mt-12 relative overflow-hidden">
+        <div class="h-1 w-full grad-mas absolute top-0 left-0"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-10">
             <div>
                 <h3 class="text-2xl font-black text-white mb-4">MAS Digital<span class="text-[#F97316]">.</span></h3>
@@ -438,16 +451,17 @@
         };
 
         const heroSvgs = {
-            'delivery': '<svg class="w-48 h-48 md:w-64 md:h-64 animate-pulse drop-shadow-2xl shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path></svg>',
-            'citas': '<svg class="w-48 h-48 md:w-64 md:h-64 animate-pulse drop-shadow-2xl shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"></path></svg>',
-            'biometrica': '<svg class="w-48 h-48 md:w-64 md:h-64 animate-pulse drop-shadow-2xl shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 3.75H6A2.25 2.25 0 003.75 6v1.5m13.5-3.75H18A2.25 2.25 0 0120.25 6v1.5m-16.5 13.5V18A2.25 2.25 0 016 15.75h1.5m13.5 3.75V18a2.25 2.25 0 00-2.25-2.25H18M12 8.25a3.75 3.75 0 100 7.5 3.75 3.75 0 000-7.5z"></path></svg>',
-            'default': '<svg class="w-48 h-48 md:w-64 md:h-64 animate-[bounce_4s_infinite] drop-shadow-2xl shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"></path></svg>'
+            'delivery': '<svg class="w-44 h-44 xl:w-56 xl:h-56 animate-pulse drop-shadow-2xl shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path></svg>',
+            'citas': '<svg class="w-44 h-44 xl:w-56 xl:h-56 animate-pulse drop-shadow-2xl shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"></path></svg>',
+            'biometrica': '<svg class="w-44 h-44 xl:w-56 xl:h-56 animate-pulse drop-shadow-2xl shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 3.75H6A2.25 2.25 0 003.75 6v1.5m13.5-3.75H18A2.25 2.25 0 0120.25 6v1.5m-16.5 13.5V18A2.25 2.25 0 016 15.75h1.5m13.5 3.75V18a2.25 2.25 0 00-2.25-2.25H18M12 8.25a3.75 3.75 0 100 7.5 3.75 3.75 0 000-7.5z"></path></svg>',
+            'default': '<svg class="w-44 h-44 xl:w-56 xl:h-56 animate-[bounce_4s_infinite] drop-shadow-2xl shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"></path></svg>'
         };
 
+        // FIX DE ICONOS DE PLANES: Antes el icono 'pro' tenía dos <path> distintos (una tienda y un rayo encima del otro). Ahora son iconos limpios, únicos y sin superposición.
         const planIcons = {
-            'basico': '<svg class="shrink-0 w-7 h-7" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>',
-            'pro': '<svg class="shrink-0 w-7 h-7" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 21v-7.5a.75.75 0 0 1 .75-.75h3a2.25 2.25 0 0 0 2.25-2.25v-6.75a9 9 0 0 0-9-9 9 9 0 0 0-9 9v6.75a2.25 2.25 0 0 0 2.25 2.25h3a.75.75 0 0 1 .75.75V21m-4.5 0h9"></path><path d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>',
-            'premium': '<svg class="shrink-0 w-7 h-7" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5z"></path></svg>'
+            'basico': '<svg class="shrink-0 w-7 h-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>',
+            'pro': '<svg class="shrink-0 w-7 h-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>',
+            'premium': '<svg class="shrink-0 w-7 h-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>'
         };
 
         let dbProductos = {}; let dbServicios = [];
@@ -500,12 +514,13 @@
                 const item = dbProductos[key]; const style = iconDict[item.icono] || iconDict['medida'];
                 let hasModal = item.modalInfo && item.modalInfo.planes && item.modalInfo.planes.length > 0;
                 let actionBtn = hasModal 
-                    ? `<button onclick="openDynamicModal('${key}')" class="w-full mt-2 py-3.5 rounded-xl font-bold text-[13px] bg-slate-900 text-white hover:bg-blue-600 transition-all shadow-md flex items-center justify-center gap-2 group/btn shrink-0">Ver Detalles y Precios <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" class="shrink-0 transition-transform group-hover/btn:translate-x-1"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg></button>` 
+                    ? `<button onclick="openDynamicModal('${key}')" class="w-full mt-2 py-3.5 rounded-xl font-bold text-[13px] bg-slate-900 text-white hover:grad-vibrant transition-all shadow-md flex items-center justify-center gap-2 group/btn shrink-0">Ver Detalles y Precios <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" class="shrink-0 transition-transform group-hover/btn:translate-x-1"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg></button>` 
                     : `<button onclick="addToCart('${item.titulo}', '${item.icono}')" class="w-full py-3.5 rounded-xl font-bold text-[13px] transition-all shadow-sm flex items-center justify-center gap-2 shrink-0 ${style.btn}">Cotizar Solución</button>`;
 
                 gridTech.innerHTML += `
-                    <div class="w-[85vw] md:w-auto shrink-0 snap-center bg-white rounded-[2rem] border border-slate-200 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 p-8 flex flex-col group relative overflow-hidden h-full">
-                        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-slate-50 to-slate-100 rounded-bl-full -z-10 opacity-50 group-hover:scale-110 transition-transform"></div>
+                    <div class="w-[85vw] md:w-auto shrink-0 snap-center bg-white rounded-[2rem] border border-slate-200 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(37,99,235,0.1)] hover:border-brand-blue/40 hover:-translate-y-1 transition-all duration-300 p-8 flex flex-col group relative overflow-hidden h-full">
+                        <div class="absolute top-0 left-0 w-full h-1 grad-mas opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-50/50 to-purple-50/50 rounded-bl-full -z-10 opacity-70 group-hover:scale-110 transition-transform"></div>
                         <div class="w-14 h-14 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center mb-6 shadow-sm ${style.color} group-hover:scale-110 transition-transform duration-300 shrink-0">${style.svg}</div>
                         <h3 class="text-xl font-black text-slate-900 mb-3 leading-tight">${item.titulo}</h3>
                         <p class="text-[13px] text-slate-500 font-medium mb-8 leading-relaxed flex-grow">${item.descripcion}</p>
@@ -518,8 +533,9 @@
             dbServicios.forEach(item => {
                 const style = iconDict[item.icono] || iconDict['branding'];
                 gridStudio.innerHTML += `
-                    <div class="w-[85vw] md:w-auto shrink-0 snap-center bg-white rounded-[2rem] border border-slate-200 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 p-8 flex flex-col items-start group relative overflow-hidden h-full">
-                        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-slate-50 to-slate-100 rounded-bl-full -z-10 opacity-50 group-hover:scale-110 transition-transform"></div>
+                    <div class="w-[85vw] md:w-auto shrink-0 snap-center bg-white rounded-[2rem] border border-slate-200 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(236,72,153,0.1)] hover:border-brand-pink/40 hover:-translate-y-1 transition-all duration-300 p-8 flex flex-col items-start group relative overflow-hidden h-full">
+                        <div class="absolute top-0 left-0 w-full h-1 grad-sunset opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-pink-50/50 to-orange-50/50 rounded-bl-full -z-10 opacity-70 group-hover:scale-110 transition-transform"></div>
                         <div class="w-14 h-14 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center mb-6 shadow-sm ${style.color} group-hover:scale-110 transition-transform duration-300 shrink-0">${style.svg}</div>
                         <h3 class="text-xl font-black text-slate-900 mb-3">${item.titulo}</h3>
                         <p class="text-[13px] text-slate-500 font-medium mb-8 flex-grow leading-relaxed">${item.descripcion}</p>
@@ -537,23 +553,26 @@
             document.getElementById('modal-header-section').style.backgroundColor = info.themeColor || '#2563EB';
             document.getElementById('modal-tag').innerHTML = `<span class="w-2.5 h-2.5 rounded-full inline-block mr-1 shrink-0" style="background-color: ${info.themeColor || '#2563EB'}"></span> <span style="color: ${info.themeColor || '#2563EB'}">${info.tag || 'SISTEMA'}</span>`;
             
+            // Slogan optimizado para no ocupar exceso de altura en iPads y celulares
             document.getElementById('modal-title-html').innerHTML = `
-                <span class="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-none text-center md:text-left block w-full px-2 drop-shadow-sm">${info.sloganTop || ''}</span>
-                <span class="text-2xl sm:text-3xl md:text-4xl font-semibold text-slate-700 tracking-tight mt-2 mb-3 leading-none text-center md:text-left block w-full px-2">${info.sloganMid || ''}</span>
-                <span class="text-white px-6 sm:px-8 py-2 sm:py-2.5 rounded-full inline-block mt-3 text-2xl sm:text-3xl md:text-4xl font-black transform -rotate-3 shadow-[0_10px_20px_rgba(0,0,0,0.15)]" style="background-color: ${info.sloganBottomColor || '#EC4899'}">${info.sloganBottom || ''}</span>`;
+                <span class="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 tracking-tight leading-none text-center xl:text-left block w-full px-2 drop-shadow-sm">${info.sloganTop || ''}</span>
+                <span class="text-xl sm:text-2xl md:text-3xl font-semibold text-slate-700 tracking-tight mt-1.5 mb-2 leading-none text-center xl:text-left block w-full px-2">${info.sloganMid || ''}</span>
+                <span class="text-white px-5 sm:px-7 py-1.5 sm:py-2 rounded-full inline-block mt-1.5 text-xl sm:text-2xl md:text-3xl font-black transform -rotate-2 shadow-[0_10px_20px_rgba(0,0,0,0.15)]" style="background-color: ${info.sloganBottomColor || '#EC4899'}">${info.sloganBottom || ''}</span>`;
             
             document.getElementById('modal-desc').innerHTML = data.descripcion;
             document.getElementById('modal-hero-icon').innerHTML = heroSvgs[productId] || heroSvgs['default'];
 
             const advContainer = document.getElementById('modal-advantages');
             if(info.ventajas && info.ventajas.length > 0) {
-                const iconSVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
-                advContainer.innerHTML = '<div class="flex overflow-x-auto md:grid md:grid-cols-3 snap-x snap-mandatory gap-6 pb-6 hide-scrollbar max-w-6xl mx-auto px-4 md:px-0">' + 
+                const iconSVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 shrink-0"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+                advContainer.innerHTML = '<div class="flex overflow-x-auto md:grid md:grid-cols-3 snap-x snap-mandatory gap-5 pb-2 hide-scrollbar max-w-6xl mx-auto px-6 md:px-0">' + 
                     info.ventajas.map(v => `
-                        <div class="w-[85vw] md:w-auto shrink-0 snap-center bg-white rounded-[2rem] p-8 border border-slate-200 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-2xl transition-all duration-300 group hover:-translate-y-2 relative overflow-hidden text-left z-10">
-                            <div class="absolute top-0 right-0 w-32 h-32 rounded-bl-full -z-10 opacity-[0.04] transition-transform duration-500 group-hover:scale-125" style="background-color: ${info.themeColor || '#2563EB'}"></div>
-                            <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 shadow-sm transition-transform duration-300 group-hover:scale-110 border border-slate-50 shrink-0" style="background-color: ${(info.themeColor || '#2563EB')}15; color: ${info.themeColor || '#2563EB'};">${iconSVG}</div>
-                            <h4 class="font-black text-xl mb-3 text-slate-900">${v.title}</h4>
+                        <div class="w-[80vw] md:w-auto shrink-0 snap-center bg-white rounded-3xl p-6 border border-slate-200/90 shadow-sm hover:shadow-xl transition-all duration-300 group hover:-translate-y-1 relative overflow-hidden text-left z-10 flex flex-col">
+                            <div class="absolute top-0 right-0 w-24 h-24 rounded-bl-full -z-10 opacity-[0.05] transition-transform duration-500 group-hover:scale-125" style="background-color: ${info.themeColor || '#2563EB'}"></div>
+                            <div class="flex items-center gap-3.5 mb-3">
+                                <div class="w-11 h-11 rounded-xl flex items-center justify-center shadow-sm transition-transform duration-300 group-hover:scale-110 border border-slate-100 shrink-0" style="background-color: ${(info.themeColor || '#2563EB')}15; color: ${info.themeColor || '#2563EB'};">${iconSVG}</div>
+                                <h4 class="font-black text-base sm:text-lg text-slate-900 leading-snug">${v.title}</h4>
+                            </div>
                             <p class="text-slate-500 text-[13px] leading-relaxed font-medium">${v.desc}</p>
                         </div>`).join('') + '</div>';
                 advContainer.style.display = 'block';
@@ -581,39 +600,76 @@
                     let originalPriceHtml = ''; let finalPrice = price; let promoBadge = '';
                     
                     if (promoGlobal && promoGlobal.activa) {
-                        let numPrice = parseFloat(price.replace(/,/g, ''));
+                        let numPrice = parseFloat(String(price).replace(/,/g, ''));
                         if (!isNaN(numPrice)) {
                             let descVal = numPrice * (promoGlobal.descuento / 100); let newPrice = (numPrice - descVal).toFixed(2);
                             if(newPrice.endsWith('.00')) newPrice = parseInt(newPrice);
                             finalPrice = `<span class="text-rose-500">${newPrice}</span>`;
-                            originalPriceHtml = `<div class="absolute -top-7 left-0 right-0 text-center text-slate-400 font-bold line-through text-lg decoration-rose-500 decoration-2">S/ ${price}</div>`;
-                            promoBadge = `<div class="absolute -top-4 -right-4 bg-rose-600 text-white w-16 h-16 rounded-full flex items-center justify-center font-black text-[17px] rotate-12 shadow-xl border-4 border-white z-20 animate-[bounce_2s_infinite] shrink-0">-${promoGlobal.descuento}%</div>`;
+                            originalPriceHtml = `<div class="text-slate-400 font-bold line-through text-sm decoration-rose-500 decoration-2 mb-0.5">Antes: S/ ${price}</div>`;
+                            promoBadge = `<div class="absolute top-3 right-3 bg-rose-600 text-white w-12 h-12 rounded-full flex items-center justify-center font-black text-xs rotate-12 shadow-lg border-2 border-white z-20 animate-bounce shrink-0">-${promoGlobal.descuento}%</div>`;
                         }
                     }
 
-                    if(plan.premium) { cardClass = "bg-slate-900 text-white border-slate-800 shadow-xl"; headerBg = "bg-slate-800 text-amber-400"; btnClass = "bg-white text-slate-900 hover:bg-slate-100"; setupClass = isMensual ? "bg-slate-800 text-slate-300 border-slate-700" : "bg-green-500/20 text-green-400 border-green-500/30"; listColor = "text-slate-300"; } 
-                    else if(plan.destacado) { cardClass = `bg-white shadow-2xl relative transform xl:-translate-y-4 border-2`; headerBg = `bg-slate-50 text-slate-900`; btnClass = `text-white shadow-md hover:opacity-90`; setupClass = isMensual ? "bg-slate-50 text-slate-700 border-slate-200" : "bg-green-50 text-green-700 border-green-200"; listColor = "text-slate-700"; } 
-                    else { cardClass = "bg-white border-slate-200 shadow-sm hover:shadow-lg"; headerBg = "bg-slate-50 text-slate-600"; btnClass = "bg-slate-100 text-slate-800 hover:bg-slate-200"; setupClass = isMensual ? "bg-slate-50 text-slate-500 border-slate-200" : "bg-green-50 text-green-700 border-green-200"; listColor = "text-slate-600"; }
+                    // FIX DE TARJETAS Y BANNERS: Sin traslaciones negativas que corten el encabezado "Recomendado para crecer"
+                    if(plan.premium) {
+                        cardClass = "bg-slate-900 text-white border-slate-800 shadow-xl";
+                        headerBg = "bg-slate-800 text-amber-400 border border-slate-700";
+                        btnClass = "bg-white text-slate-900 hover:bg-slate-100 shadow-md";
+                        setupClass = isMensual ? "bg-slate-800 text-slate-300 border-slate-700" : "bg-green-500/20 text-green-400 border-green-500/30";
+                        listColor = "text-slate-300";
+                    } else if(plan.destacado) {
+                        cardClass = `bg-white shadow-[0_20px_50px_rgba(37,99,235,0.15)] relative border-2 ring-4 ring-blue-500/10`;
+                        headerBg = `bg-slate-50 border border-slate-200/80`;
+                        btnClass = `text-white shadow-lg hover:opacity-95`;
+                        setupClass = isMensual ? "bg-slate-50 text-slate-700 border-slate-200" : "bg-green-50 text-green-700 border-green-200";
+                        listColor = "text-slate-700";
+                    } else {
+                        cardClass = "bg-white border-slate-200 shadow-md hover:shadow-lg";
+                        headerBg = "bg-slate-50 text-slate-600 border border-slate-100";
+                        btnClass = "bg-slate-100 text-slate-800 hover:bg-slate-200";
+                        setupClass = isMensual ? "bg-slate-50 text-slate-500 border-slate-200" : "bg-green-50 text-green-700 border-green-200";
+                        listColor = "text-slate-600";
+                    }
 
                     let featuresHtml = "";
                     if(Array.isArray(plan.features)) {
-                        featuresHtml = plan.features.map(f => `<li class="flex items-start gap-3"><div class="mt-0.5 w-5 h-5 rounded-full ${plan.premium ? 'bg-amber-500/20 text-amber-400' : (plan.destacado ? 'bg-emerald-500/20 text-emerald-500' : 'bg-green-500/20 text-green-600')} flex items-center justify-center shrink-0"><svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg></div><span class="leading-relaxed">${f}</span></li>`).join('');
+                        featuresHtml = plan.features.map(f => `<li class="flex items-start gap-3"><div class="mt-0.5 w-5 h-5 rounded-full ${plan.premium ? 'bg-amber-500/20 text-amber-400' : (plan.destacado ? 'bg-emerald-500/20 text-emerald-600' : 'bg-green-500/20 text-green-600')} flex items-center justify-center shrink-0"><svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg></div><span class="leading-relaxed">${f}</span></li>`).join('');
                     }
 
+                    // Banner superior garantizado sin recortes y con texto completo visible
+                    const topBannerHtml = plan.destacado 
+                        ? `<div class="w-full text-white text-[11px] font-black uppercase tracking-widest py-2.5 px-3 text-center shadow-sm shrink-0 flex items-center justify-center gap-1.5" style="background-color: ${info.themeColor || '#2563EB'}">
+                            <svg class="w-3.5 h-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <span>Recomendado para Crecer</span>
+                           </div>` 
+                        : (plan.premium ? `<div class="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 text-[11px] font-black uppercase tracking-widest py-2.5 px-3 text-center shadow-sm shrink-0">Máxima Potencia Corporativa</div>` : '');
+
                     grid.innerHTML += `
-                        <div class="w-[85vw] sm:w-[320px] shrink-0 snap-center rounded-[2rem] border ${cardClass} overflow-hidden flex flex-col transition-all h-full relative" ${plan.destacado ? `style="border-color: ${info.themeColor || '#2563EB'};"` : ''}>
-                            ${plan.destacado ? `<div class="text-white text-[10px] font-black uppercase tracking-[0.2em] py-2.5 text-center shadow-sm" style="background-color: ${info.themeColor || '#2563EB'}">Recomendado para Crecer</div>` : ''}
-                            <div class="p-8 border-b ${plan.premium ? 'border-slate-800' : 'border-slate-100'}">
-                                <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 shadow-sm shrink-0 ${headerBg}">
-                                    ${finalIcon}
+                        <div class="w-[85vw] sm:w-[330px] shrink-0 snap-center rounded-[2rem] border ${cardClass} overflow-hidden flex flex-col transition-all h-full relative" ${plan.destacado ? `style="border-color: ${info.themeColor || '#2563EB'};"` : ''}>
+                            ${topBannerHtml}
+                            ${promoBadge}
+                            <div class="p-6 sm:p-7 border-b ${plan.premium ? 'border-slate-800' : 'border-slate-100'} relative">
+                                <div class="flex items-center gap-4 mb-4">
+                                    <div class="w-12 h-12 rounded-2xl flex items-center justify-center shadow-sm shrink-0 ${headerBg}" ${plan.destacado ? `style="color: ${info.themeColor || '#2563EB'};"` : ''}>
+                                        ${finalIcon}
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg sm:text-xl font-black leading-tight ${plan.premium ? 'text-white' : 'text-slate-900'}">${plan.nombre}</h4>
+                                    </div>
                                 </div>
-                                <h4 class="text-xl font-black mb-2 ${plan.premium ? 'text-white' : 'text-slate-900'}">${plan.nombre}</h4>
-                                <p class="text-xs mb-6 min-h-[45px] leading-relaxed ${plan.premium ? 'text-slate-400' : 'text-slate-500'}">${plan.desc}</p>
-                                <div class="flex items-end gap-1 mb-4 relative mt-8">${promoBadge}${originalPriceHtml}<span class="font-bold text-xl mb-1 ${plan.premium ? 'text-slate-500' : 'text-slate-400'}">S/</span><span class="text-5xl font-black tracking-tight" ${plan.destacado && (!promoGlobal || !promoGlobal.activa) ? `style="color: ${info.themeColor || '#2563EB'};"` : ''}>${finalPrice}</span><span class="font-bold mb-1 ${plan.premium ? 'text-slate-500' : 'text-slate-400'}">${period}</span></div>
-                                <div class="text-[11px] font-bold py-2.5 px-3 rounded-xl border mb-6 text-center shadow-sm transition-colors ${setupClass}">${setup}</div>
-                                <button onclick="selectModalPlan('${plan.nombre}')" class="w-full py-4 font-black text-[13px] uppercase tracking-widest rounded-xl transition-all flex items-center justify-center gap-2 shrink-0 ${btnClass}" ${plan.destacado ? `style="background-color: ${info.themeColor || '#2563EB'};"` : ''}>Añadir a Cotización</button>
+                                <p class="text-xs mb-5 min-h-[38px] leading-relaxed ${plan.premium ? 'text-slate-400' : 'text-slate-500'}">${plan.desc}</p>
+                                
+                                ${originalPriceHtml}
+                                <div class="flex items-baseline gap-1 mb-4 relative">
+                                    <span class="font-bold text-lg ${plan.premium ? 'text-slate-400' : 'text-slate-400'}">S/</span>
+                                    <span class="text-4xl sm:text-5xl font-black tracking-tight" ${plan.destacado && (!promoGlobal || !promoGlobal.activa) ? `style="color: ${info.themeColor || '#2563EB'};"` : ''}>${finalPrice}</span>
+                                    <span class="font-bold text-sm ${plan.premium ? 'text-slate-400' : 'text-slate-400'}">${period}</span>
+                                </div>
+                                
+                                <div class="text-[11px] font-bold py-2 px-3 rounded-xl border mb-5 text-center shadow-sm transition-colors ${setupClass}">${setup}</div>
+                                <button onclick="selectModalPlan('${plan.nombre}')" class="w-full py-3.5 font-black text-[12px] sm:text-[13px] uppercase tracking-widest rounded-xl transition-all flex items-center justify-center gap-2 shrink-0 ${btnClass}" ${plan.destacado ? `style="background-color: ${info.themeColor || '#2563EB'};"` : ''}>Añadir a Cotización</button>
                             </div>
-                            <div class="p-8 flex-1 ${plan.premium ? 'bg-slate-800/50' : 'bg-slate-50/50'}"><ul class="space-y-4 text-xs font-medium ${listColor}">${featuresHtml}</ul></div>
+                            <div class="p-6 sm:p-7 flex-1 ${plan.premium ? 'bg-slate-800/40' : 'bg-slate-50/60'}"><ul class="space-y-3.5 text-xs font-medium ${listColor}">${featuresHtml}</ul></div>
                         </div>`;
                 });
             }
@@ -631,8 +687,8 @@
             const btnMensual = document.getElementById('modal-btn-mensual'); const btnAnual = document.getElementById('modal-btn-anual');
             if(tipo === 'mensual' && btnMensual.classList.contains('bg-white')) return;
             if(tipo === 'anual' && btnAnual.classList.contains('bg-white')) return;
-            if(tipo === 'mensual') { btnMensual.className = "px-8 py-2.5 rounded-full text-sm font-black bg-white text-slate-900 shadow-sm transition-all duration-300 shrink-0"; btnAnual.className = "px-6 md:px-8 py-2.5 rounded-full text-sm font-black text-slate-500 hover:text-slate-800 transition-all duration-300 flex items-center gap-2 shrink-0"; } 
-            else { btnAnual.className = "px-6 md:px-8 py-2.5 rounded-full text-sm font-black bg-white text-slate-900 shadow-sm transition-all duration-300 flex items-center gap-2 shrink-0"; btnMensual.className = "px-8 py-2.5 rounded-full text-sm font-black text-slate-500 hover:text-slate-800 transition-all duration-300 shrink-0"; }
+            if(tipo === 'mensual') { btnMensual.className = "px-6 sm:px-8 py-2.5 rounded-full text-xs sm:text-sm font-black bg-white text-slate-900 shadow-sm transition-all duration-300 shrink-0"; btnAnual.className = "px-5 sm:px-8 py-2.5 rounded-full text-xs sm:text-sm font-black text-slate-500 hover:text-slate-800 transition-all duration-300 flex items-center gap-2 shrink-0"; } 
+            else { btnAnual.className = "px-5 sm:px-8 py-2.5 rounded-full text-xs sm:text-sm font-black bg-white text-slate-900 shadow-sm transition-all duration-300 flex items-center gap-2 shrink-0"; btnMensual.className = "px-6 sm:px-8 py-2.5 rounded-full text-xs sm:text-sm font-black text-slate-500 hover:text-slate-800 transition-all duration-300 shrink-0"; }
             if(currentModalProductId) openDynamicModal(currentModalProductId);
         }
 
