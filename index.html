@@ -230,10 +230,10 @@
                         <div class="w-9 h-9 rounded-xl grad-sunset flex items-center justify-center shadow-md shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="white" stroke-width="3" viewBox="0 0 24 24" class="shrink-0"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg></div>
                         <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">Content Studio</h2>
                     </div>
-                    <p class="text-sm text-slate-500 font-medium">Estrategias y producción audiovisual para redes sociales.</p>
+                    <p class="text-sm text-slate-500 font-medium">Creación de ecosistema digital, gestión de redes sociales y producción audiovisual estratégica.</p>
                 </div>
             </div>
-            <div id="studio-grid" class="flex overflow-x-auto md:grid md:grid-cols-3 snap-x snap-mandatory gap-6 pb-8 hide-scrollbar items-stretch"></div>
+            <div id="studio-grid" class="flex overflow-x-auto md:grid md:grid-cols-2 lg:grid-cols-4 snap-x snap-mandatory gap-6 pb-8 hide-scrollbar items-stretch"></div>
         </section>
         
         <section id="faq" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 scroll-mt-24 reveal">
@@ -445,9 +445,212 @@
             'ventas': { color: 'text-blue-600', hoverBorder: 'hover:border-blue-500/30', btn: 'bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white', svg: '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>' },
             'inventario': { color: 'text-slate-800', hoverBorder: 'hover:border-slate-500/30', btn: 'bg-slate-100 text-slate-800 hover:bg-slate-800 hover:text-white', svg: '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>' },
             'medida': { color: 'text-indigo-600', hoverBorder: 'hover:border-indigo-500/30', btn: 'bg-indigo-50 text-indigo-700 hover:bg-indigo-600 hover:text-white', svg: '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><path d="M12 20h9"></path><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>' },
+            'creacion_rrss': { color: 'text-rose-600', hoverBorder: 'hover:border-rose-500/30', btn: 'bg-rose-50 text-rose-700 hover:bg-rose-600 hover:text-white', svg: '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>' },
             'branding': { color: 'text-pink-500', hoverBorder: 'hover:border-pink-500/30', btn: 'bg-pink-50 text-pink-700 hover:bg-pink-500 hover:text-white', svg: '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><path d="m12 14 4-4"></path><path d="M3.34 19a10 10 0 1 1 17.32 0"></path></svg>' },
             'rrss': { color: 'text-orange-500', hoverBorder: 'hover:border-orange-500/30', btn: 'bg-orange-50 text-orange-700 hover:bg-orange-500 hover:text-white', svg: '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>' },
             'audiovisual': { color: 'text-amber-500', hoverBorder: 'hover:border-amber-500/30', btn: 'bg-amber-50 text-amber-700 hover:bg-amber-500 hover:text-white', svg: '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>' }
+        };
+
+        // Catálogo enriquecido de Content Studio para explicar en vivo a los clientes (con entregables y planes detallados)
+        const studioShowcase = {
+            'creacion_rrss': {
+                id: 'studio_creacion_rrss',
+                titulo: 'Creación de Redes Sociales',
+                icono: 'creacion_rrss',
+                badge: 'KIT DE LANZAMIENTO DIGITAL',
+                precioDesde: 'Pago Único',
+                descripcion: 'Creamos y configuramos todo el ecosistema digital de tu negocio desde cero: Facebook, Instagram, TikTok y Perfil de Negocio en Google Maps con diseño de portadas.',
+                entregables: [
+                    'Creación y configuración de Página de Facebook Comercial',
+                    'Creación de cuenta profesional de Instagram Empresas',
+                    'Apertura y configuración de cuenta oficial en TikTok',
+                    'Registro y verificación de Perfil de Negocio en Google (Google Maps)',
+                    'Diseño gráfico de Foto de Perfil y Portadas corporativas adaptadas',
+                    'Redacción de Biografía persuasiva, horarios, ubicación y botón directo a WhatsApp'
+                ],
+                modalInfo: {
+                    themeColor: '#E11D48',
+                    tag: 'LANZAMIENTO DIGITAL 360°',
+                    sloganTop: 'Nace en internet,',
+                    sloganMid: 'destaca en Google',
+                    sloganBottom: 'Y VENDE MÁS.',
+                    sloganBottomColor: '#F97316',
+                    isOneTimePayment: true,
+                    ventajas: [
+                        { title: 'Presencia en Google Maps', desc: 'Tus clientes te encontrarán cuando busquen tu rubro en Google con ubicación GPS, fotos, horarios y botón de llamada.' },
+                        { title: 'Imagen 100% Profesional', desc: 'Diseñamos tu foto de perfil, portadas de Facebook y destacadas de Instagram listas para generar confianza inmediata.' },
+                        { title: 'Cuentas Vinculadas', desc: 'Dejamos tus cuentas de Facebook, Instagram, TikTok y WhatsApp Business conectadas y listas para publicar o pautar.' }
+                    ],
+                    planes: [
+                        {
+                            nombre: 'Pack Redes Esencial',
+                            pMes: '180',
+                            pAnual: '180',
+                            periodoCustom: '/pago único',
+                            setupM: 'Incluye configuración completa',
+                            setupA: 'Entrega en 48 horas',
+                            desc: 'Ideal para emprendimientos que inician su presencia en redes sociales.',
+                            destacado: false,
+                            premium: false,
+                            features: [
+                                'Creación y configuración de Facebook Business',
+                                'Creación y optimización de Instagram Empresas',
+                                'Diseño de Foto de Perfil y 1 Foto de Portada oficial',
+                                'Redacción de biografía comercial y enlace directo a WhatsApp',
+                                'Configuración de respuestas automáticas de bienvenida'
+                            ]
+                        },
+                        {
+                            nombre: 'Pack Ecosistema Total + Google',
+                            pMes: '280',
+                            pAnual: '280',
+                            periodoCustom: '/pago único',
+                            setupM: '¡El más solicitado por empresas!',
+                            setupA: 'Llave en mano (Entrega en 72h)',
+                            desc: 'Todas tus redes sociales listas + posicionamiento en Google Maps para captar clientes locales.',
+                            destacado: true,
+                            premium: false,
+                            features: [
+                                'Creación de Facebook, Instagram y cuenta oficial de TikTok',
+                                'Creación de Perfil de Negocio en Google (Google Maps con GPS, horarios y catálogo)',
+                                'Diseño de Foto de Perfil y Portadas profesionales a medida',
+                                'Diseño de 4 íconos para Historias Destacadas en Instagram',
+                                'Diseño de 1 Post de Bienvenida / Lanzamiento ("Ya estamos aquí")',
+                                'Vinculación completa con WhatsApp Business'
+                            ]
+                        },
+                        {
+                            nombre: 'Pack Lanzamiento + Identidad',
+                            pMes: '450',
+                            pAnual: '450',
+                            periodoCustom: '/pago único',
+                            setupM: 'Incluye rediseño de Logo + Redes',
+                            setupA: 'Asesoría personalizada 1 a 1',
+                            desc: 'Si aún no tienes logo o quieres renovar toda tu imagen antes de salir a redes y Google.',
+                            destacado: false,
+                            premium: true,
+                            features: [
+                                'Todo lo incluido en el Pack Ecosistema Total (Facebook, Instagram, TikTok y Google Maps)',
+                                'Diseño o modernización de Logotipo profesional + paleta de colores',
+                                'Foto de perfil, portadas corporativas y plantillas base editables',
+                                '3 Posts iniciales de lanzamiento diseñados para publicar',
+                                'Capacitación rápida para que aprendas a usar tus nuevas cuentas'
+                            ]
+                        }
+                    ]
+                }
+            },
+            'rrss': {
+                id: 'studio_gestion_rrss',
+                titulo: 'Gestión de Redes Sociales',
+                icono: 'rrss',
+                badge: 'DESDE S/ 300 / MES',
+                precioDesde: 'S/ 300/mes',
+                descripcion: 'Nos encargamos de planificar, diseñar y publicar contenido estratégico constante para que tu marca atraiga clientes todos los meses sin que pierdas tiempo.',
+                entregables: [
+                    'Plan Emprendedor desde S/ 300 al mes (12 contenidos mensuales)',
+                    'Parrilla de contenidos estratégica mensual (Diseños + Reels/TikTok)',
+                    'Redacción persuasiva (Copywriting) con llamados a la acción de venta',
+                    'Historias (Stories) interactivas para mantener activa tu comunidad',
+                    'Publicación programada y optimización de hashtags locales'
+                ],
+                modalInfo: {
+                    themeColor: '#EA580C',
+                    tag: 'CONTENT STUDIO & SOCIAL MEDIA',
+                    sloganTop: 'Conecta,',
+                    sloganMid: 'posiciona tu marca',
+                    sloganBottom: 'Y VENDE EN REDES.',
+                    sloganBottomColor: '#E11D48',
+                    isOneTimePayment: false,
+                    ventajas: [
+                        { title: 'Constancia Garantizada', desc: 'Tu negocio nunca más tendrá redes abandonadas. Publicamos puntualmente según un calendario aprobado por ti.' },
+                        { title: 'Diseño que Vende', desc: 'No hacemos simples imágenes; creamos piezas gráficas y videos pensados en despertar el deseo de compra.' },
+                        { title: 'Ahorra Tiempo y Dinero', desc: 'Ten a todo un equipo de diseño, redacción y marketing por una fracción de lo que cuesta contratar personal.' }
+                    ],
+                    planes: [
+                        {
+                            nombre: 'Plan Emprendedor (12 Contenidos)',
+                            pMes: '300',
+                            pAnual: '3,000',
+                            setupM: '0 (Sin costo de instalación)',
+                            setupA: 'GRATIS + 2 Meses Libres',
+                            desc: 'Perfecto para negocios que buscan presencia constante, profesional y atractiva cada semana.',
+                            destacado: true,
+                            premium: false,
+                            features: [
+                                '12 Contenidos mensuales estratégicos (3 publicaciones por semana)',
+                                'Distribución sugerida: 8 Diseños gráficos (Posts/Carruseles) + 4 Ediciones de Reels/TikTok',
+                                'Adaptación de formato para Historias (Stories) de refuerzo',
+                                'Calendario (Parrilla) mensual de contenidos previo para tu aprobación',
+                                'Redacción creativa de textos (Copywriting) enfocada en ventas y WhatsApp',
+                                'Publicación programada en Facebook e Instagram'
+                            ]
+                        },
+                        {
+                            nombre: 'Plan Crecimiento (20 Contenidos)',
+                            pMes: '500',
+                            pAnual: '5,000',
+                            setupM: '0 (Optimización de perfil gratis)',
+                            setupA: 'GRATIS + 2 Meses Libres',
+                            desc: 'Mayor frecuencia de impacto y más videos cortos (Reels/TikTok) para acelerar tu alcance.',
+                            destacado: false,
+                            premium: false,
+                            features: [
+                                '20 Contenidos mensuales estratégicos (5 publicaciones por semana)',
+                                'Distribución sugerida: 12 Diseños gráficos/Carruseles + 8 Reels/TikTok dinámicos',
+                                'Historias semanales de interacción y promoción comercial',
+                                'Actualización mensual de Foto de Portada por campaña',
+                                'Configuración básica de 1 campaña publicitaria en Meta Ads (no incluye saldo publicitario)',
+                                'Reporte mensual de crecimiento y alcance'
+                            ]
+                        },
+                        {
+                            nombre: 'Plan Corporativo Full',
+                            pMes: '850',
+                            pAnual: '8,500',
+                            setupM: '0 (Auditoría de marca incluida)',
+                            setupA: 'GRATIS + 2 Meses Libres',
+                            desc: 'Cobertura total para empresas que quieren dominar su sector en Facebook, Instagram y TikTok.',
+                            destacado: false,
+                            premium: true,
+                            features: [
+                                '30 Contenidos mensuales (Publicación diaria de alto impacto)',
+                                '15 Diseños gráficos/Carruseles + 15 Reels/TikTok de alta retención',
+                                '1 Visita mensual presencial (Huancayo) para grabación de tomas de apoyo',
+                                'Gestión de campañas de anuncios pagados (Meta Ads / TikTok Ads)',
+                                'Actualización mensual de novedades en tu Perfil de Negocio en Google',
+                                'Reunión mensual de estrategia y resultados'
+                            ]
+                        }
+                    ]
+                }
+            },
+            'branding': {
+                id: 'studio_branding',
+                titulo: 'Branding & Diseño Corporativo',
+                icono: 'branding',
+                badge: 'IDENTIDAD VISUAL',
+                precioDesde: 'A medida',
+                descripcion: 'Construimos una identidad visual memorable que transmita profesionalismo y diferencie a tu empresa de la competencia.',
+                entregables: [
+                    'Diseño de Logotipo profesional desde cero o Rediseño (Restyling)',
+                    'Manual de Identidad Corporativa (Colores, tipografías y usos correctos)',
+                    'Diseño de papelería comercial, tarjetas digitales, firmas y brochures PDF'
+                ]
+            },
+            'audiovisual': {
+                id: 'studio_audiovisual',
+                titulo: 'Producción Audiovisual & Reels',
+                icono: 'audiovisual',
+                badge: 'VIDEO MARKETING',
+                precioDesde: 'Por paquete',
+                descripcion: 'Videos dinámicos en alta definición pensados para retener la atención en los primeros 3 segundos y multiplicar tus conversiones.',
+                entregables: [
+                    'Grabación y edición profesional de Reels, TikToks y Shorts comerciales',
+                    'Fotografía de productos, platillos gastronómicos o instalaciones corporativas',
+                    'Guionización creativa con ganchos visuales y subtítulos dinámicos'
+                ]
+            }
         };
 
         const heroSvgs = {
@@ -493,7 +696,13 @@
         };
 
         function actualizarRedesSociales() {
-            if(promoGlobal.wsp) { document.getElementById('foot-wsp').innerText = '+' + promoGlobal.wsp; document.getElementById('link-wsp').href = 'https://wa.me/' + promoGlobal.wsp; }
+            if(promoGlobal.wsp) { 
+                let cleanWsp = String(promoGlobal.wsp).replace(/\D/g, '');
+                if(cleanWsp.length === 9) cleanWsp = '51' + cleanWsp;
+                document.getElementById('foot-wsp').innerText = '+' + cleanWsp; 
+                let msgFooter = `\u{1F44B} \u{00A1}Hola equipo de *MAS Digital*! Visito su web y me gustar\u{00ED}a recibir informaci\u{00F3}n sobre sus sistemas y servicios \u{1F680}.`;
+                document.getElementById('link-wsp').href = `https://api.whatsapp.com/send?phone=${cleanWsp}&text=${encodeURIComponent(msgFooter)}`; 
+            }
             if(promoGlobal.email) { document.getElementById('foot-email').innerText = promoGlobal.email; }
             if(promoGlobal.fb && promoGlobal.fb !== "") { document.getElementById('link-fb').href = promoGlobal.fb; }
             if(promoGlobal.ig && promoGlobal.ig !== "") { document.getElementById('link-ig').href = promoGlobal.ig; }
@@ -529,17 +738,130 @@
             });
 
             const gridStudio = document.getElementById('studio-grid'); gridStudio.innerHTML = '';
-            gridStudio.className = 'flex overflow-x-auto md:grid md:grid-cols-3 snap-x snap-mandatory gap-6 pb-8 hide-scrollbar items-stretch';
-            dbServicios.forEach(item => {
+            gridStudio.className = 'flex overflow-x-auto md:grid md:grid-cols-2 lg:grid-cols-4 snap-x snap-mandatory gap-6 pb-8 hide-scrollbar items-stretch';
+            
+            // Combinar los servicios del backend (incluyendo precios personalizados guardados desde el Admin) con nuestros servicios destacados de Content Studio
+            let listaStudioRender = [];
+            let tieneCreacion = false;
+            let tieneGestion = false;
+
+            // Registrar por defecto en dbProductos para el modal
+            dbProductos['studio_creacion_rrss'] = JSON.parse(JSON.stringify(studioShowcase['creacion_rrss']));
+            dbProductos['studio_gestion_rrss'] = JSON.parse(JSON.stringify(studioShowcase['rrss']));
+
+            if (Array.isArray(dbServicios) && dbServicios.length > 0) {
+                dbServicios.forEach((srv, idxSrv) => {
+                    let rawDesc = String(srv.descripcion || '');
+                    let parts = rawDesc.split('|||STUDIO_CFG:');
+                    let cleanDesc = parts[0].trim();
+                    let customCfg = null;
+                    if (parts.length > 1) {
+                        try { customCfg = JSON.parse(parts[1]); } catch(e) { customCfg = null; }
+                    }
+
+                    let tLower = String(srv.titulo || '').toLowerCase();
+                    let baseKey = null;
+                    if (tLower.includes('creaci') || srv.icono === 'creacion_rrss') {
+                        tieneCreacion = true;
+                        baseKey = 'creacion_rrss';
+                    } else if (tLower.includes('gesti') || tLower.includes('redes') || srv.icono === 'rrss') {
+                        tieneGestion = true;
+                        baseKey = 'rrss';
+                    } else if (tLower.includes('brand') || srv.icono === 'branding') {
+                        baseKey = 'branding';
+                    } else if (tLower.includes('audio') || tLower.includes('video') || srv.icono === 'audiovisual') {
+                        baseKey = 'audiovisual';
+                    }
+
+                    let baseTemplate = baseKey ? JSON.parse(JSON.stringify(studioShowcase[baseKey])) : {};
+                    let mergedItem = {
+                        ...baseTemplate,
+                        ...srv,
+                        descripcion: cleanDesc || baseTemplate.descripcion || ''
+                    };
+
+                    if (customCfg) {
+                        if (customCfg.badge) mergedItem.badge = customCfg.badge;
+                        if (customCfg.precioDesde) mergedItem.precioDesde = customCfg.precioDesde;
+                        if (Array.isArray(customCfg.entregables) && customCfg.entregables.length > 0) mergedItem.entregables = customCfg.entregables;
+                        if (Array.isArray(customCfg.planes) && customCfg.planes.length > 0) {
+                            let dynModalId = 'studio_custom_' + (srv.id || idxSrv);
+                            mergedItem.dynModalId = dynModalId;
+                            dbProductos[dynModalId] = {
+                                titulo: mergedItem.titulo,
+                                icono: mergedItem.icono || 'rrss',
+                                descripcion: mergedItem.descripcion,
+                                modalInfo: {
+                                    ...(baseTemplate.modalInfo || {
+                                        tag: mergedItem.badge || 'CONTENT STUDIO',
+                                        sloganTop: mergedItem.titulo,
+                                        sloganMid: 'Impulsa tu marca',
+                                        sloganBottom: 'Y VENDE MÁS.',
+                                        sloganBottomColor: '#F97316',
+                                        ventajas: []
+                                    }),
+                                    themeColor: customCfg.themeColor || (baseTemplate.modalInfo ? baseTemplate.modalInfo.themeColor : '#E11D48'),
+                                    isOneTimePayment: !!customCfg.isOneTimePayment,
+                                    planes: customCfg.planes
+                                }
+                            };
+                        }
+                    } else if (baseKey === 'creacion_rrss' || baseKey === 'rrss') {
+                        mergedItem.dynModalId = baseKey === 'creacion_rrss' ? 'studio_creacion_rrss' : 'studio_gestion_rrss';
+                        dbProductos[mergedItem.dynModalId].titulo = mergedItem.titulo;
+                        dbProductos[mergedItem.dynModalId].descripcion = mergedItem.descripcion;
+                    }
+
+                    listaStudioRender.push(mergedItem);
+                });
+            }
+
+            if (!tieneCreacion) listaStudioRender.unshift({ ...studioShowcase['creacion_rrss'], dynModalId: 'studio_creacion_rrss' });
+            if (!tieneGestion) {
+                let idx = listaStudioRender.length > 0 ? 1 : 0;
+                listaStudioRender.splice(idx, 0, { ...studioShowcase['rrss'], dynModalId: 'studio_gestion_rrss' });
+            }
+            if (listaStudioRender.length < 3) {
+                listaStudioRender.push(studioShowcase['branding']);
+                listaStudioRender.push(studioShowcase['audiovisual']);
+            }
+
+            listaStudioRender.forEach(item => {
                 const style = iconDict[item.icono] || iconDict['branding'];
+                const bulletsHtml = (item.entregables && item.entregables.length > 0)
+                    ? `<ul class="space-y-2 mb-6 w-full border-t border-slate-100 pt-4">
+                        ${item.entregables.slice(0, 6).map(ent => `
+                            <li class="flex items-start gap-2 text-xs text-slate-600 font-medium">
+                                <span class="w-4 h-4 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center shrink-0 mt-0.5 font-black text-[10px]">✓</span>
+                                <span class="leading-snug">${ent}</span>
+                            </li>`).join('')}
+                       </ul>`
+                    : '';
+
+                const badgeTopHtml = item.badge
+                    ? `<span class="text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full bg-rose-50 text-rose-600 border border-rose-100 mb-4 inline-block">${item.badge}</span>`
+                    : '';
+
+                const btnStudioHtml = item.dynModalId
+                    ? `<button onclick="openDynamicModal('${item.dynModalId}')" class="w-full mt-auto py-3.5 rounded-xl font-bold text-[13px] bg-slate-900 text-white hover:grad-sunset transition-all shadow-md flex items-center justify-center gap-2 group/btn shrink-0">
+                        Ver Paquetes y Precios
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" class="shrink-0 transition-transform group-hover/btn:translate-x-1"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
+                       </button>`
+                    : `<button onclick="addToCart('${item.titulo}', '${item.icono}')" class="w-full mt-auto py-3.5 rounded-xl font-bold text-sm transition-all shadow-sm shrink-0 ${style.btn}">Cotizar Servicio</button>`;
+
                 gridStudio.innerHTML += `
-                    <div class="w-[85vw] md:w-auto shrink-0 snap-center bg-white rounded-[2rem] border border-slate-200 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(236,72,153,0.1)] hover:border-brand-pink/40 hover:-translate-y-1 transition-all duration-300 p-8 flex flex-col items-start group relative overflow-hidden h-full">
-                        <div class="absolute top-0 left-0 w-full h-1 grad-sunset opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-pink-50/50 to-orange-50/50 rounded-bl-full -z-10 opacity-70 group-hover:scale-110 transition-transform"></div>
-                        <div class="w-14 h-14 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center mb-6 shadow-sm ${style.color} group-hover:scale-110 transition-transform duration-300 shrink-0">${style.svg}</div>
-                        <h3 class="text-xl font-black text-slate-900 mb-3">${item.titulo}</h3>
-                        <p class="text-[13px] text-slate-500 font-medium mb-8 flex-grow leading-relaxed">${item.descripcion}</p>
-                        <button onclick="addToCart('${item.titulo}', '${item.icono}')" class="w-full py-3.5 rounded-xl font-bold text-sm transition-all shadow-sm shrink-0 ${style.btn}">Cotizar Servicio</button>
+                    <div class="w-[85vw] md:w-auto shrink-0 snap-center bg-white rounded-[2rem] border border-slate-200 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(236,72,153,0.12)] hover:border-brand-pink/40 hover:-translate-y-1 transition-all duration-300 p-7 flex flex-col items-start group relative overflow-hidden h-full">
+                        <div class="absolute top-0 left-0 w-full h-1.5 grad-sunset opacity-80 group-hover:opacity-100 transition-opacity"></div>
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-pink-50/60 to-orange-50/60 rounded-bl-full -z-10 opacity-70 group-hover:scale-110 transition-transform"></div>
+                        <div class="flex items-center justify-between w-full mb-4">
+                            <div class="w-13 h-13 p-3 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center shadow-sm ${style.color} group-hover:scale-110 transition-transform duration-300 shrink-0">${style.svg}</div>
+                            ${item.precioDesde ? `<span class="bg-slate-900 text-white text-[11px] font-black px-3 py-1 rounded-full shadow-sm">${item.precioDesde}</span>` : ''}
+                        </div>
+                        ${badgeTopHtml}
+                        <h3 class="text-xl font-black text-slate-900 mb-2 leading-tight">${item.titulo}</h3>
+                        <p class="text-[13px] text-slate-500 font-medium mb-4 leading-relaxed ${bulletsHtml ? '' : 'flex-grow'}">${item.descripcion}</p>
+                        ${bulletsHtml}
+                        ${btnStudioHtml}
                     </div>`;
             });
         }
@@ -549,6 +871,14 @@
         function openDynamicModal(productId) {
             const data = dbProductos[productId]; if(!data || !data.modalInfo) return;
             const info = data.modalInfo; currentModalProductId = productId;
+
+            // Si es un servicio de pago único (ej. Creación de Redes Sociales), ocultar el switch Mensual/Anual para no confundir al cliente
+            const switchPricingWrapper = document.getElementById('modal-btn-mensual').parentNode.parentNode;
+            if (info.isOneTimePayment) {
+                switchPricingWrapper.classList.add('hidden');
+            } else {
+                switchPricingWrapper.classList.remove('hidden');
+            }
 
             document.getElementById('modal-header-section').style.backgroundColor = info.themeColor || '#2563EB';
             document.getElementById('modal-tag').innerHTML = `<span class="w-2.5 h-2.5 rounded-full inline-block mr-1 shrink-0" style="background-color: ${info.themeColor || '#2563EB'}"></span> <span style="color: ${info.themeColor || '#2563EB'}">${info.tag || 'SISTEMA'}</span>`;
@@ -592,8 +922,10 @@
             if(planesRenderizar && planesRenderizar.length > 0) {
                 planesRenderizar.forEach((plan) => {
                     const price = isMensual ? plan.pMes : plan.pAnual;
-                    const period = isMensual ? '/mes' : '/año';
-                    const setup = isMensual ? `Setup inicial: S/ ${plan.setupM}` : `Setup inicial: ${plan.setupA}`;
+                    const period = plan.periodoCustom ? plan.periodoCustom : (isMensual ? '/mes' : '/año');
+                    const setup = info.isOneTimePayment 
+                        ? `${plan.setupM}` 
+                        : (isMensual ? `Setup inicial: S/ ${plan.setupM}` : `Setup inicial: ${plan.setupA}`);
                     
                     let cardClass, btnClass, headerBg, setupClass, listColor;
                     let finalIcon = plan.premium ? planIcons['premium'] : (plan.destacado ? planIcons['pro'] : planIcons['basico']);
@@ -694,8 +1026,11 @@
 
         function selectModalPlan(planName) {
             if(!currentModalProductId) return;
-            const data = dbProductos[currentModalProductId]; const isAnual = document.getElementById('modal-btn-anual').classList.contains('bg-white');
-            const fullPlanName = `${data.titulo} - ${planName} (${isAnual ? 'Anual' : 'Mensual'})`;
+            const data = dbProductos[currentModalProductId];
+            const isOneTime = data.modalInfo && data.modalInfo.isOneTimePayment;
+            const isAnual = document.getElementById('modal-btn-anual').classList.contains('bg-white');
+            const cicloTxt = isOneTime ? 'Pago Único' : (isAnual ? 'Anual' : 'Mensual');
+            const fullPlanName = `${data.titulo} - ${planName} (${cicloTxt})`;
             addToCart(fullPlanName, data.icono); closeProductModal(); setTimeout(() => toggleCart(), 300);
         }
 
@@ -751,11 +1086,18 @@
             const payload = { nombre: name.toUpperCase(), celular: phone, email: email, requerimiento: reqStr, origen: "Carrito Web" };
             fetch(URL_BACKEND_CATALOGO, { method: 'POST', body: JSON.stringify({accion: 'registrarLead', payload: payload}), redirect: 'follow' }).catch(e=>{});
 
-            let textMsg = `¡Hola equipo de *MAS Digital*! 👋\n\nSoy *${name.toUpperCase()}* y deseo recibir asesoría experta. 🚀\n\nMe interesan los siguientes servicios:\n`;
-            cart.forEach(item => { textMsg += `✅ ${item.name}\n`; });
+            let textMsg = `\u{1F44B} \u{00A1}Hola equipo de *MAS Digital*!\n\nSoy *${name.toUpperCase()}* y me encantar\u{00ED}a recibir asesor\u{00ED}a personalizada para mi negocio \u{1F680}\u{2728}.\n\nEstoy interesado(a) en las siguientes soluciones:\n`;
+            cart.forEach(item => { textMsg += `\u{2705} *${item.name}*\n`; });
+            textMsg += `\n\u{1F4F1} Mi celular: ${phone}\n\u{00A1}Quedo atento(a) a su respuesta! \u{1F60A}`;
             
             txt.innerText = "¡Enviado!";
-            setTimeout(() => { const safeUrl = 'https://wa.me/' + (promoGlobal.wsp || '51929389268') + '?text=' + encodeURIComponent(textMsg); window.open(safeUrl, '_blank'); btn.disabled = false; btn.classList.remove('opacity-70', 'cursor-wait'); txt.innerText = "Enviar a WhatsApp"; }, 800);
+            setTimeout(() => { 
+                let cleanWsp = String(promoGlobal.wsp || '51929389268').replace(/\D/g, '');
+                if(cleanWsp.length === 9) cleanWsp = '51' + cleanWsp;
+                const safeUrl = 'https://api.whatsapp.com/send?phone=' + cleanWsp + '&text=' + encodeURIComponent(textMsg.normalize('NFC')); 
+                window.open(safeUrl, '_blank'); 
+                btn.disabled = false; btn.classList.remove('opacity-70', 'cursor-wait'); txt.innerText = "Enviar a WhatsApp"; 
+            }, 800);
         }
 
         let chatState = 1; let leadData = { name: '', need: '', phone: '', email: '' };
@@ -785,7 +1127,7 @@
                 } else if(chatState === 2) {
                     leadData.need = text;
                     if(text.includes("Sistemas")) { appendMsg("¡Perfecto! Automatizar es nuestra especialidad. ¿Qué tipo de sistema buscas?", 'bot', ["Control de Asistencia RRHH", "Ventas y App Delivery", "Sistema a mi medida"]); chatState = 3; } 
-                    else if(text.includes("Marketing")) { appendMsg("¡Genial! Haremos crecer tu marca. ¿Qué servicio te interesa más?", 'bot', ["Gestión de Redes Sociales", "Branding y Logotipo", "Producción Audiovisual"]); chatState = 3; } 
+                    else if(text.includes("Marketing")) { appendMsg("¡Genial! Haremos crecer tu marca. ¿Qué servicio te interesa más?", 'bot', ["Creación de Redes + Google Maps", "Gestión de Redes (S/ 300 - 12 Contenidos)", "Branding y Producción Audiovisual"]); chatState = 3; } 
                     else { appendMsg("Comprendo. Tienes un reto muy específico. Te sugiero una **Asesoría Especializada** con nuestros expertos.\n\nPara que un especialista revise tu caso, ¿cuál es tu **número de celular**? (9 dígitos)", 'bot'); chatState = 4; }
                 } else if(chatState === 3) { leadData.need += " - " + text; appendMsg(`¡Excelente elección! Un especialista en **${text}** preparará información exclusiva para ti.\n\nPara contactarte, ¿cuál es tu **número de celular**? (9 dígitos)`, 'bot'); chatState = 4; } 
                 else if(chatState === 4) {
@@ -797,8 +1139,10 @@
                     fetch(URL_BACKEND_CATALOGO, { method: 'POST', body: JSON.stringify({accion: 'registrarLead', payload: { nombre: leadData.name, celular: leadData.phone, email: leadData.email, requerimiento: leadData.need, origen: "Chatbot" }}), redirect: 'follow' }).catch(e=>{});
                     setTimeout(() => {
                         appendMsg("¡Tu solicitud está lista! Un experto se comunicará contigo muy pronto. ✅", 'bot');
-                        const msgWhatsApp = `¡Hola equipo de *MAS Digital*!\nSoy *${leadData.name}*.\n📱 Cel: ${leadData.phone}\n📧 Email: ${leadData.email}\n💡 Me interesa: *${leadData.need}*\n\n¡Necesito asesoría experta! 🚀`;
-                        setTimeout(() => { appendMsg(`Si deseas adelantarnos los detalles ahora mismo, haz clic abajo para enviarlo a nuestro WhatsApp:\n\n<a href="https://wa.me/${promoGlobal.wsp || '51929389268'}?text=${encodeURIComponent(msgWhatsApp)}" target="_blank" class="block w-full py-3.5 bg-[#25D366] text-white text-center rounded-xl font-black uppercase tracking-widest text-[11px] shadow-lg shadow-[#25D366]/30 hover:bg-[#1DA851] transition-colors mt-2">📲 INICIAR CHAT EN WHATSAPP</a>`, 'bot'); chatState = 6; }, 800);
+                        let cleanWsp = String(promoGlobal.wsp || '51929389268').replace(/\D/g, '');
+                        if(cleanWsp.length === 9) cleanWsp = '51' + cleanWsp;
+                        const msgWhatsApp = `\u{1F44B} \u{00A1}Hola equipo de *MAS Digital*!\nSoy *${leadData.name}*.\n\u{1F4F1} Cel: ${leadData.phone}\n\u{1F4E7} Email: ${leadData.email}\n\u{1F4A1} Me interesa: *${leadData.need}*\n\n\u{00A1}Me encantar\u{00ED}a recibir asesor\u{00ED}a personalizada! \u{1F680}\u{1F60A}`;
+                        setTimeout(() => { appendMsg(`Si deseas adelantarnos los detalles ahora mismo, haz clic abajo para enviarlo a nuestro WhatsApp:\n\n<a href="https://api.whatsapp.com/send?phone=${cleanWsp}&text=${encodeURIComponent(msgWhatsApp.normalize('NFC'))}" target="_blank" class="block w-full py-3.5 bg-[#25D366] text-white text-center rounded-xl font-black uppercase tracking-widest text-[11px] shadow-lg shadow-[#25D366]/30 hover:bg-[#1DA851] transition-colors mt-2">📲 INICIAR CHAT EN WHATSAPP</a>`, 'bot'); chatState = 6; }, 800);
                     }, 1500);
                 }
             }, 600);
